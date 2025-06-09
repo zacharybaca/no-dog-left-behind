@@ -50,3 +50,9 @@ npm run dev
   /styles       # Global/app-specific styles
   /assets       # Images & icons
 ```
+
+## License
+
+This project is part of a technical interview assignment and is not intended for production use or commercial distribution.
+
+Built with ❤️ for dogs and clean code.

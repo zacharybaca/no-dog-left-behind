@@ -1,18 +1,18 @@
 
 import './App.css'
+import HeroSection from './components/HeroSection/HeroSection.jsx';
+import Login from './components/Login/Login.jsx';
 
 function App() {
 
 
   return (
-    <>
-      <div>
+    <div id="app-container">
 
-      </div>
-      <h1>No Dog Left Behind</h1>
+      <HeroSection />
+      <Login />
 
-
-    </>
+    </div>
   )
 }
 

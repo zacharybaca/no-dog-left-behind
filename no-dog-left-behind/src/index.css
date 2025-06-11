@@ -94,6 +94,18 @@ button {
   padding: 1rem;
 }
 
+/* 9. Horizontal Ruler Element Defaults */
+#horizontal-ruler-default {
+  width: 75%;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  border-style: inset;
+  border-width: 0.15rem;
+  background-color: #F5ECE2;
+}
+
 /* ================================
    Root + Background
 ================================= */

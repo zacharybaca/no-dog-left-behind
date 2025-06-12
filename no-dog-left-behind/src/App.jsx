@@ -2,6 +2,7 @@
 import './App.css'
 import { Routes, Route } from 'react-router-dom';
 import HeroSection from './components/HeroSection/HeroSection.jsx';
+import Navbar from './components/Navbar/Navbar.jsx';
 import Login from './components/Login/Login.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import AppLogo from './assets/no-dog-left-behind-logo.png';
@@ -12,6 +13,7 @@ function App() {
   return (
     <div id="app-container">
       {/* This Section Will Show Up With Each Rendered Component */}
+      <Navbar />
       <img src={AppLogo} alt="application-logo" className="application-logo" />
       <HeroSection />
       <hr className="horizontal-ruler-default" />

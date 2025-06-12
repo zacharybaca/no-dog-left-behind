@@ -3,6 +3,7 @@ import './App.css'
 import { Routes, Route } from 'react-router-dom';
 import HeroSection from './components/HeroSection/HeroSection.jsx';
 import Login from './components/Login/Login.jsx';
+import Footer from './components/Footer/Footer.jsx';
 import AppLogo from './assets/no-dog-left-behind-logo.png';
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Login />} />
       </Routes>
-
+      <Footer />
     </div>
   )
 }

@@ -1,0 +1,11 @@
+#footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 8vh;
+    max-height: 8vh;
+    min-width: 100%;
+    max-width: 100%;
+    border-radius: 10px;
+    border: 2px solid black;
+}

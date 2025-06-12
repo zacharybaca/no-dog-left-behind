@@ -7,7 +7,7 @@
   background-color: #fff;
   box-shadow: -2px 0 10px rgba(0,0,0,0.1);
   transition: right 0.3s ease;
-  z-index: 998;
+  z-index: 1000;
   padding: 2rem;
 }
 
@@ -30,4 +30,24 @@
   font-size: 1.2rem;
   color: #333;
   font-weight: bold;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 999;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

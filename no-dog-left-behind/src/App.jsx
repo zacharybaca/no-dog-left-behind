@@ -7,6 +7,7 @@ import Login from './components/Login/Login.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import AppLogo from './assets/no-dog-left-behind-logo.png';
 
+
 function App() {
 
 

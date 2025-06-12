@@ -1,19 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { GiCat } from 'react-icons/gi';
 import './themed-toggle-button.css';
 
-const ThemedToggleButton = ({ menuOpen, onToggle }) => {
-  return (
-    <button
-      className={`themed-hamburger ${menuOpen ? 'open' : ''}`}
-      onClick={onToggle}
-      aria-label="Toggle navigation menu"
-      aria-expanded={menuOpen}
-    >
-      <div className="bar bar1" />
-      <div className="bar bar2" />
-      <div className="bar bar3" />
-    </button>
-  );
+const ThemedToggleButton = () => {
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    const handleClick = () => {
+        const newState = !menuOpen;
+        setMenuOpen(newState);
+        if (onToggle) onToggle(newState);
+    };
+
+    return (
+        <button
+            className={`themed-hamburger ${menuOpen ? 'open' : ''}`}
+            onClick={handleClick}
+            aria-label="Toggle navigation menu"
+            aria-expanded={menuOpen}
+        >
+            <GiCat size={26} />
+        </button>
+    );
 };
 
 export default ThemedToggleButton;

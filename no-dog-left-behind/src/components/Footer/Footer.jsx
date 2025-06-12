@@ -1,7 +1,7 @@
 import './footer.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import AppLogo from "../../assets/no-dog-left-behind-logo.png";
+import AppLogo from '../../../../public/assets/no-dog-left-behind-logo.png';
 
 const Footer = () => {
 

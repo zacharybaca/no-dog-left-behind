@@ -7,7 +7,12 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "vite preview"
+  },
+  "repository": {
+  "type": "git",
+  "url": "https://github.com/zacharybaca/no-dog-left-behind.git"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",

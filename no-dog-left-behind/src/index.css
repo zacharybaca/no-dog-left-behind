@@ -94,7 +94,7 @@ button {
 }
 
 /* 9. Horizontal Ruler Element Defaults */
-#horizontal-ruler-default {
+.horizontal-ruler-default {
   width: 75%;
   margin-top: 0.5em;
   margin-bottom: 0.5em;

@@ -1,3 +1,4 @@
+import React from 'react';
 import './themed-toggle-button.css';
 
 const ThemedToggleButton = ({ menuOpen, onToggle }) => {

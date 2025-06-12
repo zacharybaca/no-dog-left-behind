@@ -1,3 +1,4 @@
+
 import './App.css'
 import { Routes, Route } from 'react-router-dom';
 import HeroSection from './components/HeroSection/HeroSection.jsx';
@@ -6,6 +7,7 @@ import Footer from './components/Footer/Footer.jsx';
 import AppLogo from './assets/no-dog-left-behind-logo.png';
 
 function App() {
+
 
   return (
     <div id="app-container">
@@ -21,6 +23,7 @@ function App() {
 
       <hr className="horizontal-ruler-default" />
       
+      {/* This Footer Section Will Appear With Each Rendered Component */}
       <Footer />
     </div>
   )

@@ -30,3 +30,12 @@
 .open .bar3 {
   transform: rotate(-45deg) translate(5px, -5px);
 }
+
+.themed-hamburger:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.bone-icon {
+  color: #444;
+  transition: transform 0.3s ease;
+}

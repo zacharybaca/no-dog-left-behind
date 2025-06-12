@@ -5,7 +5,7 @@ import HeroSection from './components/HeroSection/HeroSection.jsx';
 import Navbar from './components/Navbar/Navbar.jsx';
 import Login from './components/Login/Login.jsx';
 import Footer from './components/Footer/Footer.jsx';
-import AppLogo from './assets/no-dog-left-behind-logo.png';
+import AppLogo from '../../public/assets/no-dog-left-behind-logo.png';
 
 
 function App() {

@@ -22,8 +22,8 @@ html:focus-within {
 }
 
 body {
-  text-rendering: optimizeSpeed;
-  cursor: url("./assets/regular-cursor-image.png"), pointer;
+  text-rendering: optimizeSpeed; /* Optional */
+  cursor: url("./assets/regular-cursor-image.png") 16 16, pointer;
 }
 
 html, body {
@@ -46,7 +46,7 @@ select {
 
 button:hover,
 a:hover {
-  cursor: url("./assets/select-cursor-image.png"), pointer;
+  cursor: url("./assets/select-cursor-image.png") 16 16, pointer;
 }
 
 /* 6. Links */
@@ -58,7 +58,6 @@ a {
 a:hover {
   text-decoration: underline;
 }
-
 
 /* 7. Buttons */
 button {

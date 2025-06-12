@@ -1,4 +1,5 @@
 import './nav-bar.css';
+import React, { useState } from 'react';
 import ThemedToggleButton from './ThemedToggleButton.jsx';
 import SlideOutMenu from './SlideOutMenu.jsx';
 

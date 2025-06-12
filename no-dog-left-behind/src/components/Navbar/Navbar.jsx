@@ -1,19 +1,26 @@
-import './nav-bar.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ThemedToggleButton from './ThemedToggleButton.jsx';
 import SlideOutMenu from './SlideOutMenu.jsx';
+import './nav-bar.css';
+import { useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
 
-  const toggleMenu = () => setMenuOpen(prev => !prev);
+  // Close menu on route change
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
 
   return (
-    <nav className="navbar">
-      <div className="logo">No Dog Left Behind</div>
-      <ThemedToggleButton menuOpen={menuOpen} onToggle={toggleMenu} />
-      <SlideOutMenu isOpen={menuOpen} />
-    </nav>
+    <>
+      <nav className="navbar">
+        <div className="logo">No Dog Left Behind</div>
+        <ThemedToggleButton menuOpen={menuOpen} onToggle={() => setMenuOpen(!menuOpen)} />
+      </nav>
+      <SlideOutMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
+    </>
   );
 };
 

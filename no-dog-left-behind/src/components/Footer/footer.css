@@ -9,3 +9,21 @@
     border-radius: 10px;
     border: 2px solid black;
 }
+
+.footer-social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.footer-social a {
+  margin: 0 0.5rem;
+  color: #555;
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.footer-social a:hover {
+  color: #e57373;
+}

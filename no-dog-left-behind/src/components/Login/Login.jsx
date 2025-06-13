@@ -1,12 +1,11 @@
 import './login.css';
-import PawPrintImage from '../../assets/paw-print-image.jpg';
 
 const Login = () => {
 
     return (
         <div className="login-container">
             <form className="login-form">
-                <img src={PawPrintImage} alt="Paw Print Background" className="login-bg" />
+                <img src="/assets/paw-print-image.jpg" alt="Paw Print" className="login-bg" />
                 <h2>Welcome Back</h2>
                 <input type="text" placeholder="Username" required />
                 <input type="password" placeholder="Password" required />

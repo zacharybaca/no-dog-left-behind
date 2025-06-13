@@ -1,13 +1,12 @@
 import './footer.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import AppLogo from '../../../../public/assets/no-dog-left-behind-logo.png';
 
 const Footer = () => {
 
     return (
         <footer id="footer">
-            
+
             <p className="footer-meta">
                 Built with ❤️ by <a href="https://github.com/zacharybaca">Zachary Baca</a>. v1.0.0
             </p>
@@ -34,7 +33,7 @@ const Footer = () => {
 
             <div id="footer-logo-container">
                 <a href="/" className="footer-logo">
-                    <img src={AppLogo} alt="No Dog Left Behind logo" />
+                    <img src="/assets/no-dog-left-behind-logo.png" alt="No Dog Left Behind Logo" />
                 </a>
             </div>
 

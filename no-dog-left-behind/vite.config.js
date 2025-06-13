@@ -12,13 +12,10 @@ export default defineConfig({
     historyApiFallback: {
       disableDotRule: true, // Ensures non-HTML files aren't caught in SPA routing
     },
-    static: {
-      directory: "public", // Explicitly serve public assets
-    },
   },
   build: {
-    outDir: "dist",
-    assetsDir: "assets",
+    outDir: "dist", // ✅ Ensure dist exists after build
+    assetsDir: "assets", // ✅ Used for bundled assets
   },
   base: "/",
 });

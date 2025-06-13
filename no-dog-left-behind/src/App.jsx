@@ -5,6 +5,7 @@ import HeroSection from './components/HeroSection/HeroSection.jsx';
 import Navbar from './components/Navbar/Navbar.jsx';
 import Login from './components/Login/Login.jsx';
 import Footer from './components/Footer/Footer.jsx';
+import PageNotFound from './components/PageNotFound/PageNotFound.jsx';
 
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
       {/* Routes and Their Rendered Components */}
       <Routes basename="/">
         <Route exact path="/" element={<Login />} />
-        <Route path="*" element={<h1>404 - Page Not Found</h1>} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
 
       <hr className="horizontal-ruler-default" />

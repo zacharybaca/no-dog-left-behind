@@ -57,6 +57,7 @@ a {
 
 a:hover {
   text-decoration: underline;
+  color: var(--color-surface);
 }
 
 /* 7. Buttons */

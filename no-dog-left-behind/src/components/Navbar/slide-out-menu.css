@@ -4,9 +4,9 @@
   right: -100%;
   width: 70%;
   height: 100%;
-  background-color: #fff;
+  background-color: #EFC65D;
   box-shadow: -2px 0 10px rgba(0,0,0,0.1);
-  transition: right 0.3s ease;
+  transition: transform 0.4s ease-in-out;
   z-index: 1000;
   padding: 2rem;
 }

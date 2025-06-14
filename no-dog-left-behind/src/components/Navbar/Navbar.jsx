@@ -15,9 +15,11 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="navbar">
+      <nav className="navbar shadow-lg p-3 mb-5 rounded">
         <div className="logo">No Dog Left Behind</div>
-        <ThemedToggleButton menuOpen={menuOpen} onToggle={() => setMenuOpen(!menuOpen)} />
+        <div className="toggle-image-container">
+          <ThemedToggleButton menuOpen={menuOpen} onToggle={() => setMenuOpen(!menuOpen)} />
+        </div>
       </nav>
       <SlideOutMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
     </>

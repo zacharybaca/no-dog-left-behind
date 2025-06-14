@@ -3,9 +3,9 @@ import { GiCat } from 'react-icons/gi';
 import './themed-toggle-button.css';
 
 const ThemedToggleButton = ({ isOpen, onToggle }) => {
-    
 
-   
+
+
 
     return (
         <button
@@ -14,7 +14,7 @@ const ThemedToggleButton = ({ isOpen, onToggle }) => {
             aria-label="Toggle navigation menu"
             aria-expanded={isOpen}
         >
-            <GiCat size={26} className="bone-icon"/>
+            <img src="/assets/paw-print-menu-icon.png" alt="menu icon" />
         </button>
     );
 };

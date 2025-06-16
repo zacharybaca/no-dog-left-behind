@@ -5,6 +5,12 @@
     box-sizing: border-box;
 }
 
+#page-not-found-container h1, p{
+    font-family: "Delius Unicase", cursive;
+    font-weight: 700;
+    font-style: normal;
+}
+
 @media screen and (min-width: 768px) {
     #page-not-found-container img {
         width: 50%;

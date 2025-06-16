@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import ThemedToggleButton from './ThemedToggleButton.jsx';
 import SlideOutMenu from './SlideOutMenu.jsx';
 import './nav-bar.css';

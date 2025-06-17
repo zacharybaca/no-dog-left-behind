@@ -43,13 +43,24 @@ npm run dev
 ## Project Structure
 
 ```bash
+/public
+  /assets       # Images used in application
+  /favicons     # Device specific sized favicons
 /src
   /components   # Reusable UI elements
-  /pages        # Route-based views
-  /services     # API logic
+    /Footer
+    /HeroSection
+    /Login
+    /Navbar
+    /PageNotFound
   /contexts     # App-wide state
-  /styles       # Global/app-specific styles
-  /assets       # Images & icons
+  /hooks        # Custom hooks to interact with API
+  /App.css      # Styles file for main application component
+  /App.jsx      # Main component file that renders everything
+  /colors.css   # Styles file for custom color theme
+  /index.css    # Styles file for global styling across application
+  /main.jsx     # Main application file that starts rendering the main component
+  /index.html   # HTML file that displays root container that renders main App component
 ```
 
 ## License

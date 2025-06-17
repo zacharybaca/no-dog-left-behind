@@ -30,6 +30,20 @@ export const NotificationProvider = ({ children }) => {
         setNotifications(prev => prev.filter(n => n._id !== id));
     };
 
+    const addNotification = ({ headerText, bodyText, imgUrl, variantTheme = "info" }) => {
+        setNotifications(prev => [
+            ...prev,
+            {
+                _id: uuidv4(),
+                headerText,
+                bodyText,
+                imgUrl,
+                variantTheme,
+                timestamp: Date.now()
+            }
+        ]);
+    };
+
     return (
         <NotificationContext.Provider value={{
             showNotification,
@@ -40,7 +54,8 @@ export const NotificationProvider = ({ children }) => {
             setElapsedMinutes,
             notifications,
             setNotifications,
-            deleteNotification
+            deleteNotification,
+            addNotification
         }}>
             {children}
         </NotificationContext.Provider>

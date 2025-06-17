@@ -28,6 +28,7 @@ export const AuthProvider = ({ children }) => {
 
             if (res.ok) {
                 setSuccess(true);
+                setUserInfo({ name, email });
                 return { success: true };
             };
 
@@ -41,7 +42,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     const handleChange = (e) => {
-        const [name, value] = e.target;
+        const { name, value } = e.target;
         setUserInfo((prevValue) => (
             {
                 ...prevValue,

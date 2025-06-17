@@ -45,12 +45,22 @@ export const DogSearchProvider = ({ children }) => {
         fetchDogDetails();
     }, [dogIds]);
 
+    const goToNextPage = () => {
+        if (nextQuery) fetchDogs(nextQuery);
+    };
+    const goToPrevPage = () => {
+        if (prevQuery) fetchDogs(prevQuery);
+    };
+
     return (
         <DogSearchContext.Provider value={{
             dogIds,
             dogs,
+            fetchDogs,
             nextQuery,
             prevQuery,
+            goToNextPage,
+            goToPrevPage,
             isLoading
         }}>
             {children}

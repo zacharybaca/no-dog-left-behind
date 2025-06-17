@@ -9,6 +9,7 @@ import Login from './components/Login/Login.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import PageNotFound from './components/PageNotFound/PageNotFound.jsx';
 import SuccessNotification from './components/SuccessNotification/SuccessNotification.jsx';
+import Dashboard from './components/Dashboard/Dashboard.jsx';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
       {/* Routes and Their Rendered Components */}
       <Routes basename="/">
         <Route exact path="/" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
 

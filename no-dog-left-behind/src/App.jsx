@@ -1,15 +1,18 @@
 
 import './App.css'
 import { Routes, Route } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
+import { useNotification } from './hooks/useNotification';
 import HeroSection from './components/HeroSection/HeroSection.jsx';
 import Navbar from './components/Navbar/Navbar.jsx';
 import Login from './components/Login/Login.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import PageNotFound from './components/PageNotFound/PageNotFound.jsx';
+import SuccessNotification from './components/SuccessNotification/SuccessNotification.jsx';
 
 
 function App() {
-
+  const { notifications, showNotification, toggleNotification } = useNotification();
 
   return (
     <div id="app-container">
@@ -26,11 +29,12 @@ function App() {
       </Routes>
 
       <hr className="horizontal-ruler-default" />
-
+      {(notifications.length > 0 && !showNotification) ? <Button variant="primary" size="sm" onClick={() => toggleNotification()}>Show My Notifications</Button> : null}
+      {(notifications.length > 0 && showNotification) ? <SuccessNotification headerText="Success!" bodyText="🎉 Success! Your adoption form was submitted." variantTheme="success" /> : null}
+      <hr className="horizontal-ruler-default" />
       {/* This Footer Section Will Appear With Each Rendered Component */}
       <Footer />
     </div>
   )
 }
-
-export default App
+export default App;

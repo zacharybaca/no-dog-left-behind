@@ -1,0 +1,29 @@
+
+  #notifications-container {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 1060;
+    width: 320px;
+    max-height: 90vh;
+    overflow-y: auto;
+    pointer-events: none;
+    border: 3px solid black;
+  }
+
+  .custom-toast-container {
+    position: relative !important;
+    width: 100%;
+    pointer-events: auto;
+  }
+
+  .toast-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 5px;
+  }
+
+  .toast-list li {
+    margin-bottom: 1rem;
+  }

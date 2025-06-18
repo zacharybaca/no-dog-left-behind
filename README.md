@@ -100,6 +100,30 @@ Check out the live app here: [No Dog Left Behind Demo](https://no-dog-left-behin
   /vite.config.js         # Config file when using VITE to generate the scaffold for a React application
 ```
 
+## Known Issues
+
+- Some dog breed images may load slowly on slower internet connections due to reliance on external API resources.  
+- Currently, the app supports login for existing Fetch Rewards accounts only; user registration and password reset flows are not implemented.  
+- Favorites are stored locally in the browser and do not persist across devices or sessions.  
+- Accessibility improvements, such as enhanced keyboard navigation and screen reader support, are planned but not yet fully implemented.
+
+---
+
+## Future Improvements
+
+- Implement user registration and password recovery functionality to support a wider user base.  
+- Add advanced breed filters (e.g., size, temperament, energy level) to improve user search experience.  
+- Integrate backend persistence for user favorites and settings to allow cross-device access.  
+- Enhance accessibility compliance to meet WCAG guidelines, improving usability for all users.  
+- Add automated testing to improve code quality and reliability.  
+- Optimize image loading with lazy loading techniques and caching strategies.
+
+---
+
+## Testing
+
+This project currently does not include automated tests. Manual testing was conducted on multiple browsers and devices to verify core functionality and responsive design.
+
 ## Contact
 
 Created by Zachary Baca  

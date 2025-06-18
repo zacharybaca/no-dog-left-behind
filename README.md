@@ -60,11 +60,13 @@ npm run dev
   /contexts               # App-wide state
     /Auth                 # Global state for authentication
     /DogSearch            # Global state for dogs retrieved from API
+    /MenuOptions          # Global state for accessible menu options depending on your account type
     /Notifications        # Global state for notifications used within the application
     /AppProvider.jsx      # File that wraps all context files around main application component
   /hooks                  # Custom hooks to interact with API
     /useAuth.js           # Custom hook used for authentication
     /useDogSearch.js      # Custom hook used to retrieve state from API
+    /useMenuOptions.js    # Custom hook used to retrieve state for different menu options
     /useNotification.js   # Custom hook used to retrieve state pertaining to Notifications used within the application
   /App.css                # Styles file for main application component
   /App.jsx                # Main component file that renders everything

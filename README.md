@@ -45,6 +45,23 @@ npm install
 npm run dev
 ```
 
+## Usage
+
+- Login or create an account to save your favorite breeds.
+- Browse breeds by scrolling or use the search bar for quick filtering.
+- Tap on a breed to view more details and add to your favorites.
+- Access your saved favorites anytime from the Favorites page.
+
+## Demo
+
+Check out the live app here: [No Dog Left Behind Demo](https://no-dog-left-behind.onrender.com)
+
+### Screenshots
+
+![Home Page](./public/assets/screenshots/homepage.png)
+![Breed Explorer](./public/assets/screenshots/breed-explorer.png)
+![Favorites](./public/assets/screenshots/favorites.png)
+
 ## Project Structure
 
 ```bash
@@ -82,6 +99,11 @@ npm run dev
   /package.json           # JSON file that contains information about the application repo, and what dependencies are used
   /vite.config.js         # Config file when using VITE to generate the scaffold for a React application
 ```
+
+## Contact
+
+Created by Zachary Baca  
+[GitHub](https://github.com/zacharybaca) | [LinkedIn](https://www.linkedin.com/in/zacharyjordanbaca) | [Portfolio](https://www.zachary-baca.dev)
 
 ## License
 

@@ -20,6 +20,10 @@ export const NotificationProvider = ({ children }) => {
     const toggleNotification = () => setShowNotification(prev => !prev);
     const [elapsedMinutes, setElapsedMinutes] = useState(0);
 
+    const handleSwipeDismiss = (id) => {
+    setNotifications((prev) => prev.filter((n) => n._id !== id));
+    };
+
     const calculateElapsedMinutes = (createdTimestamp) => {
         const now = Date.now();
         const elapsedTime = now - createdTimestamp;
@@ -55,7 +59,8 @@ export const NotificationProvider = ({ children }) => {
             notifications,
             setNotifications,
             deleteNotification,
-            addNotification
+            addNotification,
+            handleSwipeDismiss
         }}>
             {children}
         </NotificationContext.Provider>

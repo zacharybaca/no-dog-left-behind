@@ -10,6 +10,7 @@ const SuccessNotification = ({ headerText, bodyText, imgURL, variantTheme = "suc
         showNotification,
         handleSwipeDismiss,
         toggleNotification,
+        deleteNotification,
         calculateElapsedMinutes,
         setElapsedMinutes,
         setNotifications,
@@ -44,7 +45,7 @@ const SuccessNotification = ({ headerText, bodyText, imgURL, variantTheme = "suc
                             <SwipeableToast
                                 key={notification._id}
                                 notification={notification}
-                                onDismiss={() => handleSwipeDismiss(notification._id)}
+                                onDismiss={() => deleteNotification(notification._id)}
                                 calculateElapsedMinutes={calculateElapsedMinutes}
                             />
                         ))}

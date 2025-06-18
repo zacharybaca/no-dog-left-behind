@@ -1,4 +1,4 @@
-# 🐾 No Dog Left Behind
+# 🐾 No Dog Left Behind [![License](https://img.shields.io/badge/license-none-lightgrey)](LICENSE)
 
 ## _“Bringing dogs from shelters to sofas.”_
 

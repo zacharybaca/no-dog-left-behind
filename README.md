@@ -44,23 +44,36 @@ npm run dev
 
 ```bash
 /public
-  /assets       # Images used in application
-  /favicons     # Device specific sized favicons
+  /assets                 # Images used in application
+  /favicons               # Device specific sized favicons
 /src
-  /components   # Reusable UI elements
-    /Footer
-    /HeroSection
-    /Login
-    /Navbar
-    /PageNotFound
-  /contexts     # App-wide state
-  /hooks        # Custom hooks to interact with API
-  /App.css      # Styles file for main application component
-  /App.jsx      # Main component file that renders everything
-  /colors.css   # Styles file for custom color theme
-  /index.css    # Styles file for global styling across application
-  /main.jsx     # Main application file that starts rendering the main component
-  /index.html   # HTML file that displays root container that renders main App component
+  /components             # Reusable UI elements
+    /Dashboard            # Main page that displays dog objects
+    /ErrorNotification    # Component that displays custom errors
+    /Footer               # Component that displays helpful info about the application
+    /HeroSection          # Component that is the main "center-piece" when the application loads
+    /Login                # Component where a user can login to access their favorite dogs to adopt
+    /Navbar               # Component that provides navigational links to get around the application
+    /PageNotFound         # Component that displays when a user hits an endpoint that doesn't exist
+    /SuccessNotification  # Component that displays custom success messages
+    /SwipeableToast       # Component that includes the ability to be swiped away when on a mobile device
+  /contexts               # App-wide state
+    /Auth                 # Global state for authentication
+    /DogSearch            # Global state for dogs retrieved from API
+    /Notifications        # Global state for notifications used within the application
+    /AppProvider.jsx      # File that wraps all context files around main application component
+  /hooks                  # Custom hooks to interact with API
+    /useAuth.js           # Custom hook used for authentication
+    /useDogSearch.js      # Custom hook used to retrieve state from API
+    /useNotification.js   # Custom hook used to retrieve state pertaining to Notifications used within the application
+  /App.css                # Styles file for main application component
+  /App.jsx                # Main component file that renders everything
+  /colors.css             # Styles file for custom color theme
+  /index.css              # Styles file for global styling across application
+  /main.jsx               # Main application file that starts rendering the main component
+  /index.html             # HTML file that displays root container that renders main App component
+  /package.json           # JSON file that contains information about the application repo, and what dependencies are used
+  /vite.config.js         # Config file when using VITE to generate the scaffold for a React application
 ```
 
 ## License

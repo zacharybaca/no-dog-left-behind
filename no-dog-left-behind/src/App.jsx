@@ -31,7 +31,12 @@ function App() {
       </Routes>
 
       <hr className="horizontal-ruler-default" />
-      {(notifications.length > 0 && !showNotification) ? <Button variant="primary" size="sm" onClick={() => toggleNotification()}>Show My Notifications</Button> : null}
+      {notifications.length > 0 && !showNotification && (
+        <Button variant="primary" size="sm" onClick={toggleNotification}>
+          Show My Notifications
+        </Button>
+    )}
+
       {(notifications.length > 0 && showNotification) ? <SuccessNotification headerText="Success!" bodyText="🎉 Success! Your adoption form was submitted." variantTheme="success" /> : null}
       <hr className="horizontal-ruler-default" />
       {/* This Footer Section Will Appear With Each Rendered Component */}

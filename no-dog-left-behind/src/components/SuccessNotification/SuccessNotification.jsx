@@ -38,7 +38,7 @@ const SuccessNotification = ({ headerText, bodyText, imgURL, variantTheme, times
 
     return (
         <div id="notifications-container">
-            <Fade in={showNotification}>
+            <Fade in={showNotification} timeout={300}>
                 <ToastContainer className="custom-toast-container">
                     <ul className="toast-list">
                         {notifications.map((notification) => (

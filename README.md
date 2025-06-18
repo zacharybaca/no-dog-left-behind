@@ -24,7 +24,7 @@
 - **Fetch Rewards API** – For authentication and breed data
 - **UUID** - Third-party utility that provides a random id that can be used for objects or other various components
 - **CSS Modules / Styled Components** – Modular and scoped styling
-- **Bootstrap** - Third-party library that offers pre-made components that can be used inside web applicatiions
+- **Bootstrap** - Third-party library that offers pre-made components that can be used inside web applications
 - **React-Bootstrap** - Third-party library that offers pre-made React components that can be utilized in React applications
 - **React-Swipeable** - Third-party library that enables a user to swipe toast notifications away when on a mobile device
 - **Vite / Webpack** – Lightning-fast development server and bundler

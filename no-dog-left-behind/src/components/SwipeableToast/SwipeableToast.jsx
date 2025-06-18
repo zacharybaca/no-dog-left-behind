@@ -31,7 +31,7 @@ const SwipeableToast = ({ notification, onDismiss, calculateElapsedMinutes }) =>
                             : 'just now'}
                     </small>
                 </Toast.Header>
-                <Toast.Body className={notification.variantTheme && "text-white"}>
+                <Toast.Body className={notification.variantTheme === "success" ? "text-white" : ""}>
                     {notification.bodyText}
                 </Toast.Body>
             </Toast>

@@ -11,6 +11,11 @@
     border: 3px solid black;
   }
 
+  #notifications-container li {
+    touch-action: pan-y;
+    user-select: none;
+  }
+
   .custom-toast-container {
     position: relative !important;
     width: 100%;

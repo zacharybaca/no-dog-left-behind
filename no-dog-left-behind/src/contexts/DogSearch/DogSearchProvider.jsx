@@ -1,6 +1,7 @@
 import { DogSearchContext } from './DogSearchContext';
-const baseUrl = import.meta.env.VITE_API_BASE_URL;
 import { useState, useEffect } from 'react';
+
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 export const DogSearchProvider = ({ children }) => {
     const [dogIds, setDogIds] = useState([]);
@@ -13,35 +14,46 @@ export const DogSearchProvider = ({ children }) => {
         setIsLoading(true);
         try {
             const response = await fetch(`${baseUrl}/dogs/search${query}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             const data = await response.json();
-            setDogIds(data.resultIds);
+            setDogIds(data.resultIds || []);
             setNextQuery(data.next || null);
             setPrevQuery(data.prev || null);
         } catch (err) {
-            console.error('Failed');
+            console.error('❌ fetchDogs error:', err);
         } finally {
             setIsLoading(false);
-        };
+        }
     };
 
     useEffect(() => {
         fetchDogs();
     }, []);
 
-
     useEffect(() => {
         if (dogIds.length === 0) return;
 
         const fetchDogDetails = async () => {
-            const response = await fetch(`${baseUrl}/dogs`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ids: dogIds })
-            });
+            try {
+                const response = await fetch(`${baseUrl}/dogs`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ids: dogIds })
+                });
 
-            const data = await response.json();
-            setDogs(data);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                setDogs(data);
+            } catch (err) {
+                console.error('❌ fetchDogDetails error:', err);
+            }
         };
+
         fetchDogDetails();
     }, [dogIds]);
 
@@ -65,5 +77,5 @@ export const DogSearchProvider = ({ children }) => {
         }}>
             {children}
         </DogSearchContext.Provider>
-    )
-}
+    );
+};

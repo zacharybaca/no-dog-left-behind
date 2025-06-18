@@ -27,3 +27,25 @@
   .toast-list li {
     margin-bottom: 1rem;
   }
+
+  .toast-list, .toast-list li {
+    font-size: 1rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+    white-space: normal;
+  }
+
+  @media (max-width: 768px) {
+  #notifications-container {
+    bottom: auto;
+    top: 1rem;
+    right: 50%;
+    transform: translateX(50%);
+    width: 90vw;
+    max-width: 360px;
+  }
+
+  .toast-list, .toast-list li {
+    font-size: 1.1rem;
+  }
+}

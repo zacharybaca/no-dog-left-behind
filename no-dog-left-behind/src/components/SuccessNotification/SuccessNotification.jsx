@@ -44,8 +44,8 @@ const SuccessNotification = ({ headerText, bodyText, imgURL, variantTheme = "suc
                         {notifications.map(notification => (
                             <SwipeableToast
                                 key={notification._id}
+                                deleteNotification={deleteNotification}
                                 notification={notification}
-                                onDismiss={() => deleteNotification(notification._id)}
                                 calculateElapsedMinutes={calculateElapsedMinutes}
                             />
                         ))}

@@ -19,9 +19,14 @@
 
 - **React** – Component-based UI
 - **React Router** – Client-side routing
-- **Axios** – API requests
+- **Context API** - Built-in tool that is provided by React to manage global app state effectively
+- **Fetch API** – Built-in tool to fetch data from external API endpoints
 - **Fetch Rewards API** – For authentication and breed data
+- **UUID** - Third-party utility that provides a random id that can be used for objects or other various components
 - **CSS Modules / Styled Components** – Modular and scoped styling
+- **Bootstrap** - Third-party library that offers pre-made components that can be used inside web applicatiions
+- **React-Bootstrap** - Third-party library that offers pre-made React components that can be utilized in React applications
+- **React-Swipeable** - Third-party library that enables a user to swipe toast notifications away when on a mobile device
 - **Vite / Webpack** – Lightning-fast development server and bundler
 
 ## Getting Started

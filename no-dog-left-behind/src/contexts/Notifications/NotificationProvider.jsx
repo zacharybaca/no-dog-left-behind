@@ -17,6 +17,8 @@ export const NotificationProvider = ({ children }) => {
         variantTheme: "danger",
         timestamp: Date.now()
     }]);
+    const [dismissed, setDismissed] = useState(false);
+    const toggleDismiss = () => setDismissed(prev => !prev);
     const toggleNotification = () => setShowNotification(prev => !prev);
     const [elapsedMinutes, setElapsedMinutes] = useState(0);
 
@@ -60,7 +62,9 @@ export const NotificationProvider = ({ children }) => {
             setNotifications,
             deleteNotification,
             addNotification,
-            handleSwipeDismiss
+            handleSwipeDismiss,
+            dismissed,
+            toggleDismiss
         }}>
             {children}
         </NotificationContext.Provider>

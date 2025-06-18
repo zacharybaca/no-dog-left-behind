@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';
 
 export const NotificationProvider = ({ children }) => {
-    const [showNotification, setShowNotification] = useState(true);
+    const [showNotification, setShowNotification] = useState(false);
     const [notifications, setNotifications] = useState([{
         _id: uuidv4(),
         headerText: "Success",

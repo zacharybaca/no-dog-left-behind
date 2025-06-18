@@ -8,6 +8,7 @@ import SwipeableToast from '../SwipeableToast/SwipeableToast.jsx';
 const SuccessNotification = ({ headerText, bodyText, imgURL, variantTheme = "success", timestamp }) => {
     const {
         showNotification,
+        handleSwipeDismiss,
         toggleNotification,
         calculateElapsedMinutes,
         setElapsedMinutes,
@@ -34,10 +35,6 @@ const SuccessNotification = ({ headerText, bodyText, imgURL, variantTheme = "suc
         return () => clearInterval(interval);
     }, [timestamp]);
 
-    const handleDismiss = (id) => {
-        setNotifications(prev => prev.filter(n => n._id !== id));
-    };
-
     return (
         <div id="notifications-container">
             {notifications.length > 0 && showNotification && (
@@ -47,7 +44,7 @@ const SuccessNotification = ({ headerText, bodyText, imgURL, variantTheme = "suc
                             <SwipeableToast
                                 key={notification._id}
                                 notification={notification}
-                                onDismiss={handleDismiss}
+                                onDismiss={() => handleSwipeDismiss(notification._id)}
                                 calculateElapsedMinutes={calculateElapsedMinutes}
                             />
                         ))}

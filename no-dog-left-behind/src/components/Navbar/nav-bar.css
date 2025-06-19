@@ -16,7 +16,7 @@
 }
 
 .notification-bell-icon-container {
-  max-width: 40%;
+  max-width: 30%;
   border: 4px solid purple;
 }
 
@@ -39,7 +39,7 @@
 
 @media screen and (min-width: 1440px) {
   .notification-bell-icon-container {
-    max-width: 20%;
+    max-width: 15%;
   }
 }
 
@@ -66,4 +66,9 @@
   .logo {
     display: none;
   }
+
+  .notification-bell-icon-container {
+    max-width: 20%;
+  }
+
 }

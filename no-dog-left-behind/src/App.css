@@ -10,6 +10,8 @@
   width: 100%; /* Ensures full width */
   background-color: #fbfdfd;
   background-image: url('/assets/dog-theme-background.png');
+  background-repeat: no-repeat;
+  background-size: cover;
   border-radius: 10px;
   border: 2px solid black;
 }

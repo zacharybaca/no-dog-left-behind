@@ -1,6 +1,6 @@
 import { NotificationContext } from './NotificationContext.jsx'
 import { v4 as uuidv4 } from 'uuid'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export const NotificationProvider = ({ children }) => {
   const [showNotification, setShowNotification] = useState(true)
@@ -10,6 +10,7 @@ export const NotificationProvider = ({ children }) => {
       headerText: 'Success',
       bodyText: 'You Have Successfully Logged In!',
       variantTheme: 'success',
+      customTheme: '.toast-success',
       timestamp: Date.now(),
       visible: true,
     },
@@ -18,17 +19,33 @@ export const NotificationProvider = ({ children }) => {
       headerText: 'Log-In Failed!',
       bodyText: 'We Were Unable to Log You Into the System.',
       variantTheme: 'danger',
+      customTheme: '.toast-error',
       timestamp: Date.now(),
       visible: true,
     },
   ])
-  const [dismissed, setDismissed] = useState(false)
-  const toggleDismiss = () => setDismissed((prev) => !prev)
   const toggleNotification = (id) => {
     setNotifications((prev) => prev.map((n) => (n._id === id ? { ...n, visible: !n.visible } : n)))
   }
 
   const [elapsedMinutes, setElapsedMinutes] = useState(0)
+
+  // Sync to localStorage whenever notifications change
+  useEffect(() => {
+    localStorage.setItem('notifications', JSON.stringify(notifications));
+  }, [notifications]);
+
+  // On mount, restore from localStorage
+  useEffect(() => {
+    const stored = localStorage.getItem('notifications');
+    if (stored) {
+      try {
+        setNotifications(JSON.parse(stored));
+      } catch (e) {
+        console.error('Failed to parse notifications from localStorage', e);
+      }
+    }
+  }, []);
 
   const handleSwipeDismiss = (id) => {
     setNotifications((prev) => prev.filter((n) => n._id !== id))
@@ -44,13 +61,15 @@ export const NotificationProvider = ({ children }) => {
     setNotifications((prev) => prev.filter((n) => n._id !== id))
   }
 
-  const addNotification = ({ headerText, bodyText, imgURL, variantTheme = 'success' }) => {
+  const addNotification = ({ headerText, bodyText, imgURL, variantTheme = 'success', customTheme }) => {
+
     const newNotification = {
       _id: uuidv4(),
       headerText,
       bodyText,
       imgURL,
       variantTheme,
+      customTheme,
       timestamp: Date.now(),
       visible: true,
     }
@@ -71,8 +90,6 @@ export const NotificationProvider = ({ children }) => {
         deleteNotification,
         addNotification,
         handleSwipeDismiss,
-        dismissed,
-        toggleDismiss,
       }}
     >
       {children}

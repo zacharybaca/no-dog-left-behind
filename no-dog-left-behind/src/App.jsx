@@ -7,7 +7,7 @@ import Navbar from './components/Navbar/Navbar.jsx'
 import Login from './components/Login/Login.jsx'
 import Footer from './components/Footer/Footer.jsx'
 import PageNotFound from './components/PageNotFound/PageNotFound.jsx'
-import SuccessNotification from './components/SuccessNotification/SuccessNotification.jsx'
+import Notification from './components/Notification/Notification.jsx'
 import Dashboard from './components/Dashboard/Dashboard.jsx'
 
 function App() {
@@ -48,7 +48,7 @@ function App() {
         ))}
 
       {/* Render visible notifications */}
-      <SuccessNotification />
+      <Notification />
 
       <hr className="horizontal-ruler-default" />
       <Footer />

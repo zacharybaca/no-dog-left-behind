@@ -14,4 +14,22 @@
   --color-text-secondary: #616161;
   --color-link: #459386;
   --color-nav: #37474f;
+
+  /* Success / Confirmation */
+  --gradient-success: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
+
+  /* Info / Neutral */
+  --gradient-info: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%);
+
+  /* Warm Alert / Motivation */
+  --gradient-warm: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+
+  /* Error / Danger */
+  --gradient-error: linear-gradient(135deg, #ffe0e0 0%, #ffb3b3 100%);
+
+  /* Dark Mode Elegant */
+  --gradient-dark: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%);
+
+  /* Sunset Vibe */
+  --gradient-sunset: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
 }

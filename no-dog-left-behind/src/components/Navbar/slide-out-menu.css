@@ -31,9 +31,36 @@
 }
 
 .slideout-menu li {
+  position: relative;
+  color: #000;
+  text-decoration: none;
+  padding: 0 2px;
+  z-index: 0;
   flex: 1;
-  transition: all 0.5s ease-out;
+  transition: letter-spacing 0.3s ease, text-shadow 0.3s ease, box-shadow 0.3s ease;
   margin-bottom: 1.5rem;
+}
+
+.slideout-menu li::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: #ffe0b2;
+  transition: width 0.4s ease;
+}
+
+.slideout-menu li:hover::before {
+  width: fit-content;
+}
+
+.slideout-menu li:hover {
+  letter-spacing: 1.5px;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+  box-shadow: 0 4px 15px rgba(255, 184, 108, 0.4);
 }
 
 .slideout-menu a {
@@ -46,8 +73,11 @@
 
 .slideout-menu a:hover,
 .slideout-menu a:focus {
-  background-color: #abd3db;
+  box-shadow: 0 4px 8px rgba(250, 204, 153, 0.5), 0 0 5px rgba(255, 243, 224, 0.6);
+  font-weight: 800;
   color: #fff;
+  border: 2px solid black;
+  border-radius: 10px;
 }
 
 .backdrop {

@@ -1,4 +1,5 @@
 import './slide-out-menu.css'
+import Logout from '../Logout/Logout.jsx';
 
 const SlideOutMenu = ({ isOpen, onClose }) => {
   return (
@@ -13,6 +14,7 @@ const SlideOutMenu = ({ isOpen, onClose }) => {
               onClick={onClose}
             />
             <span className="tooltip-text">Close menu</span>
+            <Logout />
           </div>
         )}
         <ul onClick={onClose}>

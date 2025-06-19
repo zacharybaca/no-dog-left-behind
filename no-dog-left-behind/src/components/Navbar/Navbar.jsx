@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import ThemedToggleButton from './ThemedToggleButton.jsx'
 import SlideOutMenu from './SlideOutMenu.jsx'
+import NotificationBell from '../NotificationBell/NotificationBell.jsx';
 import './nav-bar.css'
 import { useLocation } from 'react-router-dom'
 
@@ -16,8 +17,11 @@ const Navbar = () => {
   return (
     <>
       <nav className="navbar shadow-lg p-3 mb-5 rounded">
+        <div className="notification-bell-icon-container">
+          <NotificationBell />
+        </div>
         <div className="logo">No Dog Left Behind</div>
-        <div className="toggle-image-container">
+        <div className="themed-toggle-button-container">
           <ThemedToggleButton menuOpen={menuOpen} onToggle={() => setMenuOpen(!menuOpen)} />
         </div>
       </nav>

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import ThemedToggleButton from './ThemedToggleButton.jsx'
 import SlideOutMenu from './SlideOutMenu.jsx'
 import NotificationBell from '../NotificationBell/NotificationBell.jsx';
+import Logout from '../Logout/Logout.jsx';
 import './nav-bar.css'
 import { useLocation } from 'react-router-dom'
 
@@ -21,6 +22,9 @@ const Navbar = () => {
           <NotificationBell />
         </div>
         <div className="logo">No Dog Left Behind</div>
+        <div className="logout-button-container">
+          <Logout />
+        </div>
         <div className="themed-toggle-button-container">
           <ThemedToggleButton menuOpen={menuOpen} onToggle={() => setMenuOpen(!menuOpen)} />
         </div>

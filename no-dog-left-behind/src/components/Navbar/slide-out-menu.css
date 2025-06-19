@@ -124,6 +124,12 @@
   justify-content: space-between;
 }
 
+#menu-close-button-container button {
+    height: 2%;
+    max-height: 2%;
+    min-height: 2%;
+}
+
 .tooltip-text {
   visibility: hidden;
   background-color: #333;
@@ -181,12 +187,6 @@
   #menu-close-button-container {
     min-height: 10%;
 }
-
-  #menu-close-button-container button {
-    height: 2%;
-    max-height: 2%;
-    min-height: 2%;
-  }
 
 }
 

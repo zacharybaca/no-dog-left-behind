@@ -1,3 +1,3 @@
-import { createContext } from 'react';
+import { createContext } from 'react'
 
-export const MenuOptionsContext = createContext();
+export const MenuOptionsContext = createContext()

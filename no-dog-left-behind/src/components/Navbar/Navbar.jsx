@@ -1,17 +1,17 @@
-import { useState, useEffect } from 'react';
-import ThemedToggleButton from './ThemedToggleButton.jsx';
-import SlideOutMenu from './SlideOutMenu.jsx';
-import './nav-bar.css';
-import { useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react'
+import ThemedToggleButton from './ThemedToggleButton.jsx'
+import SlideOutMenu from './SlideOutMenu.jsx'
+import './nav-bar.css'
+import { useLocation } from 'react-router-dom'
 
 const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const location = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false)
+  const location = useLocation()
 
   // Close menu on route change
   useEffect(() => {
-    setMenuOpen(false);
-  }, [location.pathname]);
+    setMenuOpen(false)
+  }, [location.pathname])
 
   return (
     <>
@@ -23,7 +23,7 @@ const Navbar = () => {
       </nav>
       <SlideOutMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
     </>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

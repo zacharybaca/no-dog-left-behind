@@ -1,10 +1,5 @@
-import { MenuOptionsContext } from './MenuOptionsContext.jsx';
+import { MenuOptionsContext } from './MenuOptionsContext.jsx'
 
 export const MenuOptionsProvider = ({ children }) => {
-
-    return (
-        <MenuOptionsContext.Provider>
-            { children }
-        </MenuOptionsContext.Provider>
-    )
+  return <MenuOptionsContext.Provider>{children}</MenuOptionsContext.Provider>
 }

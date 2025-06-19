@@ -1,22 +1,26 @@
 import './App.css'
-import { Routes, Route } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
-import { useNotification } from './hooks/useNotification';
-import HeroSection from './components/HeroSection/HeroSection.jsx';
-import Navbar from './components/Navbar/Navbar.jsx';
-import Login from './components/Login/Login.jsx';
-import Footer from './components/Footer/Footer.jsx';
-import PageNotFound from './components/PageNotFound/PageNotFound.jsx';
-import SuccessNotification from './components/SuccessNotification/SuccessNotification.jsx';
-import Dashboard from './components/Dashboard/Dashboard.jsx';
+import { Routes, Route } from 'react-router-dom'
+import { Button } from 'react-bootstrap'
+import { useNotification } from './hooks/useNotification'
+import HeroSection from './components/HeroSection/HeroSection.jsx'
+import Navbar from './components/Navbar/Navbar.jsx'
+import Login from './components/Login/Login.jsx'
+import Footer from './components/Footer/Footer.jsx'
+import PageNotFound from './components/PageNotFound/PageNotFound.jsx'
+import SuccessNotification from './components/SuccessNotification/SuccessNotification.jsx'
+import Dashboard from './components/Dashboard/Dashboard.jsx'
 
 function App() {
-  const { notifications, toggleNotification } = useNotification();
+  const { notifications, toggleNotification } = useNotification()
 
   return (
     <div id="app-container">
       <Navbar />
-      <img src="/assets/no-dog-left-behind-logo.png" alt="application-logo" className="application-logo" />
+      <img
+        src="/assets/no-dog-left-behind-logo.png"
+        alt="application-logo"
+        className="application-logo"
+      />
       <HeroSection />
       <hr className="horizontal-ruler-default" />
 
@@ -30,8 +34,8 @@ function App() {
 
       {/* Toggle buttons for hidden notifications */}
       {notifications
-        .filter(n => !n.visible)
-        .map(notification => (
+        .filter((n) => !n.visible)
+        .map((notification) => (
           <Button
             key={notification._id}
             variant="secondary"
@@ -46,11 +50,10 @@ function App() {
       {/* Render visible notifications */}
       <SuccessNotification />
 
-
       <hr className="horizontal-ruler-default" />
       <Footer />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

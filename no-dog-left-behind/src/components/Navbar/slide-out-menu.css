@@ -4,8 +4,8 @@
   right: -100%;
   width: 70%;
   height: 100%;
-  background-color: #EFC65D;
-  box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+  background-color: #efc65d;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.4s ease-in-out;
   z-index: 2000;
   padding: 2rem;
@@ -17,7 +17,7 @@
 }
 
 .slideout-menu img:hover {
-  cursor: url("/assets/select-cursor-image.png"), pointer;
+  cursor: url('/assets/select-cursor-image.png'), pointer;
 }
 
 .slideout-menu.open {
@@ -44,8 +44,9 @@
   padding: 0.75rem;
 }
 
-.slideout-menu a:hover, .slideout-menu a:focus {
-  background-color: #ABD3DB;
+.slideout-menu a:hover,
+.slideout-menu a:focus {
+  background-color: #abd3db;
   color: #fff;
 }
 
@@ -55,7 +56,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 1001;
   animation: fadeIn 0.3s ease;
 }
@@ -70,10 +71,19 @@
 }
 
 @keyframes wiggle {
-  0%, 100% { transform: rotate(0deg); }
-  25% { transform: rotate(5deg); }
-  50% { transform: rotate(-5deg); }
-  75% { transform: rotate(5deg); }
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(-5deg);
+  }
+  75% {
+    transform: rotate(5deg);
+  }
 }
 
 #menu-close-button-container {

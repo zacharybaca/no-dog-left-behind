@@ -1,12 +1,7 @@
-import './error-notification.css';
+import './error-notification.css'
 
 const ErrorNotification = () => {
-
-    return (
-        <div>
-            Error
-        </div>
-    )
+  return <div>Error</div>
 }
 
-export default ErrorNotification;
+export default ErrorNotification

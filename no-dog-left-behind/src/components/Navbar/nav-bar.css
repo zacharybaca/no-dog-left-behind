@@ -1,46 +1,46 @@
 .navbar {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 1;
-    right: 1;
-    width: 75%;
-    height: 10%;
-    gap: 30%;
-    z-index: 1000;
-    background-color: #FCA311;
-    padding: 1rem;
-    border: 2px solid black;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 1;
+  right: 1;
+  width: 75%;
+  height: 10%;
+  gap: 30%;
+  z-index: 1000;
+  background-color: #fca311;
+  padding: 1rem;
+  border: 2px solid black;
 }
 
 .logo {
-    color: #5A250C;
-    font-weight: 800;
-    border: 2px solid yellow;
+  color: #5a250c;
+  font-weight: 800;
+  border: 2px solid yellow;
 }
 
 .toggle-image-container {
-    width: 85px;
-    height: 65px;
-    padding-bottom: 1rem;
-    border: 2px solid green;
+  width: 85px;
+  height: 65px;
+  padding-bottom: 1rem;
+  border: 2px solid green;
 }
 
 @media screen and (min-width: 1440px) {
-    .navbar {
-        gap: 40%;
-    }
+  .navbar {
+    gap: 40%;
+  }
 }
 
 @media screen and (max-width: 390px) {
-    .navbar {
-        gap: 20%;
-    }
+  .navbar {
+    gap: 20%;
+  }
 
-    .toggle-image-container {
-        width: 65px;
-        height: 65px;
-    }
+  .toggle-image-container {
+    width: 65px;
+    height: 65px;
+  }
 }

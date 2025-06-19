@@ -1,4 +1,4 @@
-import { useContext } from 'react';
-import { MenuOptionsContext } from '../contexts/MenuOptions/MenuOptionsContext';
+import { useContext } from 'react'
+import { MenuOptionsContext } from '../contexts/MenuOptions/MenuOptionsContext'
 
-export const useMenuOptions = () => useContext(MenuOptionsContext);
+export const useMenuOptions = () => useContext(MenuOptionsContext)

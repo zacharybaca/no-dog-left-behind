@@ -13,8 +13,8 @@
   padding: 0;
 }
 
-ul[role="list"],
-ol[role="list"] {
+ul[role='list'],
+ol[role='list'] {
   list-style: none;
 }
 
@@ -24,10 +24,11 @@ html:focus-within {
 
 body {
   text-rendering: optimizeSpeed; /* Optional */
-  cursor: url("/assets/regular-cursor-image.png"), pointer;
+  cursor: url('/assets/regular-cursor-image.png'), pointer;
 }
 
-html, body {
+html,
+body {
   font-family: 'Segoe UI', Roboto, sans-serif;
   background-color: var(--color-bg);
   color: var(--color-text);
@@ -47,7 +48,7 @@ select {
 
 button:hover,
 a:hover {
-  cursor: url("/assets/select-cursor-image.png"), pointer;
+  cursor: url('/assets/select-cursor-image.png'), pointer;
 }
 
 /* 6. Links */
@@ -103,7 +104,7 @@ button {
   margin-right: auto;
   border-style: inset;
   border-width: 0.15rem;
-  background-color: #F5ECE2;
+  background-color: #f5ece2;
 }
 
 /* ================================
@@ -172,7 +173,12 @@ p {
   margin-bottom: 1rem;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: var(--color-text);
   font-weight: 600;
 }

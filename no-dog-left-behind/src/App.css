@@ -1,27 +1,27 @@
 #app-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 4%;
-    padding-top: 100px;
-    gap: clamp(1rem, 2vw, 2rem);
-    box-sizing: border-box;
-    min-width: 100%;
-    width: 100%;  /* Ensures full width */
-    background-color: #FBFDFD;
-    background-image: url('/assets/dog-theme-background.png');
-    border-radius: 10px;
-    border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4%;
+  padding-top: 100px;
+  gap: clamp(1rem, 2vw, 2rem);
+  box-sizing: border-box;
+  min-width: 100%;
+  width: 100%; /* Ensures full width */
+  background-color: #fbfdfd;
+  background-image: url('/assets/dog-theme-background.png');
+  border-radius: 10px;
+  border: 2px solid black;
 }
 
 .application-logo {
-    width: 50%;
-    height: 50%;
+  width: 50%;
+  height: 50%;
 }
 
 @media screen and (min-width: 1440px) {
-    .application-logo {
-        width: 30%;
-        height: 30%;
-    }
+  .application-logo {
+    width: 30%;
+    height: 30%;
+  }
 }

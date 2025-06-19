@@ -7,31 +7,50 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint .",
-    "start": "vite preview"
+    "lint": "eslint . --ext js,jsx",
+    "start": "vite preview",
+    "format": "prettier \"**/*.{js,jsx,json,md,css}\" --write",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "**/*.{json,md,css,html}": [
+      "prettier --write"
+    ]
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/zacharybaca/no-dog-left-behind.git"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
-    "bootstrap": "^5.3.6",
+    "bootstrap": "^5.3.7",
     "bootstrap-icons": "^1.13.1",
     "react": "^19.1.0",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.1.0",
-    "react-icons": "^4.12.0",
+    "react-icons": "^5.5.0",
     "react-router-dom": "^7.6.2",
     "react-swipeable": "^7.0.2",
     "uuid": "^11.1.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.4.1",
-    "eslint": "^8.56.0",
+    "@eslint/js": "^9.29.0",
+    "@vitejs/plugin-react": "^4.5.2",
+    "eslint": "^9.29.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.5.0",
+    "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.2.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
+    "prettier": "^3.5.3",
     "vite": "^6.3.5"
   },
   "engines": {

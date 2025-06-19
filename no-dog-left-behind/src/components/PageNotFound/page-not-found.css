@@ -1,26 +1,27 @@
 #page-not-found-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
 }
 
-#page-not-found-container h1, p{
-    font-family: "Delius Unicase", cursive;
-    font-weight: 700;
-    font-style: normal;
+#page-not-found-container h1,
+p {
+  font-family: 'Delius Unicase', cursive;
+  font-weight: 700;
+  font-style: normal;
 }
 
 @media screen and (min-width: 768px) {
-    #page-not-found-container img {
-        width: 50%;
-        height: 50%;
-    }
+  #page-not-found-container img {
+    width: 50%;
+    height: 50%;
+  }
 }
 
 @media screen and (max-width: 390px) {
-    #page-not-found-container img {
-        width: 70%;
-        height: 70%;
-    }
+  #page-not-found-container img {
+    width: 70%;
+    height: 70%;
+  }
 }

@@ -1,17 +1,17 @@
 /* colors.css */
 
 :root {
-    --color-primary: #F57C00;
-    --color-primary-dark: #EF6C00;
-    --color-secondary: #8D6E63;
-    --color-accent: #4CAF50;
-    --color-accent-dark: #388E3C;
-    --color-error: #EF5350;
-    --color-bg: #ABD3DB;
-    --color-surface: #FFFFFF;
-    --color-border: #E0E0E0;
-    --color-text: #212121;
-    --color-text-secondary: #616161;
-    --color-link: #459386;
-    --color-nav: #37474F;
-  }
+  --color-primary: #f57c00;
+  --color-primary-dark: #ef6c00;
+  --color-secondary: #8d6e63;
+  --color-accent: #4caf50;
+  --color-accent-dark: #388e3c;
+  --color-error: #ef5350;
+  --color-bg: #abd3db;
+  --color-surface: #ffffff;
+  --color-border: #e0e0e0;
+  --color-text: #212121;
+  --color-text-secondary: #616161;
+  --color-link: #459386;
+  --color-nav: #37474f;
+}

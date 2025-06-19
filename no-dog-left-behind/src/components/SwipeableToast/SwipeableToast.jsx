@@ -1,16 +1,16 @@
-import { Toast } from 'react-bootstrap';
-import { useSwipeable } from 'react-swipeable';
-import { useNotification } from '../../hooks/useNotification'; 
+import { Toast } from 'react-bootstrap'
+import { useSwipeable } from 'react-swipeable'
+import { useNotification } from '../../hooks/useNotification'
 
 const SwipeableToast = ({ notification, calculateElapsedMinutes }) => {
-  const { toggleNotification } = useNotification();
+  const { toggleNotification } = useNotification()
 
   const swipeHandlers = useSwipeable({
     onSwipedLeft: () => toggleNotification(notification._id),
     onSwipedRight: () => toggleNotification(notification._id),
     preventScrollOnSwipe: true,
     trackTouch: true,
-  });
+  })
 
   return (
     <Toast
@@ -23,7 +23,7 @@ const SwipeableToast = ({ notification, calculateElapsedMinutes }) => {
     >
       <Toast.Header closeButton>
         <img
-          src={notification.imgURL || "holder.js/20x20?text=%20"}
+          src={notification.imgURL || 'holder.js/20x20?text=%20'}
           className="rounded me-2"
           alt="toast notification"
         />
@@ -34,11 +34,11 @@ const SwipeableToast = ({ notification, calculateElapsedMinutes }) => {
             : 'just now'}
         </small>
       </Toast.Header>
-      <Toast.Body className={notification.variantTheme && "text-white"}>
+      <Toast.Body className={notification.variantTheme && 'text-white'}>
         {notification.bodyText}
       </Toast.Body>
     </Toast>
-  );
-};
+  )
+}
 
-export default SwipeableToast;
+export default SwipeableToast

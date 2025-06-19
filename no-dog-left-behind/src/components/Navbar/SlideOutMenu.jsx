@@ -22,6 +22,9 @@ const SlideOutMenu = ({ isOpen, onClose }) => {
             <a href="#home">🏠 Home</a>
           </li>
           <li>
+            <a href="#admin">💼 Admin</a>
+          </li>
+          <li>
             <a href="#adopt">🐶 Adopt</a>
           </li>
           <li>

@@ -17,8 +17,8 @@ function App() {
     <div id="app-container">
       <Navbar />
       <img
-        src="/assets/no-dog-left-behind-logo.png"
-        alt="application-logo"
+        src="/assets/no-dog-left-behind-hero-image.png"
+        alt="hero image branding"
         className="application-logo"
       />
       <HeroSection />

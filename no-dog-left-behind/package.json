@@ -10,7 +10,8 @@
     "lint": "eslint . --ext js,jsx",
     "start": "vite preview",
     "format": "prettier \"**/*.{js,jsx,json,md,css}\" --write",
-    "prepare": "husky"
+    "prepare": "husky",
+    "reset": "rm -rf node_modules package-lock.json && npm cache clean --force && npm install"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [

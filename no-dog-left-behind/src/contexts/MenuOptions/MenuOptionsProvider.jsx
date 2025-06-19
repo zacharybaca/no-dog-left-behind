@@ -22,7 +22,12 @@ export const MenuOptionsProvider = ({ children }) => {
       endpoint: "/about",
       icon: "📖",
       title: "About",
-    }
+    },
+    {
+      endpoint: "/admin",
+      icon: "💼",
+      title: "Admin",
+    },
   ]);
 
   return (

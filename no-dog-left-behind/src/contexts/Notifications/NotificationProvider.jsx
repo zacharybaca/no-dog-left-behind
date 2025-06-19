@@ -32,20 +32,20 @@ export const NotificationProvider = ({ children }) => {
 
   // Sync to localStorage whenever notifications change
   useEffect(() => {
-    localStorage.setItem('notifications', JSON.stringify(notifications));
-  }, [notifications]);
+    localStorage.setItem('notifications', JSON.stringify(notifications))
+  }, [notifications])
 
   // On mount, restore from localStorage
   useEffect(() => {
-    const stored = localStorage.getItem('notifications');
+    const stored = localStorage.getItem('notifications')
     if (stored) {
       try {
-        setNotifications(JSON.parse(stored));
+        setNotifications(JSON.parse(stored))
       } catch (e) {
-        console.error('Failed to parse notifications from localStorage', e);
+        console.error('Failed to parse notifications from localStorage', e)
       }
     }
-  }, []);
+  }, [])
 
   const handleSwipeDismiss = (id) => {
     setNotifications((prev) => prev.filter((n) => n._id !== id))
@@ -61,8 +61,13 @@ export const NotificationProvider = ({ children }) => {
     setNotifications((prev) => prev.filter((n) => n._id !== id))
   }
 
-  const addNotification = ({ headerText, bodyText, imgURL, variantTheme = 'success', customTheme }) => {
-
+  const addNotification = ({
+    headerText,
+    bodyText,
+    imgURL,
+    variantTheme = 'success',
+    customTheme,
+  }) => {
     const newNotification = {
       _id: uuidv4(),
       headerText,

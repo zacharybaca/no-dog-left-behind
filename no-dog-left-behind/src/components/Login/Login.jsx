@@ -1,28 +1,28 @@
 import './login.css'
-import { useEffect, useState } from 'react';
-import Button from 'react-bootstrap/Button';
+import { useEffect, useState } from 'react'
+import Button from 'react-bootstrap/Button'
 import { useAuth } from '../../hooks/useAuth'
 
 const Login = () => {
   const { error, success, handleChange, handleSubmit } = useAuth()
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     function simulateNetworkRequest() {
-      return new Promise(resolve => {
-        setTimeout(resolve, 2000);
-      });
+      return new Promise((resolve) => {
+        setTimeout(resolve, 2000)
+      })
     }
 
     if (loading) {
       simulateNetworkRequest().then(() => {
-        setLoading(false);
-      });
+        setLoading(false)
+      })
     }
-  }, [loading]);
+  }, [loading])
 
-  const handleClick = () => setLoading(true);
+  const handleClick = () => setLoading(true)
 
   return (
     <div className="login-container">
@@ -47,12 +47,8 @@ const Login = () => {
           placeholder="E-mail"
           required
         />
-        <Button
-          variant="primary"
-          disabled={loading}
-          onClick={!loading ? handleClick : null}
-        >
-        {loading ? 'Logging In…' : 'Login'}
+        <Button variant="primary" disabled={loading} onClick={!loading ? handleClick : null}>
+          {loading ? 'Logging In…' : 'Login'}
         </Button>
       </form>
     </div>

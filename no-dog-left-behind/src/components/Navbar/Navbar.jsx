@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import ThemedToggleButton from './ThemedToggleButton.jsx'
 import SlideOutMenu from './SlideOutMenu.jsx'
-import NotificationBell from '../NotificationBell/NotificationBell.jsx';
+import NotificationBell from '../NotificationBell/NotificationBell.jsx'
 import './nav-bar.css'
 import { useLocation } from 'react-router-dom'
 

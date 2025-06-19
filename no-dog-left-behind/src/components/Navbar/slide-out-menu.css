@@ -37,7 +37,10 @@
   padding: 0 2px;
   z-index: 0;
   flex: 1;
-  transition: letter-spacing 0.3s ease, text-shadow 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    letter-spacing 0.3s ease,
+    text-shadow 0.3s ease,
+    box-shadow 0.3s ease;
   margin-bottom: 1.5rem;
 }
 
@@ -69,12 +72,16 @@
   color: #333;
   font-weight: bold;
   padding: 0.75rem;
-  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.2s ease;
 }
 
 .slideout-menu a:hover,
 .slideout-menu a:focus {
-  box-shadow: 0 4px 8px rgba(250, 204, 153, 0.5), 0 0 5px rgba(255, 243, 224, 0.6);
+  box-shadow:
+    0 4px 8px rgba(250, 204, 153, 0.5),
+    0 0 5px rgba(255, 243, 224, 0.6);
   transform: translateY(-2px);
   font-weight: 800;
   color: #fff;
@@ -125,9 +132,9 @@
 }
 
 #menu-close-button-container button {
-    height: 2%;
-    max-height: 2%;
-    min-height: 2%;
+  height: 2%;
+  max-height: 2%;
+  min-height: 2%;
 }
 
 .tooltip-text {
@@ -186,8 +193,7 @@
 
   #menu-close-button-container {
     min-height: 10%;
-}
-
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {

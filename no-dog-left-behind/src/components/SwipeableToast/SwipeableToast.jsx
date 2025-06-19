@@ -1,4 +1,4 @@
-import './swipeable-toast.css';
+import './swipeable-toast.css'
 import { Toast } from 'react-bootstrap'
 import { useSwipeable } from 'react-swipeable'
 import { useNotification } from '../../hooks/useNotification'

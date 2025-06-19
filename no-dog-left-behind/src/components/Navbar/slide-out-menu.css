@@ -121,6 +121,7 @@
 #menu-close-button-container {
   position: relative;
   display: flex;
+  justify-content: space-between;
 }
 
 .tooltip-text {
@@ -176,6 +177,18 @@
     top: 10px;
     left: 45%;
   }
+
+  #menu-close-button-container {
+    min-height: 10%;
+    border: 2px solid black;
+}
+
+  #menu-close-button-container button {
+    height: 2%;
+    max-height: 2%;
+    min-height: 2%;
+  }
+
 }
 
 @media (prefers-reduced-motion: no-preference) {

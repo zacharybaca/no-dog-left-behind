@@ -95,6 +95,10 @@ Check out the live app here: [No Dog Left Behind Demo](https://no-dog-left-behin
   /colors.css             # Styles file for custom color theme
   /index.css              # Styles file for global styling across application
   /main.jsx               # Main application file that starts rendering the main component
+  /.gitignore             # File that lists certain files that should not be backed-up to the Github repo
+  /.prettierignore        # File that lists certain file extensions that should not be formatted by the Prettier linter
+  /.prettierrcjson        # File that lists certain configuration settings for the Prettier linter extension
+  /eslint.config.js       # File that lists certain configuration settings for the ESLint linter
   /index.html             # HTML file that displays root container that renders main App component
   /package.json           # JSON file that contains information about the application repo, and what dependencies are used
   /vite.config.js         # Config file when using VITE to generate the scaffold for a React application

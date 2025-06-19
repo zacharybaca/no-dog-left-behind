@@ -22,9 +22,6 @@ const Navbar = () => {
           <NotificationBell />
         </div>
         <div className="logo">No Dog Left Behind</div>
-        <div className="logout-button-container">
-          <Logout />
-        </div>
         <div className="themed-toggle-button-container">
           <ThemedToggleButton menuOpen={menuOpen} onToggle={() => setMenuOpen(!menuOpen)} />
         </div>

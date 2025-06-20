@@ -83,9 +83,14 @@ export const NotificationProvider = ({ children }) => {
     setNotifications((prev) => [...prev, newNotification])
   }
 
-  const showNotifications = () => {
-    notifications.length > 0 ? notifications.map((notification) => notification.visible = true) : false
-  };
+  const toggleNotifications = () => {
+  setNotifications((prev) =>
+    prev.map((notification) => ({
+      ...notification,
+      visible: !notification.visible,
+    }))
+  );
+};
 
   return (
     <NotificationContext.Provider
@@ -101,7 +106,7 @@ export const NotificationProvider = ({ children }) => {
         deleteNotification,
         addNotification,
         handleSwipeDismiss,
-        showNotifications
+        toggleNotifications
       }}
     >
       {children}

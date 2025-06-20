@@ -83,6 +83,10 @@ export const NotificationProvider = ({ children }) => {
     setNotifications((prev) => [...prev, newNotification])
   }
 
+  const showNotifications = () => {
+    notifications.length > 0 ? notifications.map((notification) => notification.visible = true) : false
+  };
+
   return (
     <NotificationContext.Provider
       value={{
@@ -97,6 +101,7 @@ export const NotificationProvider = ({ children }) => {
         deleteNotification,
         addNotification,
         handleSwipeDismiss,
+        showNotifications
       }}
     >
       {children}

@@ -1,10 +1,10 @@
 import './swipeable-toast.css'
-import { Toast } from 'react-bootstrap'
+import { Toast, Button } from 'react-bootstrap'
 import { useSwipeable } from 'react-swipeable'
 import { useNotification } from '../../hooks/useNotification'
 
 const SwipeableToast = ({ notification, calculateElapsedMinutes }) => {
-  const { toggleNotification } = useNotification()
+  const { toggleNotification, deleteNotification } = useNotification()
 
   const swipeHandlers = useSwipeable({
     onSwipedLeft: () => toggleNotification(notification._id),
@@ -38,6 +38,7 @@ const SwipeableToast = ({ notification, calculateElapsedMinutes }) => {
       <Toast.Body className={notification.variantTheme && 'text-white'}>
         {notification.bodyText}
       </Toast.Body>
+      <Button variant="danger" id="delete-button" onClick={() => deleteNotification(notification._id)}>Delete</Button>
     </Toast>
   )
 }

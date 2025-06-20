@@ -10,6 +10,10 @@
   border: 3px solid black;
 }
 
+.btn-close:hover {
+  cursor: url('assets/select-cursor-image.png'), pointer;
+}
+
 .custom-toast-container {
   position: relative !important;
   width: 100%;

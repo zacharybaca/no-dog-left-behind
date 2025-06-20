@@ -17,5 +17,5 @@ export default defineConfig({
     outDir: 'dist', // ✅ Ensure dist exists after build
     assetsDir: 'assets', // ✅ Used for bundled assets
   },
-  base: '/',
+  base: '/no-dog-left-behind/',
 })

@@ -11,7 +11,7 @@ import Notification from './components/Notification/Notification.jsx'
 import Dashboard from './components/Dashboard/Dashboard.jsx'
 
 function App() {
-  const { notifications, toggleNotification } = useNotification()
+  const { toggleNotifications, notifications } = useNotification()
 
   return (
     <div id="app-container">
@@ -32,20 +32,14 @@ function App() {
 
       <hr className="horizontal-ruler-default" />
 
-      {/* Toggle buttons for hidden notifications */}
-      {notifications
-        .filter((n) => !n.visible)
-        .map((notification) => (
           <Button
-            key={notification._id}
             variant="secondary"
             size="sm"
-            onClick={() => toggleNotification(notification._id)}
+            onClick={toggleNotifications}
             className="mb-2"
           >
-            Show "{notification.headerText}" Notification
+            {notifications && notifications.every((notification) => notification.visible) ? 'Hide Notifications' : 'Show Notifications'}
           </Button>
-        ))}
 
       {/* Render visible notifications */}
       <Notification />

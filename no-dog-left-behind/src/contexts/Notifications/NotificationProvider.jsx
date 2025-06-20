@@ -60,7 +60,7 @@ export const NotificationProvider = ({ children }) => {
   }
 
   const deleteNotification = (id) => {
-    setNotifications((prev) => prev.filter((n) => n._id !== id))
+    setNotifications((prev) => prev.filter((n) => n._id !== id));
   }
 
   const addNotification = ({

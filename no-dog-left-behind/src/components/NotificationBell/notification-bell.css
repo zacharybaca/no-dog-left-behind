@@ -2,3 +2,7 @@ img {
   width: 20%;
   height: 20%;
 }
+
+img:hover {
+  cursor: url('/assets/select-cursor-image.png'), pointer;
+}

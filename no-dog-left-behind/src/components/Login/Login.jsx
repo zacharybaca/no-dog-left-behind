@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button'
 import { useAuth } from '../../hooks/useAuth'
 
 const Login = () => {
-  const { error, success, handleChange, handleSubmit } = useAuth()
+  const { error, success, handleChange, handleSubmit, login, userInfo } = useAuth()
 
   const [loading, setLoading] = useState(false)
 
@@ -22,7 +22,10 @@ const Login = () => {
     }
   }, [loading])
 
-  const handleClick = () => setLoading(true)
+  const handleClick = () => {
+    setLoading(true);
+    login(userInfo.name, userInfo.email);
+  }
 
   return (
     <div className="login-container">

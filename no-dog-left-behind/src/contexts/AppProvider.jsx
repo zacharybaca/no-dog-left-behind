@@ -7,13 +7,13 @@ import { MenuOptionsProvider } from './MenuOptions/MenuOptionsProvider.jsx'
 export const AppProviders = ({ children }) => {
   return (
     <Router>
-      <AuthProvider>
-        <MenuOptionsProvider>
-          <DogSearchProvider>
-            <NotificationProvider>{children}</NotificationProvider>
-          </DogSearchProvider>
-        </MenuOptionsProvider>
-      </AuthProvider>
+      <NotificationProvider>
+        <AuthProvider>
+          <MenuOptionsProvider>
+            <DogSearchProvider>{children}</DogSearchProvider>
+          </MenuOptionsProvider>
+        </AuthProvider>
+      </NotificationProvider>
     </Router>
   )
 }

@@ -19,8 +19,6 @@ const SwipeableToast = ({ notification, calculateElapsedMinutes }) => {
       show={notification.visible}
       onClose={() => toggleNotification(notification._id)}
       bg={notification.variantTheme}
-      delay={3000}
-      autohide
     >
       <Toast.Header closeButton>
         <img

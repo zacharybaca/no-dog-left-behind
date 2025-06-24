@@ -106,20 +106,20 @@ Check out the live app here: [No Dog Left Behind Demo](https://no-dog-left-behin
 
 ## Known Issues
 
-- Some dog breed images may load slowly on slower internet connections due to reliance on external API resources.  
-- Currently, the app supports login for existing Fetch Rewards accounts only; user registration and password reset flows are not implemented.  
-- Favorites are stored locally in the browser and do not persist across devices or sessions.  
+- Some dog breed images may load slowly on slower internet connections due to reliance on external API resources.
+- Currently, the app supports login for existing Fetch Rewards accounts only; user registration and password reset flows are not implemented.
+- Favorites are stored locally in the browser and do not persist across devices or sessions.
 - Accessibility improvements, such as enhanced keyboard navigation and screen reader support, are planned but not yet fully implemented.
 
 ---
 
 ## Future Improvements
 
-- Implement user registration and password recovery functionality to support a wider user base.  
-- Add advanced breed filters (e.g., size, temperament, energy level) to improve user search experience.  
-- Integrate backend persistence for user favorites and settings to allow cross-device access.  
-- Enhance accessibility compliance to meet WCAG guidelines, improving usability for all users.  
-- Add automated testing to improve code quality and reliability.  
+- Implement user registration and password recovery functionality to support a wider user base.
+- Add advanced breed filters (e.g., size, temperament, energy level) to improve user search experience.
+- Integrate backend persistence for user favorites and settings to allow cross-device access.
+- Enhance accessibility compliance to meet WCAG guidelines, improving usability for all users.
+- Add automated testing to improve code quality and reliability.
 - Optimize image loading with lazy loading techniques and caching strategies.
 
 ---
@@ -128,7 +128,7 @@ Check out the live app here: [No Dog Left Behind Demo](https://no-dog-left-behin
 
 All data for dogs and locations is served through the [Fetch Rewards Take-Home Service API](https://frontend-take-home-service.fetch.com).
 
-**Base URL:**  
+**Base URL:**
 `https://frontend-take-home-service.fetch.com`
 
 ---
@@ -144,12 +144,12 @@ To access protected endpoints, you must first log in.
 Logs in the user and issues an `HttpOnly` cookie for authentication.
 
 **Request Body:**
+
 ```json
 {
   "name": "Jane Doe",
   "email": "jane@example.com"
 }
-
 ```
 
 Response:
@@ -168,25 +168,49 @@ Response:
 
 Returns a list of all avilable dog breeds.
 
-Response Example: 
-```
+Response Example:
+interface Dog {
+id: string
+img: string
+name: string
+age: number
+zip_code: string
+breed: string
+}
+
+interface Location {
+zip_code: string
+latitude: number
+longitude: number
+city: string
+state: string
+county: string
+}
+
+interface Coordinates {
+lat: number
+lon: number
+}
+
+```json
 ["Labrador", "Golden Retriever", "Pug", ...]
-
 ```
 
-#### `GET /dogs/search`
+### `GET /dogs/search`
 
 Search for dogs with filtering and pagination options.
 
-#### Query Parameters (optional):
-  - breeds: array of breed names
-  - zipCodes: array of ZIP codes
-  - ageMin / ageMax: numberic values
-  - sort: breed, name, or age, with direction (asc or desc)
-  - size: number of results (default: 25)
-  - from: pagination cursor
+#### Query Parameters (optional)
 
-Response Example: 
+- breeds: array of breed names
+- zipCodes: array of ZIP codes
+- ageMin / ageMax: numberic values
+- sort: breed, name, or age, with direction (asc or desc)
+- size: number of results (default: 25)
+- from: pagination cursor
+
+Response Example:
+
 ```json
 
 {
@@ -200,93 +224,97 @@ Response Example:
 
 #### `POST /dogs`
 
-Request Body: 
+Request Body:
 Fetch detailed dog info for a list of up to 100 dog IDs.
 
 Request Body
-``` ["dog1", "dog2", "dog3"] ```
+`["dog1", "dog2", "dog3"]`
 Response:
-``` Dog[] ```
+`Dog[]`
 
 #### `POST /dogs/match`
 
 Request a matched dog from a list of dog IDs.
 
 Request Body
-``` ["dog1", "dog2", "dog3"] ```
+`["dog1", "dog2", "dog3"]`
 Response
-    ```json {
+`json {
       "match": "dog2"
     }
-    ```
-    
-## 📍 Location Endpoints
+    `
 
-#### `POST /locations`
+## 📍Location Endpoints
+
+### `POST /locations`
 
 Returns location info for up to 100 ZIP codes.
 
 Request Body
-  - ``` ["60601", "90210"] ```
-Response
-  - ``` Location[] ```
+
+- `["60601", "90210"]`
+  Response
+- `Location[]`
 
 #### `POST /locations/search`
 
 Search ZIP codes using city, state, or geographic bounding box.
 
 Request Body (any combination)
-  ```json {
-    "city": "Chicago",
-    "states": ["IL"],
-    "geoBoundingBox": {
-      "top": 42.0,
-      "left": -88.0,
-      "bottom": 41.0,
-      "right": -87.0
-    },
-    "size": 10
+
+```json {
+  "city": "Chicago",
+  "states": ["IL"],
+  "geoBoundingBox": {
+    "top": 42.0,
+    "left": -88.0,
+    "bottom": 41.0,
+    "right": -87.0
+  },
+  "size": 10
+}
+```
+
+Response
+
+````json {
+"results": [ ...Location[] ],
+"total": 134
 }
   ```
 
-Response
-  ```json {
-  "results": [ ...Location[] ],
-  "total": 134
-  }
-    ```
-
 ## 📦 Data Models
 
-```
+```bash
+
 interface Dog {
-  id: string
-  img: string
-  name: string
-  age: number
-  zip_code: string
-  breed: string
+id: string
+img: string
+name: string
+age: number
+zip_code: string
+breed: string
 }
 
 interface Location {
-  zip_code: string
-  latitude: number
-  longitude: number
-  city: string
-  state: string
-  county: string
+zip_code: string
+latitude: number
+longitude: number
+city: string
+state: string
+county: string
 }
 
 interface Coordinates {
-  lat: number
-  lon: number
+lat: number
+lon: number
 }
 
-```
+````
 
 ## ⚙️ Usage Notes
 
-```
+```bash
 
 fetch(url, {
   method: 'GET' | 'POST',
@@ -305,7 +333,7 @@ This project currently does not include automated tests. Manual testing was cond
 
 ## Contact
 
-Created by Zachary Baca  
+Created by Zachary Baca
 [GitHub](https://github.com/zacharybaca) | [LinkedIn](https://www.linkedin.com/in/zacharyjordanbaca) | [Portfolio](https://www.zachary-baca.dev)
 
 ## License

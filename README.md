@@ -217,14 +217,12 @@ Search for dogs with filtering and pagination options.
 Response Example:
 
 ```json
-
 {
   "resultIds": ["dog1", "dog2"],
   "total": 143,
   "next": "",
   "prev": ""
 }
-
 ```
 
 #### `POST /dogs`
@@ -263,11 +261,9 @@ Request Body
 Response
 
 ```json
-
-    {
-      "match": "dog2"
-    }
-    
+{
+  "match": "dog2"
+}
 ```
 
 ## 📍Location Endpoints
@@ -299,8 +295,7 @@ Search ZIP codes using city, state, or geographic bounding box.
 Request Body (any combination)
 
 ```json
-
-  {
+{
   "city": "Chicago",
   "states": ["IL"],
   "geoBoundingBox": {
@@ -310,20 +305,18 @@ Request Body (any combination)
     "right": -87.0
   },
   "size": 10
-  }
-
+}
 ```
 
 Response
 
-````json
-
-  {
+```json
+{
   "results": [[]],
   "total": "134"
-  }
+}
+```
 
-  
 ## 📦Data Models
 
 ```ts
@@ -349,21 +342,19 @@ interface Coordinates {
   lat: number;
   lon: number;
 }
-
 ```
 
 ## ⚙️Usage Notes
 
 ```ts
 fetch(url, {
-  method: 'GET' | 'POST',
-  credentials: 'include',
+  method: "GET" | "POST",
+  credentials: "include",
   headers: {
-    'Content-Type': 'application/json'
+    "Content-Type": "application/json",
   },
-  body: JSON.stringify({ key: 'value' }) // example payload
+  body: JSON.stringify({ key: "value" }), // example payload
 });
-
 ```
 
 ## Testing

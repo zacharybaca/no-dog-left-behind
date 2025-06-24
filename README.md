@@ -124,6 +124,181 @@ Check out the live app here: [No Dog Left Behind Demo](https://no-dog-left-behin
 
 ---
 
+## 🔌 API Reference
+
+All data for dogs and locations is served through the [Fetch Rewards Take-Home Service API](https://frontend-take-home-service.fetch.com).
+
+**Base URL:**  
+`https://frontend-take-home-service.fetch.com`
+
+---
+
+### 🔐 Authentication
+
+To access protected endpoints, you must first log in.
+
+---
+
+### `POST /auth/login`
+
+Logs in the user and issues an `HttpOnly` cookie for authentication.
+
+**Request Body:**
+```json
+{
+  "name": "Jane Doe",
+  "email": "jane@example.com"
+}
+
+```
+
+Response:
+200 OK
+
+The response includes a fetch-access-token cookie (HttpOnly, 1-hour expiration) which is automatically included in subsequent requests when credentials: 'include' is set.
+
+### `POST /auth/logout`
+
+Logs the user out and invalidates the session cookie.
+
+Response:
+200 OK
+
+## 🐶 Dog Endpoints
+
+Returns a list of all avilable dog breeds.
+
+Response Example: 
+```
+["Labrador", "Golden Retriever", "Pug", ...]
+
+```
+
+#### `GET /dogs/search`
+
+Search for dogs with filtering and pagination options.
+
+#### Query Parameters (optional):
+  - breeds: array of breed names
+  - zipCodes: array of ZIP codes
+  - ageMin / ageMax: numberic values
+  - sort: breed, name, or age, with direction (asc or desc)
+  - size: number of results (default: 25)
+  - from: pagination cursor
+
+Response Example: 
+```json
+
+{
+  "resultIds": ["dog1", "dog2", ...],
+  "total": 143,
+  "next": "...",
+  "prev": "..."
+}
+
+```
+
+#### `POST /dogs`
+
+Request Body: 
+Fetch detailed dog info for a list of up to 100 dog IDs.
+
+Request Body
+``` ["dog1", "dog2", "dog3"] ```
+Response:
+``` Dog[] ```
+
+#### `POST /dogs/match`
+
+Request a matched dog from a list of dog IDs.
+
+Request Body
+``` ["dog1", "dog2", "dog3"] ```
+Response
+    ```json {
+      "match": "dog2"
+    }
+    ```
+    
+## 📍 Location Endpoints
+
+#### `POST /locations`
+
+Returns location info for up to 100 ZIP codes.
+
+Request Body
+  - ``` ["60601", "90210"] ```
+Response
+  - ``` Location[] ```
+
+#### `POST /locations/search`
+
+Search ZIP codes using city, state, or geographic bounding box.
+
+Request Body (any combination)
+  ```json {
+    "city": "Chicago",
+    "states": ["IL"],
+    "geoBoundingBox": {
+      "top": 42.0,
+      "left": -88.0,
+      "bottom": 41.0,
+      "right": -87.0
+    },
+    "size": 10
+}
+  ```
+
+Response
+  ```json {
+  "results": [ ...Location[] ],
+  "total": 134
+  }
+    ```
+
+## 📦 Data Models
+
+```
+interface Dog {
+  id: string
+  img: string
+  name: string
+  age: number
+  zip_code: string
+  breed: string
+}
+
+interface Location {
+  zip_code: string
+  latitude: number
+  longitude: number
+  city: string
+  state: string
+  county: string
+}
+
+interface Coordinates {
+  lat: number
+  lon: number
+}
+
+```
+
+## ⚙️ Usage Notes
+
+```
+
+fetch(url, {
+  method: 'GET' | 'POST',
+  credentials: 'include',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(...)
+});
+
+```
+
 ## Testing
 
 This project currently does not include automated tests. Manual testing was conducted on multiple browsers and devices to verify core functionality and responsive design.

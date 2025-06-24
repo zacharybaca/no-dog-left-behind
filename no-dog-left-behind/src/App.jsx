@@ -1,4 +1,5 @@
 import './App.css'
+import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 import { useNotification } from './hooks/useNotification'
@@ -11,42 +12,53 @@ import Notification from './components/Notification/Notification.jsx'
 import Dashboard from './components/Dashboard/Dashboard.jsx'
 
 function App() {
+  const loadingDiv = document.getElementById('loader');
   const { toggleNotifications, notifications } = useNotification()
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+      loadingDiv.style.display = 'none';
+    }, 5000);
+  }, []);
 
   return (
-    <div id="app-container">
-      <Navbar />
-      <img
-        src="/assets/no-dog-left-behind-hero-image.png"
-        alt="hero image branding"
-        className="application-logo"
-      />
-      <HeroSection />
-      <hr className="horizontal-ruler-default" />
+    !loading && (
+      < div id="app-container" >
+        <Navbar />
+        <img
+          src="/assets/no-dog-left-behind-hero-image.png"
+          alt="hero image branding"
+          className="application-logo"
+        />
+        <HeroSection />
+        <hr className="horizontal-ruler-default" />
 
-      <Routes basename="/">
-        <Route exact path="/" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
+        <Routes basename="/">
+          <Route exact path="/" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
 
-      <hr className="horizontal-ruler-default" />
+        <hr className="horizontal-ruler-default" />
 
-          <Button
-            variant="secondary"
-            size="sm"
-            onClick={toggleNotifications}
-            className="mb-2"
-          >
-            {notifications && notifications.every((notification) => notification.visible) ? 'Hide Notifications' : 'Show Notifications'}
-          </Button>
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={toggleNotifications}
+          className="mb-2"
+        >
+          {notifications && notifications.every((notification) => notification.visible) ? 'Hide Notifications' : 'Show Notifications'}
+        </Button>
 
-      {/* Render visible notifications */}
-      <Notification />
+        {/* Render visible notifications */}
+        <Notification />
 
-      <hr className="horizontal-ruler-default" />
-      <Footer />
-    </div>
+        <hr className="horizontal-ruler-default" />
+        <Footer />
+      </div >
+    )
   )
 }
 

@@ -169,6 +169,9 @@ Response:
 Returns a list of all avilable dog breeds.
 
 Response Example:
+
+```bash
+
 interface Dog {
 id: string
 img: string
@@ -192,7 +195,9 @@ lat: number
 lon: number
 }
 
-```json
+```
+
+```bash
 ["Labrador", "Golden Retriever", "Pug", ...]
 ```
 
@@ -214,10 +219,10 @@ Response Example:
 ```json
 
 {
-  "resultIds": ["dog1", "dog2", ...],
+  "resultIds": ["dog1", "dog2"],
   "total": 143,
-  "next": "...",
-  "prev": "..."
+  "next": "",
+  "prev": ""
 }
 
 ```
@@ -227,22 +232,43 @@ Response Example:
 Request Body:
 Fetch detailed dog info for a list of up to 100 dog IDs.
 
-Request Body
+Response Body
+
+```bash
+
 `["dog1", "dog2", "dog3"]`
+
+```
+
 Response:
+
+```bash
+
 `Dog[]`
+
+```
 
 #### `POST /dogs/match`
 
 Request a matched dog from a list of dog IDs.
 
 Request Body
+
+```bash
+
 `["dog1", "dog2", "dog3"]`
+
+```
+
 Response
-`json {
+
+```json
+
+    {
       "match": "dog2"
     }
-    `
+    
+```
 
 ## 📍Location Endpoints
 
@@ -252,9 +278,19 @@ Returns location info for up to 100 ZIP codes.
 
 Request Body
 
-- `["60601", "90210"]`
-  Response
-- `Location[]`
+```bash
+
+`["60601", "90210"]`
+
+```
+
+Response
+
+```bash
+
+`Location[]`
+
+```
 
 #### `POST /locations/search`
 
@@ -262,7 +298,9 @@ Search ZIP codes using city, state, or geographic bounding box.
 
 Request Body (any combination)
 
-```json {
+```json
+
+  {
   "city": "Chicago",
   "states": ["IL"],
   "geoBoundingBox": {
@@ -272,57 +310,58 @@ Request Body (any combination)
     "right": -87.0
   },
   "size": 10
-}
+  }
+
 ```
 
 Response
 
-````json {
-"results": [ ...Location[] ],
-"total": 134
-}
-  ```
+````json
 
-## 📦 Data Models
+  {
+  "results": [[]],
+  "total": "134"
+  }
 
-```bash
+  
+## 📦Data Models
 
+```ts
 interface Dog {
-id: string
-img: string
-name: string
-age: number
-zip_code: string
-breed: string
+  id: string;
+  img: string;
+  name: string;
+  age: number;
+  zip_code: string;
+  breed: string;
 }
 
 interface Location {
-zip_code: string
-latitude: number
-longitude: number
-city: string
-state: string
-county: string
+  zip_code: string;
+  latitude: number;
+  longitude: number;
+  city: string;
+  state: string;
+  county: string;
 }
 
 interface Coordinates {
-lat: number
-lon: number
+  lat: number;
+  lon: number;
 }
 
-````
+```
 
-## ⚙️ Usage Notes
+## ⚙️Usage Notes
 
-```bash
-
+```ts
 fetch(url, {
   method: 'GET' | 'POST',
   credentials: 'include',
   headers: {
     'Content-Type': 'application/json'
   },
-  body: JSON.stringify(...)
+  body: JSON.stringify({ key: 'value' }) // example payload
 });
 
 ```

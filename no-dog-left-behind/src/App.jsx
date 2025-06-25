@@ -10,22 +10,22 @@ import Footer from './components/Footer/Footer.jsx'
 import PageNotFound from './components/PageNotFound/PageNotFound.jsx'
 import Notification from './components/Notification/Notification.jsx'
 import Dashboard from './components/Dashboard/Dashboard.jsx'
+import LoadingScreen from './components/LoadingScreen/LoadingScreen.jsx';
 
 function App() {
-  const loadingDiv = document.getElementById('loader');
   const { toggleNotifications, notifications } = useNotification()
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-      loadingDiv.style.display = 'none';
+
     }, 5000);
   }, []);
 
   return (
-    !loading && (
-      < div id="app-container" >
+    !loading ? (
+      <div id="app-container">
         <Navbar />
         <img
           src="/assets/no-dog-left-behind-hero-image.png"
@@ -57,9 +57,9 @@ function App() {
 
         <hr className="horizontal-ruler-default" />
         <Footer />
-      </div >
-    )
-  )
+      </div>
+    ) : <LoadingScreen />
+  );
 }
 
 export default App

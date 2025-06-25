@@ -5,7 +5,7 @@ const Dashboard = () => {
   const { dogIds, dogs, fetchDogs, nextQuery, prevQuery, goToNextPage, goToPrevPage, isLoading } =
     useDogSearch()
 
-  console.log('Dogs: ', dogs)
+  console.log('Dogs: ', dogIds)
 
   return (
     <div className="pagination-controls">

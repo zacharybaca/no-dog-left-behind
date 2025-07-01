@@ -10,7 +10,7 @@ export const NotificationProvider = ({ children }) => {
       headerText: 'Success',
       bodyText: 'You Have Successfully Logged In!',
       variantTheme: 'success',
-      imgURL: "/assets/success-image.png",
+      imgURL: "/assets/success.png",
       customTheme: '.toast-success',
       timestamp: Date.now(),
       visible: true,
@@ -20,8 +20,28 @@ export const NotificationProvider = ({ children }) => {
       headerText: 'Log-In Failed!',
       bodyText: 'We Were Unable to Log You Into the System.',
       variantTheme: 'danger',
-      imgURL: "/assets/error-image.png",
+      imgURL: "/assets/error.jpg",
       customTheme: '.toast-error',
+      timestamp: Date.now(),
+      visible: true,
+    },
+    {
+      _id: uuidv4(),
+      headerText: 'Info',
+      bodyText: 'This is some important information.',
+      variantTheme: 'info',
+      imgURL: "/assets/information.jpg",
+      customTheme: '.toast-info',
+      timestamp: Date.now(),
+      visible: true,
+    },
+    {
+      _id: uuidv4(),
+      headerText: 'Warning',
+      bodyText: 'This is a warning!',
+      variantTheme: 'warning',
+      imgURL: "/assets/warning.jpg",
+      customTheme: '.toast-warm',
       timestamp: Date.now(),
       visible: true,
     },
@@ -84,13 +104,13 @@ export const NotificationProvider = ({ children }) => {
   }
 
   const toggleNotifications = () => {
-  setNotifications((prev) =>
-    prev.map((notification) => ({
-      ...notification,
-      visible: !notification.visible,
-    }))
-  );
-};
+    setNotifications((prev) =>
+      prev.map((notification) => ({
+        ...notification,
+        visible: !notification.visible,
+      }))
+    );
+  };
 
   return (
     <NotificationContext.Provider

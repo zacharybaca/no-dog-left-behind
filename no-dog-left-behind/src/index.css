@@ -3,6 +3,26 @@
 @import './hover.css';
 @import url('https://fonts.googleapis.com/css2?family=Delius+Unicase:wght@400;700&display=swap');
 
+/* ==========================================================================
+   Bootstrap Button Variants Reference
+   ==========================================================================
+
+   <Button variant="primary">Primary</Button>
+   <Button variant="secondary">Secondary</Button>
+   <Button variant="success">Success</Button>
+   <Button variant="warning">Warning</Button>
+   <Button variant="danger">Danger</Button>
+   <Button variant="info">Info</Button>
+   <Button variant="light">Light</Button>
+   <Button variant="dark">Dark</Button>
+   <Button variant="link">Link</Button>
+
+   Use these variants with Bootstrap's .btn classes:
+   Example:
+   <button class="btn btn-primary">Primary</button>
+
+   ========================================================================== */
+
 /* ================================
    Base Reset + Accessibility
 ================================= */

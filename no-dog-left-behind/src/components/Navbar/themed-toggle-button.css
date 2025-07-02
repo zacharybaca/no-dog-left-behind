@@ -10,8 +10,8 @@
 }
 
 .themed-hamburger img {
-  width: 82px;
-  height: 61px;
+  width: 88px;
+  height: 69px;
 }
 
 .bar {
@@ -45,7 +45,14 @@
 
 @media screen and (max-width: 390px) {
   .themed-hamburger img {
-    width: 65px;
-    height: 62px;
+    width: 68px;
+    height: 57px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .themed-hamburger img {
+    width: 85px;
+    height: 61px;
   }
 }

@@ -20,7 +20,7 @@ const SwipeableToast = ({ notification, calculateElapsedMinutes }) => {
       onClose={() => toggleNotification(notification._id)}
       bg={notification.variantTheme}
       delay={3000}
-      autohide
+      
     >
       <Toast.Header closeButton>
         <img
@@ -38,7 +38,9 @@ const SwipeableToast = ({ notification, calculateElapsedMinutes }) => {
       <Toast.Body className={notification.variantTheme && 'text-white'}>
         {notification.bodyText}
       </Toast.Body>
-      <Button variant="danger" id="delete-button" onClick={() => deleteNotification(notification._id)}>Delete</Button>
+      <div id="delete-notification-button-container">
+            <Button variant="danger" id="delete-button" onClick={() => deleteNotification(notification._id)}>Delete</Button>
+      </div>
     </Toast>
   )
 }

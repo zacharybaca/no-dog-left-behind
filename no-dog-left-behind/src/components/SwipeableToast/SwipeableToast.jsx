@@ -31,7 +31,7 @@ const SwipeableToast = ({ notification, calculateElapsedHoursAndMinutes }) => {
         <strong className="me-auto">{notification.headerText}</strong>
         <small className="text-muted">
           {notification.timestamp
-            ? `${calculateElapsedHoursAndMinutes(notification.timestamp)} minute(s) ago`
+            ? `${calculateElapsedHoursAndMinutes(notification.timestamp).hours} hour(s) and ${calculateElapsedHoursAndMinutes(notification.timestamp).minutes} minute(s) ago`
             : 'just now'}
         </small>
       </Toast.Header>

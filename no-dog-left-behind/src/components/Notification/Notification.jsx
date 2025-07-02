@@ -5,7 +5,7 @@ import { useNotification } from '../../hooks/useNotification.js'
 import SwipeableToast from '../SwipeableToast/SwipeableToast.jsx'
 
 const Notification = () => {
-  const { showNotification, calculateElapsedMinutes, notifications } = useNotification()
+  const { showNotification, calculateElapsedHoursAndMinutes, notifications } = useNotification()
 
   return (
     <div id="notifications-container">
@@ -19,7 +19,7 @@ const Notification = () => {
             >
               <SwipeableToast
                 notification={notification}
-                calculateElapsedMinutes={calculateElapsedMinutes}
+                calculateElapsedHoursAndMinutes={calculateElapsedHoursAndMinutes}
               />
             </div>
           ))}

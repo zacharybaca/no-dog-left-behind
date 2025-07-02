@@ -73,11 +73,16 @@ export const NotificationProvider = ({ children }) => {
     setNotifications((prev) => prev.filter((n) => n._id !== id))
   }
 
-  const calculateElapsedMinutes = (createdTimestamp) => {
-    const now = Date.now()
-    const elapsedTime = now - createdTimestamp
-    return Math.floor(elapsedTime / 60000)
-  }
+  const calculateElapsedHoursAndMinutes = (createdTimestamp) => {
+  const now = Date.now();
+  const elapsedMs = now - createdTimestamp;
+
+  const totalMinutes = Math.floor(elapsedMs / 60000); // 1 minute = 60,000 ms
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+
+  return { hours, minutes };
+};
 
   const deleteNotification = (id) => {
     setNotifications((prev) => prev.filter((n) => n._id !== id));
@@ -118,7 +123,7 @@ export const NotificationProvider = ({ children }) => {
         showNotification,
         setShowNotification,
         toggleNotification,
-        calculateElapsedMinutes,
+        calculateElapsedHoursAndMinutes,
         elapsedMinutes,
         setElapsedMinutes,
         notifications,

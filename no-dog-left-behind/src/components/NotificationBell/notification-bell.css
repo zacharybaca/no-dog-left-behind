@@ -6,3 +6,10 @@ img {
 img:hover {
   cursor: url('/assets/select-cursor-image.png'), pointer;
 }
+
+@media screen and (max-width: 390px) {
+  img {
+    width: 35%;
+    height: 35%;
+  }
+}

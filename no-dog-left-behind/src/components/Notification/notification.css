@@ -64,12 +64,26 @@
 
 @media (max-width: 768px) {
   #notifications-container {
-    top: 1rem;
+    top: 4.5rem;
     bottom: auto;
     left: 50%;
     right: auto;
     transform: translateX(-50%);
     width: 90vw;
     max-width: 360px;
+    max-height: 40vh;
+  }
+
+  @media (max-width: 390px) {
+    #notifications-container {
+      top: 5rem;
+      bottom: auto;
+      left: 50%;
+      right: auto;
+      transform: translateX(-50%);
+      width: 90vw;
+      max-width: 360px;
+      max-height: 40vh;
+    }
   }
 }

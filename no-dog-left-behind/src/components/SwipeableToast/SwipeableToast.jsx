@@ -3,7 +3,7 @@ import { Toast, Button } from 'react-bootstrap'
 import { useSwipeable } from 'react-swipeable'
 import { useNotification } from '../../hooks/useNotification'
 
-const SwipeableToast = ({ notification, calculateElapsedMinutes }) => {
+const SwipeableToast = ({ notification, calculateElapsedHoursAndMinutes }) => {
   const { toggleNotification, deleteNotification } = useNotification()
 
   const swipeHandlers = useSwipeable({
@@ -31,7 +31,7 @@ const SwipeableToast = ({ notification, calculateElapsedMinutes }) => {
         <strong className="me-auto">{notification.headerText}</strong>
         <small className="text-muted">
           {notification.timestamp
-            ? `${calculateElapsedMinutes(notification.timestamp)} minute(s) ago`
+            ? `${calculateElapsedHoursAndMinutes(notification.timestamp)} minute(s) ago`
             : 'just now'}
         </small>
       </Toast.Header>

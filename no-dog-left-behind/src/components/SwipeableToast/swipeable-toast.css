@@ -1,3 +1,7 @@
 #delete-notification-button-container {
     padding-bottom: 1rem;
 }
+
+#delete-button:hover {
+    cursor: url('/assets/select-cursor-image.png'), pointer;
+}

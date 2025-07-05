@@ -13,7 +13,10 @@ export const DogSearchProvider = ({ children }) => {
   const fetchDogs = async (query = '') => {
     setIsLoading(true)
     try {
-      const response = await fetch(`${baseUrl}/dogs/search${query}`)
+      const response = await fetch(`${baseUrl}/dogs/search${query}`, {
+        method: 'GET',
+        credentials: 'include',
+      });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }

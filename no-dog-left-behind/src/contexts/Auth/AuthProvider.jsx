@@ -2,11 +2,13 @@ import { AuthContext } from './AuthContext';
 import { useNotification } from '../../hooks/useNotification';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useFetcher } from '../../hooks/useFetcher';
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 export const AuthProvider = ({ children }) => {
   const { addNotification } = useNotification();
+  const { fetcher } = useFetcher();
   const navigate = useNavigate();
 
   const [userInfo, setUserInfo] = useState({
@@ -18,62 +20,57 @@ export const AuthProvider = ({ children }) => {
   const [success, setSuccess] = useState(false);
 
   const login = async (name, email) => {
-    try {
-      if (!name || !email) {
-        throw new Error('Please enter both your name and e-mail address.');
-      }
-
-      const res = await fetch(`${baseUrl}/auth/login`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, email }),
-      });
-
-      if (!res.ok) {
-        const { message } = await res.json();
-        const errorMessage = message || 'Login failed.';
-        setError(errorMessage);
-        addNotification('Login Failed', errorMessage, '', 'danger');
-        return { success: false, error: errorMessage };
-      }
-
-      setSuccess(true);
-      setUserInfo({ name, email });
-      addNotification('Login Successful', 'You have successfully logged in.', '', 'success');
-      return { success: true };
-    } catch (err) {
-      console.error('Login Error:', err.message);
-      const fallbackError = err.message || 'Something went wrong during login.';
+    if (!name || !email) {
+      const fallbackError = 'Please enter both your name and e-mail address.';
       setError(fallbackError);
-      setSuccess(false);
       addNotification('Login Error', fallbackError, '', 'danger');
       return { success: false, error: fallbackError };
+    }
+
+    const res = await fetcher(`${baseUrl}/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name, email }),
+    });
+
+    if (res.success) {
+      setSuccess(true);
+      setUserInfo({ name, email });
+      addNotification(
+        'Login Successful',
+        'You have successfully logged in.',
+        '',
+        'success'
+      );
+      return { success: true };
+    } else {
+      setError(res.error);
+      setSuccess(false);
+      addNotification('Login Error', res.error, '', 'danger');
+      return { success: false, error: res.error };
     }
   };
 
   const logout = async () => {
-    try {
-      const res = await fetch(`${baseUrl}/auth/logout`, {
-        method: 'POST',
-        credentials: 'include',
-      });
+    const res = await fetcher(`${baseUrl}/auth/logout`, {
+      method: 'POST',
+    });
 
-      if (!res.ok) {
-        addNotification('Logout Failed', 'We were unable to log you out.', '', 'danger');
-        return { success: false };
-      }
-
+    if (res.success) {
       setUserInfo({ name: '', email: '' });
       setSuccess(false);
-      addNotification('Logout Successful', 'You have been logged out.', '', 'success');
+      addNotification(
+        'Logout Successful',
+        'You have been logged out.',
+        '',
+        'success'
+      );
       return { success: true };
-    } catch (err) {
-      console.error('Logout Error:', err.message);
-      addNotification('Logout Error', err.message, '', 'danger');
-      return { success: false };
+    } else {
+      addNotification('Logout Error', res.error, '', 'danger');
+      return { success: false, error: res.error };
     }
   };
 
@@ -89,7 +86,6 @@ export const AuthProvider = ({ children }) => {
     if (result.success) {
       navigate('/dashboard');
     }
-    // No need to duplicate notifications here — login handles that
   };
 
   return (
@@ -97,6 +93,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         userInfo,
         error,
+        setError,
         success,
         login,
         logout,

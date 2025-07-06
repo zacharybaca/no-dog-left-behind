@@ -1,9 +1,7 @@
 import { FetcherContext } from './FetcherContext.jsx';
-import { useAuth } from '../../hooks/useAuth.js';
 import { useNotification } from '../../hooks/useNotification.js';
 
 export const FetcherProvider = ({ children }) => {
-    const { setError } = useAuth();
     const { addNotification } = useNotification();
 
     const fetcher = async (url, options = {}, fallbackError = 'An error occurred.') => {
@@ -24,7 +22,6 @@ export const FetcherProvider = ({ children }) => {
             }
             const errorMessage = message || fallbackError;
 
-            setError(errorMessage);
             addNotification('Error', errorMessage, '', 'danger');
 
             return { success: false, error: errorMessage };
@@ -35,9 +32,7 @@ export const FetcherProvider = ({ children }) => {
     };
 
     return (
-        <FetcherContext.Provider value={{
-            fetcher
-        }}>
+        <FetcherContext.Provider value={{ fetcher }}>
             {children}
         </FetcherContext.Provider>
     );

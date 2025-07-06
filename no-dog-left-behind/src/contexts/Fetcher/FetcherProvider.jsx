@@ -1,6 +1,6 @@
-import { FetcherContext } from './FetcherContext';
-import { useAuth } from '../hooks/useAuth.js';
-import { useNotification } from '../hooks/useNotification.js';
+import { FetcherContext } from './FetcherContext.jsx';
+import { useAuth } from '../../hooks/useAuth.js';
+import { useNotification } from '../../hooks/useNotification.js';
 
 export const FetcherProvider = ({ children }) => {
     const { setError } = useAuth();

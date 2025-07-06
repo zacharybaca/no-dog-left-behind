@@ -9,14 +9,17 @@ export const AppProviders = ({ children }) => {
   return (
     <Router>
       <NotificationProvider>
-        <FetcherProvider>
-          <AuthProvider>
+        <AuthProvider>
+          <FetcherProvider>
             <MenuOptionsProvider>
-              <DogSearchProvider>{children}</DogSearchProvider>
+              <DogSearchProvider>
+                {children}
+              </DogSearchProvider>
             </MenuOptionsProvider>
-          </AuthProvider>
-        </FetcherProvider>
+          </FetcherProvider>
+        </AuthProvider>
       </NotificationProvider>
     </Router>
-  )
-}
+
+  );
+};

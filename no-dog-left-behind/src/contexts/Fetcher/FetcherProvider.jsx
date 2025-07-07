@@ -20,11 +20,20 @@ export const FetcherProvider = ({ children }) => {
             } catch {
                 message = fallbackError;
             }
+
             const errorMessage = message || fallbackError;
 
-            addNotification('Error', errorMessage, '', 'danger');
+            // Optionally check for auth failure
+            if (response.status === 401) {
+                addNotification(
+                    'User Not Authenticated',
+                    'User is Not Authorized to Access This Content',
+                    '',
+                    'danger',
+                );
+            }
 
-            return { success: false, error: errorMessage };
+            return { success: false, error: errorMessage, status: response.status };
         }
 
         const data = await response.json();

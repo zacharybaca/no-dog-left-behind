@@ -1,5 +1,6 @@
 import { DogSearchContext } from './DogSearchContext'
 import { useState, useEffect } from 'react'
+import { useFetcher } from '../../hooks/useFetcher'
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL
 
@@ -9,17 +10,15 @@ export const DogSearchProvider = ({ children }) => {
   const [nextQuery, setNextQuery] = useState(null)
   const [prevQuery, setPrevQuery] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
+  const { fetcher } = useFetcher()
 
   const fetchDogs = async (query = '') => {
     setIsLoading(true)
     try {
-      const response = await fetch(`${baseUrl}/dogs/search${query}`, {
+      const res = await fetcher(`${baseUrl}/dogs/search${query}`, {
         method: 'GET',
-        credentials: 'include',
       });
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      }
+
       const data = await response.json()
       setDogIds(data.resultIds || [])
       setNextQuery(data.next || null)
@@ -40,15 +39,11 @@ export const DogSearchProvider = ({ children }) => {
 
     const fetchDogDetails = async () => {
       try {
-        const response = await fetch(`${baseUrl}/dogs`, {
+        const res = await fetcher(`${baseUrl}/dogs`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ ids: dogIds }),
-        })
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
-        }
+        });
 
         const data = await response.json()
         setDogs(data)
@@ -77,7 +72,7 @@ export const DogSearchProvider = ({ children }) => {
         prevQuery,
         goToNextPage,
         goToPrevPage,
-        isLoading,
+        isLoading
       }}
     >
       {children}

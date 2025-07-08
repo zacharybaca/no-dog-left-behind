@@ -1,8 +1,8 @@
 import './notification-bell.css'
-import { useNotification } from '../../hooks/useNotification';
+import { useNotification } from '../../hooks/useNotification'
 
 const NotificationBell = () => {
-  const { toggleNotifications, notifications } = useNotification();
+  const { toggleNotifications, notifications } = useNotification()
 
   return (
     <>
@@ -20,7 +20,7 @@ const NotificationBell = () => {
         />
       )}
     </>
-  );
-};
+  )
+}
 
-export default NotificationBell;
+export default NotificationBell

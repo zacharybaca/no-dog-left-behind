@@ -1,5 +1,5 @@
 import { DogSearchContext } from './DogSearchContext'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import { useFetcher } from '../../hooks/useFetcher'
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL
@@ -10,23 +10,39 @@ export const DogSearchProvider = ({ children }) => {
   const [nextQuery, setNextQuery] = useState(null)
   const [prevQuery, setPrevQuery] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
+
   const { fetcher } = useFetcher()
+
+  // Track request IDs for stale response protection
+  const activeSearchId = useRef(0)
+  const activeDetailId = useRef(0)
 
   const fetchDogs = async (query = '') => {
     setIsLoading(true)
-    try {
-      const res = await fetcher(`${baseUrl}/dogs/search${query}`, {
-        method: 'GET',
-      });
+    const thisRequestId = ++activeSearchId.current
 
-      const data = await response.json()
-      setDogIds(data.resultIds || [])
-      setNextQuery(data.next || null)
-      setPrevQuery(data.prev || null)
+    try {
+      const res = await fetcher(`${baseUrl}/dogs/search${query}`, { method: 'GET' })
+
+      if (!res.ok) {
+        throw new Error(`Search failed with status ${res.status}`)
+      }
+
+      const data = await res.json()
+
+      if (thisRequestId === activeSearchId.current) {
+        setDogIds(data.resultIds || [])
+        setNextQuery(data.next || null)
+        setPrevQuery(data.prev || null)
+      }
     } catch (err) {
-      console.error('❌ fetchDogs error:', err)
+      if (thisRequestId === activeSearchId.current) {
+        console.error('❌ fetchDogs error:', err)
+      }
     } finally {
-      setIsLoading(false)
+      if (thisRequestId === activeSearchId.current) {
+        setIsLoading(false)
+      }
     }
   }
 
@@ -37,44 +53,66 @@ export const DogSearchProvider = ({ children }) => {
   useEffect(() => {
     if (dogIds.length === 0) return
 
+    const thisRequestId = ++activeDetailId.current
+
     const fetchDogDetails = async () => {
       try {
         const res = await fetcher(`${baseUrl}/dogs`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ ids: dogIds }),
-        });
+        })
 
-        const data = await response.json()
-        setDogs(data)
+        if (!res.ok) {
+          throw new Error(`Details failed with status ${res.status}`)
+        }
+
+        const data = await res.json()
+
+        if (thisRequestId === activeDetailId.current) {
+          setDogs(data)
+        }
       } catch (err) {
-        console.error('❌ fetchDogDetails error:', err)
+        if (thisRequestId === activeDetailId.current) {
+          console.error('❌ fetchDogDetails error:', err)
+        }
       }
     }
 
     fetchDogDetails()
-  }, [dogIds])
+  }, [dogIds, fetcher])
 
   const goToNextPage = () => {
-    if (nextQuery) fetchDogs(nextQuery)
-  }
-  const goToPrevPage = () => {
-    if (prevQuery) fetchDogs(prevQuery)
+    if (nextQuery) {
+      fetchDogs(nextQuery)
+    }
   }
 
+  const goToPrevPage = () => {
+    if (prevQuery) {
+      fetchDogs(prevQuery)
+    }
+  }
+
+  const value = useMemo(() => ({
+    dogIds,
+    dogs,
+    fetchDogs,
+    nextQuery,
+    prevQuery,
+    goToNextPage,
+    goToPrevPage,
+    isLoading,
+  }), [
+    dogIds,
+    dogs,
+    nextQuery,
+    prevQuery,
+    isLoading,
+  ])
+
   return (
-    <DogSearchContext.Provider
-      value={{
-        dogIds,
-        dogs,
-        fetchDogs,
-        nextQuery,
-        prevQuery,
-        goToNextPage,
-        goToPrevPage,
-        isLoading
-      }}
-    >
+    <DogSearchContext.Provider value={value}>
       {children}
     </DogSearchContext.Provider>
   )

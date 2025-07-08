@@ -1,12 +1,12 @@
 import './log-out.css'
 import Button from 'react-bootstrap/Button'
-import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from '../../hooks/useAuth'
 
 const Logout = () => {
-  const { logout } = useAuth();
+  const { logout } = useAuth()
 
   const handleClick = () => {
-    logout();
+    logout()
   }
 
   return (

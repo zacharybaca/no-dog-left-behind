@@ -1,18 +1,18 @@
-import { useState, useEffect } from 'react';
-import ThemedToggleButton from './ThemedToggleButton.jsx';
-import SlideOutMenu from './SlideOutMenu.jsx';
-import NotificationBell from '../NotificationBell/NotificationBell.jsx';
-import { useLocation } from 'react-router-dom';
-import './nav-bar.css';
+import { useState, useEffect } from 'react'
+import ThemedToggleButton from './ThemedToggleButton.jsx'
+import SlideOutMenu from './SlideOutMenu.jsx'
+import NotificationBell from '../NotificationBell/NotificationBell.jsx'
+import { useLocation } from 'react-router-dom'
+import './nav-bar.css'
 
 const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const location = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false)
+  const location = useLocation()
 
   // Close menu on route change
   useEffect(() => {
-    setMenuOpen(false);
-  }, [location.pathname]);
+    setMenuOpen(false)
+  }, [location.pathname])
 
   return (
     <>
@@ -37,7 +37,7 @@ const Navbar = () => {
 
       <SlideOutMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
     </>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

@@ -1,30 +1,30 @@
-import { AuthContext } from './AuthContext';
-import { useNotification } from '../../hooks/useNotification';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useFetcher } from '../../hooks/useFetcher';
+import { AuthContext } from './AuthContext'
+import { useNotification } from '../../hooks/useNotification'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useFetcher } from '../../hooks/useFetcher'
 
-const baseUrl = import.meta.env.VITE_API_BASE_URL;
+const baseUrl = import.meta.env.VITE_API_BASE_URL
 
 export const AuthProvider = ({ children }) => {
-  const { addNotification } = useNotification();
-  const { fetcher } = useFetcher();
-  const navigate = useNavigate();
+  const { addNotification } = useNotification()
+  const { fetcher } = useFetcher()
+  const navigate = useNavigate()
 
   const [userInfo, setUserInfo] = useState({
     name: '',
     email: '',
-  });
+  })
 
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState(false)
 
   const login = async (name, email) => {
     if (!name || !email) {
-      const fallbackError = 'Please enter both your name and e-mail address.';
-      setError(fallbackError);
-      addNotification('Login Error', fallbackError, '', 'danger');
-      return { success: false, error: fallbackError };
+      const fallbackError = 'Please enter both your name and e-mail address.'
+      setError(fallbackError)
+      addNotification('Login Error', fallbackError, '/assets/warning.jpg', 'danger', '.toast-warm')
+      return { success: false, error: fallbackError }
     }
 
     const res = await fetcher(`${baseUrl}/auth/login`, {
@@ -33,60 +33,50 @@ export const AuthProvider = ({ children }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ name, email }),
-    });
+    })
 
     if (res.success) {
-      setSuccess(true);
-      setUserInfo({ name, email });
-      addNotification(
-        'Login Successful',
-        'You have successfully logged in.',
-        '',
-        'success'
-      );
-      return { success: true };
+      setSuccess(true)
+      setUserInfo({ name, email })
+      addNotification('Login Successful', 'You have successfully logged in.', '/assets/success.png', 'success', '.toast-success')
+      return { success: true }
     } else {
-      setError(res.error);
-      setSuccess(false);
-      addNotification('Login Error', res.error, '', 'danger');
-      return { success: false, error: res.error };
+      setError(res.error)
+      setSuccess(false)
+      addNotification('Login Error', res.error, '/assets/error.jpg', 'danger', '.toast-error')
+      return { success: false, error: res.error }
     }
-  };
+  }
 
   const logout = async () => {
     const res = await fetcher(`${baseUrl}/auth/logout`, {
       method: 'POST',
-    });
+    })
 
     if (res.success) {
-      setUserInfo({ name: '', email: '' });
-      setSuccess(false);
-      addNotification(
-        'Logout Successful',
-        'You have been logged out.',
-        '',
-        'success'
-      );
-      return { success: true };
+      setUserInfo({ name: '', email: '' })
+      setSuccess(false)
+      addNotification('Logout Successful', 'You have been logged out.', '/assets/success.png', 'success', '.toast-success')
+      return { success: true }
     } else {
-      addNotification('Logout Error', res.error, '', 'danger');
-      return { success: false, error: res.error };
+      addNotification('Logout Error', res.error, '/assets/error.jpg', 'danger', '.toast-error')
+      return { success: false, error: res.error }
     }
-  };
+  }
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUserInfo((prev) => ({ ...prev, [name]: value }));
-  };
+    const { name, value } = e.target
+    setUserInfo((prev) => ({ ...prev, [name]: value }))
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const result = await login(userInfo.name, userInfo.email);
+    e.preventDefault()
+    const result = await login(userInfo.name, userInfo.email)
 
     if (result.success) {
-      navigate('/dashboard');
+      navigate('/dashboard')
     }
-  };
+  }
 
   return (
     <AuthContext.Provider
@@ -103,5 +93,5 @@ export const AuthProvider = ({ children }) => {
     >
       {children}
     </AuthContext.Provider>
-  );
-};
+  )
+}

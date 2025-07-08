@@ -1,48 +1,65 @@
-import { FetcherContext } from './FetcherContext.jsx';
-import { useNotification } from '../../hooks/useNotification.js';
+import { FetcherContext } from './FetcherContext.jsx'
+import { useNotification } from '../../hooks/useNotification.js'
 
 export const FetcherProvider = ({ children }) => {
-    const { addNotification } = useNotification();
+  const { addNotification } = useNotification()
 
-    const fetcher = async (url, options = {}, fallbackError = 'An error occurred.') => {
-        const config = {
-            credentials: 'include',
-            ...options,
-        };
+  const fetcher = async (url, options = {}, fallbackError = 'An error occurred.') => {
+    const config = { credentials: 'include', ...options }
 
-        const response = await fetch(url, config);
+    try {
+      const response = await fetch(url, config)
 
-        if (!response.ok) {
-            let message;
-            try {
-                const data = await response.json();
-                message = data.message;
-            } catch {
-                message = fallbackError;
-            }
-
-            const errorMessage = message || fallbackError;
-
-            // Optionally check for auth failure
-            if (response.status === 401) {
-                addNotification(
-                    'User Not Authenticated',
-                    'User is Not Authorized to Access This Content',
-                    '',
-                    'danger',
-                );
-            }
-
-            return { success: false, error: errorMessage, status: response.status };
+      if (!response.ok) {
+        let message
+        try {
+          const data = await response.json()
+          message = data.message
+        } catch {
+          message = fallbackError
         }
 
-        const data = await response.json();
-        return { success: true, data };
-    };
+        const errorMessage = message || fallbackError
 
-    return (
-        <FetcherContext.Provider value={{ fetcher }}>
-            {children}
-        </FetcherContext.Provider>
-    );
-};
+        if (response.status === 401) {
+          addNotification(
+            'User Not Authenticated',
+            'You are not authorized to access this content.',
+            '/assets/warning.jpg',
+            'danger',
+            '.toast-warm'
+          )
+        } else {
+          addNotification(
+            'Request Failed',
+            errorMessage,
+            '/assets/error.jpg',
+            'danger',
+            '.toast-error'
+          )
+        }
+
+        return { success: false, error: errorMessage, status: response.status }
+      }
+
+      const data = await response.json()
+      return { success: true, data }
+
+    } catch (err) {
+      addNotification(
+        'Network Error',
+        'Unable to reach the server.',
+        '/assets/error.jpg',
+        'danger',
+        '.toast-error'
+      )
+      return { success: false, error: 'Network error', status: null }
+    }
+  }
+
+  return (
+    <FetcherContext.Provider value={{ fetcher }}>
+      {children}
+    </FetcherContext.Provider>
+  )
+}

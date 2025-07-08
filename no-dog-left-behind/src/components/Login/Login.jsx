@@ -23,8 +23,8 @@ const Login = () => {
   }, [loading])
 
   const handleClick = () => {
-    setLoading(true);
-    login(userInfo.name, userInfo.email);
+    setLoading(true)
+    login(userInfo.name, userInfo.email)
   }
 
   return (

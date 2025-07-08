@@ -20,11 +20,11 @@ const SwipeableToast = ({ notification, calculateElapsedHoursAndMinutes }) => {
       onClose={() => toggleNotification(notification._id)}
       bg={notification.variantTheme}
       delay={3000}
-      
+      autohide
     >
       <Toast.Header closeButton>
         <img
-          src={notification.imgURL || 'holder.js/20x20?text=%20'}
+          src={notification.imgURL || 'https://via.placeholder.com/20'}
           className="rounded me-2"
           alt="toast notification"
         />
@@ -39,7 +39,13 @@ const SwipeableToast = ({ notification, calculateElapsedHoursAndMinutes }) => {
         {notification.bodyText}
       </Toast.Body>
       <div id="delete-notification-button-container">
-            <Button variant="danger" id="delete-button" onClick={() => deleteNotification(notification._id)}>Delete</Button>
+        <Button
+          variant="danger"
+          id="delete-button"
+          onClick={() => deleteNotification(notification._id)}
+        >
+          Delete
+        </Button>
       </div>
     </Toast>
   )

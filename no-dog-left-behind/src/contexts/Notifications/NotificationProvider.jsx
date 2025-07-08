@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { useState, useEffect } from 'react'
 
 export const NotificationProvider = ({ children }) => {
+  const MAX_NOTIFICATIONS = 5
   const [showNotification, setShowNotification] = useState(true)
   const [notifications, setNotifications] = useState([
     {
@@ -10,7 +11,7 @@ export const NotificationProvider = ({ children }) => {
       headerText: 'Success',
       bodyText: 'You Have Successfully Logged In!',
       variantTheme: 'success',
-      imgURL: "/assets/success.png",
+      imgURL: '/assets/success.png',
       customTheme: '.toast-success',
       timestamp: Date.now(),
       visible: true,
@@ -20,7 +21,7 @@ export const NotificationProvider = ({ children }) => {
       headerText: 'Log-In Failed!',
       bodyText: 'We Were Unable to Log You Into the System.',
       variantTheme: 'danger',
-      imgURL: "/assets/error.jpg",
+      imgURL: '/assets/error.jpg',
       customTheme: '.toast-error',
       timestamp: Date.now(),
       visible: true,
@@ -30,7 +31,7 @@ export const NotificationProvider = ({ children }) => {
       headerText: 'Info',
       bodyText: 'This is some important information.',
       variantTheme: 'info',
-      imgURL: "/assets/information.jpg",
+      imgURL: '/assets/information.jpg',
       customTheme: '.toast-info',
       timestamp: Date.now(),
       visible: true,
@@ -40,7 +41,7 @@ export const NotificationProvider = ({ children }) => {
       headerText: 'Warning',
       bodyText: 'This is a warning!',
       variantTheme: 'warning',
-      imgURL: "/assets/warning.jpg",
+      imgURL: '/assets/warning.jpg',
       customTheme: '.toast-warm',
       timestamp: Date.now(),
       visible: true,
@@ -74,18 +75,18 @@ export const NotificationProvider = ({ children }) => {
   }
 
   const calculateElapsedHoursAndMinutes = (createdTimestamp) => {
-  const now = Date.now();
-  const elapsedMs = now - createdTimestamp;
+    const now = Date.now()
+    const elapsedMs = now - createdTimestamp
 
-  const totalMinutes = Math.floor(elapsedMs / 60000); // 1 minute = 60,000 ms
-  const hours = Math.floor(totalMinutes / 60);
-  const minutes = totalMinutes % 60;
+    const totalMinutes = Math.floor(elapsedMs / 60000) // 1 minute = 60,000 ms
+    const hours = Math.floor(totalMinutes / 60)
+    const minutes = totalMinutes % 60
 
-  return { hours, minutes };
-};
+    return { hours, minutes }
+  }
 
   const deleteNotification = (id) => {
-    setNotifications((prev) => prev.filter((n) => n._id !== id));
+    setNotifications((prev) => prev.filter((n) => n._id !== id))
   }
 
   const addNotification = ({
@@ -105,7 +106,11 @@ export const NotificationProvider = ({ children }) => {
       timestamp: Date.now(),
       visible: true,
     }
-    setNotifications((prev) => [...prev, newNotification])
+    setNotifications((prev) => {
+      const updated = [...prev, newNotification]
+      if (updated.length > MAX_NOTIFICATIONS) updated.shift()
+      return updated
+    })
   }
 
   const toggleNotifications = () => {
@@ -114,8 +119,8 @@ export const NotificationProvider = ({ children }) => {
         ...notification,
         visible: !notification.visible,
       }))
-    );
-  };
+    )
+  }
 
   return (
     <NotificationContext.Provider
@@ -131,7 +136,7 @@ export const NotificationProvider = ({ children }) => {
         deleteNotification,
         addNotification,
         handleSwipeDismiss,
-        toggleNotifications
+        toggleNotifications,
       }}
     >
       {children}

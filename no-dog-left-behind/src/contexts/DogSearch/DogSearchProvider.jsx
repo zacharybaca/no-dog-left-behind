@@ -10,6 +10,7 @@ export const DogSearchProvider = ({ children }) => {
   const [nextQuery, setNextQuery] = useState(null)
   const [prevQuery, setPrevQuery] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(null)
 
   const { fetcher } = useFetcher()
 
@@ -46,9 +47,30 @@ export const DogSearchProvider = ({ children }) => {
     }
   }
 
+  const checkAuth = async () => {
+    try {
+      const res = await fetcher(`${baseUrl}/dogs/breeds`, { method: 'GET' })
+
+      if (res.ok) {
+        setIsAuthenticated(true)
+      } else {
+        setIsAuthenticated(false)
+      }
+    } catch (err) {
+      console.error('❌ checkAuth error:', err)
+      setIsAuthenticated(false)
+    }
+  }
+
   useEffect(() => {
-    fetchDogs()
+    checkAuth()
   }, [])
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchDogs()
+    }
+  }, [isAuthenticated])
 
   useEffect(() => {
     if (dogIds.length === 0) return

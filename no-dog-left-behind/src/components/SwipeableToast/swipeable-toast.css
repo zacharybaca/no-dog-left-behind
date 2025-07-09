@@ -16,7 +16,6 @@ img.rounded.me-2 {
 }
 
 .text-muted {
+  white-space: pre-line;
   text-align: center;
-  padding-right: 3px;
-  padding-left: 3px;
 }

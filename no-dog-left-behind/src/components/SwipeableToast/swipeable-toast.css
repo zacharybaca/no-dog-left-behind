@@ -2,6 +2,10 @@
   padding-bottom: 1rem;
 }
 
+#delete-button {
+  width: 55%;
+}
+
 #delete-button:hover {
   cursor: url('/assets/select-cursor-image.png'), pointer;
 }
@@ -9,4 +13,10 @@
 img.rounded.me-2 {
   width: 20px;
   height: 20px;
+}
+
+.text-muted {
+  text-align: center;
+  padding-right: 3px;
+  padding-left: 3px;
 }

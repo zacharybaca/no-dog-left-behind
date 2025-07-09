@@ -39,6 +39,7 @@ const Login = () => {
           name="name"
           onChange={handleChange}
           placeholder="Name"
+          autoComplete="off"
           required
         />
         <label htmlFor="email">Please Enter Your E-mail Address: </label>
@@ -48,6 +49,7 @@ const Login = () => {
           name="email"
           onChange={handleChange}
           placeholder="E-mail"
+          autoComplete="off"
           required
         />
         <Button variant="primary" disabled={loading} onClick={!loading ? handleClick : null}>

@@ -93,7 +93,7 @@ export const NotificationProvider = ({ children }) => {
     headerText,
     bodyText,
     imgURL,
-    variantTheme = 'success',
+    variantTheme,
     customTheme,
   }) => {
     const newNotification = {
@@ -107,8 +107,17 @@ export const NotificationProvider = ({ children }) => {
       visible: true,
     }
     setNotifications((prev) => {
-      const updated = [...prev, newNotification]
+      let updated;
+
+      if (newNotification.headerText && newNotification.bodyText) {
+        updated = [...prev, newNotification]
+      }
+      else {
+        updated = [...prev]
+      }
+
       if (updated.length > MAX_NOTIFICATIONS) updated.shift()
+        
       return updated
     })
   }

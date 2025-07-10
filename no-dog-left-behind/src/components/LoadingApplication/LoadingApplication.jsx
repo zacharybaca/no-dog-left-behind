@@ -1,6 +1,6 @@
 import './loading-application.css';
 import Lottie from 'lottie-react';
-import pawsAnimation from '/assets/paws-animation.json';
+import pawsAnimation from '../../../assets/paws-animation.json';
 
 const LoadingApplication = () => {
 

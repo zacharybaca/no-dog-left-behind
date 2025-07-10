@@ -1,15 +1,18 @@
 import './loading-application.css';
+import Lottie from 'lottie-react';
+import pawsAnimation from '/assets/paws-animation.json';
 
 const LoadingApplication = () => {
 
     return (
         <div id="loading-container">
             <div id="loading-image-container">
-                Loading Image
+                <Lottie animationData={pawsAnimation} loop={true} />
             </div>
 
             <div id="text-loading-container">
-                Loading
+                <h1>No Dog Left Behind</h1>
+                <p>because they're family....</p>
             </div>
         </div>
     )

@@ -1,16 +1,24 @@
 import './loading-application.css';
 import Lottie from 'lottie-react';
 import pawsAnimation from '../../../assets/paws-animation.json';
+import { useState, useEffect } from 'react';
 
-const LoadingApplication = () => {
+const LoadingApplication = ({ isLoaded }) => {
+    const [fadeOut, setFadeOut] = useState(false);
+
+    useEffect(() => {
+        if (isLoaded) {
+            setFadeOut(true);
+        };
+    }, [isLoaded]);
 
     return (
-        <div id="loading-container">
-            <div id="loading-image-container">
+        <div className={`loading-container ${fadeOut ? 'fade-out' : ''}`}>
+            <div className="loading-image-container">
                 <Lottie animationData={pawsAnimation} loop={true} />
             </div>
 
-            <div id="text-loading-container">
+            <div className="text-loading-container">
                 <h1>No Dog Left Behind</h1>
                 <p>because they're family....</p>
             </div>

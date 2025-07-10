@@ -11,6 +11,7 @@ import PageNotFound from './components/PageNotFound/PageNotFound.jsx'
 import Notification from './components/Notification/Notification.jsx'
 import Dashboard from './components/Dashboard/Dashboard.jsx'
 import LoadingScreen from './components/LoadingScreen/LoadingScreen.jsx'
+import LoadingApplication from './components/LoadingApplication/LoadingApplication.jsx';
 
 function App() {
   const { toggleNotifications, notifications } = useNotification()
@@ -36,6 +37,7 @@ function App() {
       <Routes basename="/">
         <Route exact path="/" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/loading" element={<LoadingApplication />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
 

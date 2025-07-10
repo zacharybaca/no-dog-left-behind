@@ -16,6 +16,7 @@ import LoadingApplication from './components/LoadingApplication/LoadingApplicati
 function App() {
   const { toggleNotifications, notifications } = useNotification()
   const [loading, setLoading] = useState(true)
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -23,6 +24,12 @@ function App() {
     }, 5000)
   }, [])
 
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoaded(true);
+    }, 2000)
+  })
+  
   return !loading ? (
     <div id="app-container">
       <Navbar />

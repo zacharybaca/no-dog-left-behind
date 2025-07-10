@@ -1,5 +1,7 @@
 import './loading-screen.css'
 
+
+/* This component is used for when fetching dogs from the API */
 const LoadingScreen = () => {
   return (
     <div id="loader">
@@ -12,6 +14,6 @@ const LoadingScreen = () => {
       </div>
     </div>
   )
-}
+};
 
 export default LoadingScreen

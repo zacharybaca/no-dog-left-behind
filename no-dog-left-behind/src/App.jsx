@@ -48,14 +48,6 @@ function App() {
         <Route path="*" element={<PageNotFound />} />
       </Routes>
 
-      <hr className="horizontal-ruler-default" />
-
-      <Button variant="secondary" size="sm" onClick={toggleNotifications} className="mb-2">
-        {notifications && notifications.every((notification) => notification.visible)
-          ? 'Hide Notifications'
-          : 'Show Notifications'}
-      </Button>
-
       {/* Render visible notifications */}
       <Notification />
 

@@ -11,7 +11,7 @@
 /* Background image */
 .login-bg {
   width: 50%;
-  height: 30vh;
+  height: 20vh;
   opacity: 0.5;
   filter: grayscale(20%);
 }

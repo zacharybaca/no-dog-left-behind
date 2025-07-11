@@ -25,16 +25,12 @@ export const DogSearchProvider = ({ children }) => {
     try {
       const res = await fetcher(`${baseUrl}/dogs/search${query}`, { method: 'GET' })
 
-      if (!res.ok) {
-        throw new Error(`Search failed with status ${res.status}`)
-      }
-
-      const data = await res.json()
+      const data = res.data
 
       if (thisRequestId === activeSearchId.current) {
-        setDogIds(data.resultIds || [])
-        setNextQuery(data.next || null)
-        setPrevQuery(data.prev || null)
+        setDogIds(data && data.resultIds ? data.resultIds : [])
+        setNextQuery(data && data.next ? data.next : null)
+        setPrevQuery(data && data.prev ? data.prev : null)
       }
     } catch (err) {
       if (thisRequestId === activeSearchId.current) {

@@ -1,7 +1,9 @@
 import { FetcherContext } from './FetcherContext.jsx'
 import { useNotification } from '../../hooks/useNotification.js'
+import { useState } from 'react';
 
 export const FetcherProvider = ({ children }) => {
+  const [isLoaded, setIsLoaded] = useState(false)
   const { addNotification } = useNotification()
 
   const fetcher = async (url, options = {}, fallbackError = 'An error occurred.') => {
@@ -29,7 +31,7 @@ export const FetcherProvider = ({ children }) => {
             'danger',
             '.toast-warm'
           )
-        } else {
+        } else if (!response.ok) {
           addNotification(
             'Request Failed',
             errorMessage,
@@ -38,11 +40,12 @@ export const FetcherProvider = ({ children }) => {
             '.toast-error'
           )
         }
-
+        setIsLoaded(true)
         return { success: false, error: errorMessage, status: response.status }
       }
 
       const data = await response.json()
+      setIsLoaded(true)
       return { success: true, data }
 
     } catch (err) {
@@ -53,12 +56,13 @@ export const FetcherProvider = ({ children }) => {
         'danger',
         '.toast-error'
       )
+      setIsLoaded(true)
       return { success: false, error: 'Network error', status: null }
     }
   }
 
   return (
-    <FetcherContext.Provider value={{ fetcher }}>
+    <FetcherContext.Provider value={{ fetcher, isLoaded }}>
       {children}
     </FetcherContext.Provider>
   )

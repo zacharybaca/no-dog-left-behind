@@ -1,9 +1,11 @@
 import './loading-application.css';
 import Lottie from 'lottie-react';
 import pawsAnimation from '../../../assets/paws-animation.json';
+import { useFetcher } from '../../hooks/useFetcher'
 import { useState, useEffect } from 'react';
 
-const LoadingApplication = ({ isLoaded }) => {
+const LoadingApplication = () => {
+    const { isLoaded } = useFetcher()
     const [fadeOut, setFadeOut] = useState(false);
 
     useEffect(() => {

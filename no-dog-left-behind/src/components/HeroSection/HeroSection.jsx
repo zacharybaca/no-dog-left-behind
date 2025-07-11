@@ -7,8 +7,8 @@ export default function HeroSection() {
   return (
     <section className="hero-section">
       <div className="hero-content">
-        <h1 className="hero-title">No Dog Left Behind</h1>
-        <p className="hero-tagline">Bringing dogs from shelters to sofas.</p>
+        <h1 className="hero-title">Who Rescues Who?</h1>
+        <h1 className="hero-title">Find Out Today.</h1>
         <button type="button" className="hero-button" onClick={() => fetchDogs()}>
           Browse Dogs
         </button>

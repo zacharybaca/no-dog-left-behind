@@ -1,10 +1,12 @@
 import './page-not-found.css'
+import Lottie from 'lottie-react'
+import sadDogAnimation from '../../../assets/sad-dog.json'
 
 const PageNotFound = () => {
   return (
     <div id="page-not-found-container">
       <h1>404: This Page Took Off With a Leash!</h1>
-      <img src="/assets/404-dog-not-found.png" alt="page not found image" />
+      <Lottie animationData={sadDogAnimation} loop={true} />
       <p>
         The page you're looking for might've fetched the wrong ball. But hey -- there's still hope.
       </p>

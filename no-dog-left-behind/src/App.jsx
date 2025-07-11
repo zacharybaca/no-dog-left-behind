@@ -2,7 +2,6 @@ import './App.css'
 import { useEffect, useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { useFetcher } from './hooks/useFetcher.js'
-import HeroSection from './components/HeroSection/HeroSection.jsx'
 import Navbar from './components/Navbar/Navbar.jsx'
 import Login from './components/Login/Login.jsx'
 import Footer from './components/Footer/Footer.jsx'
@@ -37,7 +36,7 @@ function App() {
         alt="hero image branding"
         className="application-logo"
       />
-      <HeroSection />
+      
       <hr className="horizontal-ruler-default" />
 
       <Routes basename="/">

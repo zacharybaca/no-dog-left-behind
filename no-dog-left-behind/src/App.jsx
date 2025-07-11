@@ -1,8 +1,7 @@
 import './App.css'
 import { useEffect, useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
-import { Button } from 'react-bootstrap'
-import { useNotification } from './hooks/useNotification'
+import { useFetcher } from './hooks/useFetcher.js'
 import HeroSection from './components/HeroSection/HeroSection.jsx'
 import Navbar from './components/Navbar/Navbar.jsx'
 import Login from './components/Login/Login.jsx'
@@ -14,9 +13,9 @@ import LoadingScreen from './components/LoadingScreen/LoadingScreen.jsx'
 import LoadingApplication from './components/LoadingApplication/LoadingApplication.jsx';
 
 function App() {
-  const { toggleNotifications, notifications } = useNotification()
+  const { isLoaded, setIsLoaded } = useFetcher()
   const [loading, setLoading] = useState(true)
-  const [isLoaded, setIsLoaded] = useState(false);
+  
 
   useEffect(() => {
     setTimeout(() => {

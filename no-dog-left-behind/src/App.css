@@ -17,8 +17,8 @@
 }
 
 .application-logo {
-  width: 50%;
-  height: 50%;
+  opacity: 0.5;
+  border-radius: 10px;
 }
 
 @media screen and (min-width: 1440px) {

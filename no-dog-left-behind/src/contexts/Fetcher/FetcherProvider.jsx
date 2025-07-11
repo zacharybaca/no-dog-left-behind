@@ -62,7 +62,7 @@ export const FetcherProvider = ({ children }) => {
   }
 
   return (
-    <FetcherContext.Provider value={{ fetcher, isLoaded }}>
+    <FetcherContext.Provider value={{ fetcher, isLoaded, setIsLoaded }}>
       {children}
     </FetcherContext.Provider>
   )

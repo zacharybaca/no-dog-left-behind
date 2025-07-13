@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: space-between;
   background: transparent;
-  border: 3px solid green;
+  background-color: #AA7645;
   cursor: pointer;
   padding: 0;
   z-index: 1001;
@@ -35,7 +35,7 @@
 }
 
 .themed-hamburger:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: #5C260B;
 }
 
 .bone-icon {

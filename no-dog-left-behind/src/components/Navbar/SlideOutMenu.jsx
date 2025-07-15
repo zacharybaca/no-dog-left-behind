@@ -2,6 +2,7 @@ import './slide-out-menu.css'
 import Logout from '../Logout/Logout.jsx'
 
 const SlideOutMenu = ({ isOpen, onClose }) => {
+
   return (
     <>
       <div className={`slideout-menu ${isOpen ? 'open' : ''}`}>

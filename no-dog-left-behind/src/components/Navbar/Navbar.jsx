@@ -3,16 +3,21 @@ import ThemedToggleButton from './ThemedToggleButton.jsx'
 import SlideOutMenu from './SlideOutMenu.jsx'
 import NotificationBell from '../NotificationBell/NotificationBell.jsx'
 import { useLocation } from 'react-router-dom'
+import { useMenuOptions } from '../../hooks/useMenuOptions.js'
 import './nav-bar.css'
 
 const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false)
+  const { menuOpen, setMenuOpen } = useMenuOptions()
   const location = useLocation()
 
   // Close menu on route change
   useEffect(() => {
     setMenuOpen(false)
   }, [location.pathname])
+
+  const onToggle = () => {
+    setMenuOpen(!menuOpen)
+  }
 
   return (
     <>
@@ -31,7 +36,7 @@ const Navbar = () => {
         </div>
 
         <div className="themed-toggle-button-container">
-          <ThemedToggleButton menuOpen={menuOpen} onToggle={() => setMenuOpen(!menuOpen)} />
+          <ThemedToggleButton menuOpen={menuOpen} onToggle={() => onToggle()} />
         </div>
       </nav>
 

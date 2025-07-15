@@ -2,6 +2,7 @@ import { MenuOptionsContext } from './MenuOptionsContext.jsx'
 import { useState } from 'react'
 
 export const MenuOptionsProvider = ({ children }) => {
+  const [menuOpen, setMenuOpen] = useState(false)
   const [menuOptions, setMenuOptions] = useState([
     {
       endpoint: '/',
@@ -34,7 +35,9 @@ export const MenuOptionsProvider = ({ children }) => {
     <MenuOptionsContext.Provider
       value={{
         menuOptions,
+        menuOpen,
         setMenuOptions,
+        setMenuOpen
       }}
     >
       {children}

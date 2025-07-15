@@ -5,6 +5,7 @@ import './themed-toggle-button.css'
 const ThemedToggleButton = ({ isOpen, onToggle }) => {
   return (
     <button
+      type="button"
       className={`themed-hamburger ${isOpen ? 'open' : ''}`}
       onClick={() => onToggle(!isOpen)}
       aria-label="Toggle navigation menu"

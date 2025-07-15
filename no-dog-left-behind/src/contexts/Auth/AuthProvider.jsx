@@ -18,6 +18,7 @@ export const AuthProvider = ({ children }) => {
 
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
 
   const login = async (name, email) => {
     if (!name || !email) {
@@ -37,12 +38,14 @@ export const AuthProvider = ({ children }) => {
 
     if (res.success) {
       setSuccess(true)
+      setIsAuthenticated(true)
       setUserInfo({ name, email })
       addNotification('Login Successful', 'You have successfully logged in.', '/assets/success.png', 'success', '.toast-success')
       return { success: true }
     } else {
       setError(res.error)
       setSuccess(false)
+      setIsAuthenticated(false)
       addNotification('Login Error', res.error, '/assets/error.jpg', 'danger', '.toast-error')
       return { success: false, error: res.error }
     }
@@ -55,7 +58,8 @@ export const AuthProvider = ({ children }) => {
 
     if (res.success) {
       setUserInfo({ name: '', email: '' })
-      setSuccess(false)
+      setSuccess(true)
+      setIsAuthenticated(false)
       addNotification('Logout Successful', 'You have been logged out.', '/assets/success.png', 'success', '.toast-success')
       return { success: true }
     } else {
@@ -83,6 +87,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         userInfo,
         error,
+        isAuthenticated,
         setError,
         success,
         login,

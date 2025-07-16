@@ -1,8 +1,7 @@
 import './hero-section.css'
-import { useDogSearch } from '../../hooks/useDogSearch'
 
-export default function HeroSection() {
-  const { fetchDogs } = useDogSearch()
+export default function HeroSection({ fetchDogs }) {
+  
 
   return (
     <section className="hero-section">

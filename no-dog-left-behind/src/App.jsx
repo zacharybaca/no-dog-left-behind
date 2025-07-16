@@ -10,6 +10,7 @@ import Notification from './components/Notification/Notification.jsx'
 import Dashboard from './components/Dashboard/Dashboard.jsx'
 import LoadingScreen from './components/LoadingScreen/LoadingScreen.jsx'
 import LoadingApplication from './components/LoadingApplication/LoadingApplication.jsx';
+import FavoriteDogs from './components/FavoriteDogs/FavoriteDogs.jsx';
 
 function App() {
   const { isLoaded, setIsLoaded } = useFetcher()
@@ -42,6 +43,7 @@ function App() {
       <Routes basename="/">
         <Route exact path="/" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/favorites" element={<FavoriteDogs />} />
         <Route path="/loading" element={<LoadingApplication />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>

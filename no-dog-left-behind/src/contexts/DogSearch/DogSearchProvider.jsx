@@ -10,6 +10,7 @@ export const DogSearchProvider = ({ children }) => {
   const [dogs, setDogs] = useState([])
   const [nextQuery, setNextQuery] = useState(null)
   const [prevQuery, setPrevQuery] = useState(null)
+  // Boolean to Keep Track if Loading Screen for Fetching Dogs Should Appear or Not
   const [isLoading, setIsLoading] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(null)
 
@@ -38,7 +39,6 @@ export const DogSearchProvider = ({ children }) => {
       if (thisRequestId === activeSearchId.current) {
          addNotification('Error', err.message, '/assets/error.jpg', 'danger', '.toast-warm')
         console.error('❌ fetchDogs error:', err.message)
-        return { success: false, error: err.message }
       }
     } finally {
       if (thisRequestId === activeSearchId.current) {

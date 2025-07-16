@@ -1,6 +1,7 @@
 import './dashboard.css'
 import { useDogSearch } from '../../hooks/useDogSearch'
 import HeroSection from '../HeroSection/HeroSection'
+import AdoptableDogs from '../AdoptableDogs/AdoptableDogs'
 
 const Dashboard = () => {
   const { dogIds, dogs, isLoading, fetchDogs, nextQuery, prevQuery, goToNextPage, goToPrevPage } =
@@ -10,6 +11,9 @@ const Dashboard = () => {
     <div className="dashboard-container">
        <div className="hero-container">
           <HeroSection fetchDogs={fetchDogs} isLoading={isLoading}/>
+       </div>
+       <div className="adoptable-dogs-container">
+          <AdoptableDogs dogs={dogs} dogIds={dogIds}/>
        </div>
        <div className="pagination-controls">
           <button disabled={!prevQuery} onClick={goToPrevPage}>

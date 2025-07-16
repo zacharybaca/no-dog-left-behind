@@ -2,6 +2,7 @@ import './App.css'
 import { useEffect, useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { useFetcher } from './hooks/useFetcher.js'
+import { useDogSearch } from './hooks/useDogSearch.js'
 import Navbar from './components/Navbar/Navbar.jsx'
 import Login from './components/Login/Login.jsx'
 import Footer from './components/Footer/Footer.jsx'
@@ -14,12 +15,13 @@ import FavoriteDogs from './components/FavoriteDogs/FavoriteDogs.jsx';
 
 function App() {
   const { isLoaded, setIsLoaded } = useFetcher()
-  const [loading, setLoading] = useState(true)
+  const { isLoading } = useDogSearch()
+  const [loadingApplication, setLoadingApplication] = useState(true)
   
 
   useEffect(() => {
     setTimeout(() => {
-      setLoading(false)
+      setLoadingApplication(false)
     }, 5000)
   }, [])
 
@@ -29,7 +31,7 @@ function App() {
     }, 2000)
   })
   
-  return !loading ? (
+  return !loadingApplication && !isLoading ? (
     <div id="app-container">
       <Navbar />
       <img

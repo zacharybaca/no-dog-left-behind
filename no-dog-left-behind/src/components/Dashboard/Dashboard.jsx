@@ -3,15 +3,13 @@ import { useDogSearch } from '../../hooks/useDogSearch'
 import HeroSection from '../HeroSection/HeroSection'
 
 const Dashboard = () => {
-  const { dogIds, dogs, fetchDogs, nextQuery, prevQuery, goToNextPage, goToPrevPage, isLoading } =
+  const { dogIds, dogs, fetchDogs, nextQuery, prevQuery, goToNextPage, goToPrevPage } =
     useDogSearch()
-
-  console.log('Dogs: ', dogIds)
 
   return (
     <div className="dashboard-container">
        <div className="hero-container">
-          <HeroSection />
+          <HeroSection fetchDogs={fetchDogs}/>
        </div>
        <div className="pagination-controls">
           <button disabled={!prevQuery} onClick={goToPrevPage}>
@@ -22,7 +20,6 @@ const Dashboard = () => {
           </button>
       </div>
     </div>
-   
   )
 }
 

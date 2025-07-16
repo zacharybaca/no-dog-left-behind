@@ -4,7 +4,8 @@ export default function HeroSection({ fetchDogs, isLoading }) {
   
 
   return (
-    <section className="hero-section">
+    !isLoading && (
+      <section className="hero-section">
       <div className="hero-content">
         <h1 className="hero-title">Who Rescues Who?</h1>
         <h1 className="hero-title">Find Out Today.</h1>
@@ -13,5 +14,6 @@ export default function HeroSection({ fetchDogs, isLoading }) {
         </button>
       </div>
     </section>
+    )
   )
 }

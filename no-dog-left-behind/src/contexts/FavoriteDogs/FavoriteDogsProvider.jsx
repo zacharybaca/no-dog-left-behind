@@ -5,17 +5,19 @@ export const FavoriteDogsProvider = ({ children }) => {
     const [favoriteDogs, setFavoriteDogs] = useState([])
 
     const addFavoriteDog = (favoritedDog) => {
-        const isFavoriteDogIncluded = favoriteDogs.filter((dog) => dog.id === favoritedDog.id)
+        const isFavoriteDogIncluded = favoriteDogs.some((dog) => dog.id === favoritedDog.id)
 
         if (!isFavoriteDogIncluded) {
-            setFavoriteDogs((prev) => [
-                ...prev,
-                favoritedDog
-            ])
-        }
-        else {
+            setFavoriteDogs((prev) => [...prev, favoritedDog])
+        } else {
             throw new Error('Dog Already Exists!')
         }
+    }
+
+   const deleteFavoriteDog = (favoritedDog) => {
+        setFavoriteDogs((prev) =>
+            prev.filter((dog) => dog.id !== favoritedDog.id)
+        )
     }
 
     useEffect(() => {
@@ -32,11 +34,12 @@ export const FavoriteDogsProvider = ({ children }) => {
             }
         }
     }, [])
-    
+
     return (
         <FavoriteDogsContext.Provider value={{
             favoriteDogs,
-            addFavoriteDog
+            addFavoriteDog,
+            deleteFavoriteDog
         }}>
             {children}
         </FavoriteDogsContext.Provider>

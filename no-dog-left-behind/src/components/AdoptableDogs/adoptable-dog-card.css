@@ -1,0 +1,10 @@
+.dog-name {
+  font-size: larger;
+  font-weight: bold;
+}
+
+#custom-dog-card {
+  background-color: #fef6e4;
+  color: #001858;
+  max-height: fit-content;
+}

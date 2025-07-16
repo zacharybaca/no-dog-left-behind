@@ -7,7 +7,14 @@ const baseUrl = import.meta.env.VITE_API_BASE_URL
 
 export const DogSearchProvider = ({ children }) => {
   const [dogIds, setDogIds] = useState([])
-  const [dogs, setDogs] = useState([])
+  const [dogs, setDogs] = useState([{
+    id: '1',
+    img: 'https://placedog.net/213/180',
+    name: 'Sunny',
+    age: '20',
+    zip_code: '46350',
+    breed: 'Chi'
+  }])
   const [nextQuery, setNextQuery] = useState(null)
   const [prevQuery, setPrevQuery] = useState(null)
   // Boolean to Keep Track if Loading Screen for Fetching Dogs Should Appear or Not

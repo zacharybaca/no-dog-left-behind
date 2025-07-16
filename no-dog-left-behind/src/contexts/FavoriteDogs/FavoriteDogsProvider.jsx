@@ -5,7 +5,7 @@ export const FavoriteDogsProvider = ({ children }) => {
     const [favoriteDogs, setFavoriteDogs] = useState([])
 
     const addFavoriteDog = (favoritedDog) => {
-        const isFavoriteDogIncluded = favoriteDogs.filter((dog) => dog._id === favoritedDog._id)
+        const isFavoriteDogIncluded = favoriteDogs.filter((dog) => dog.id === favoritedDog.id)
 
         if (!isFavoriteDogIncluded) {
             setFavoriteDogs((prev) => [

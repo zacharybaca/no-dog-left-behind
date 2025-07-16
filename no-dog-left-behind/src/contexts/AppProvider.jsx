@@ -4,6 +4,7 @@ import { NotificationProvider } from './Notifications/NotificationProvider.jsx'
 import { DogSearchProvider } from './DogSearch/DogSearchProvider.jsx'
 import { MenuOptionsProvider } from './MenuOptions/MenuOptionsProvider.jsx'
 import { FetcherProvider } from './Fetcher/FetcherProvider.jsx'
+import { FavoriteDogsProvider } from './FavoriteDogs/FavoriteDogsProvider.jsx'
 
 export const AppProviders = ({ children }) => {
   return (
@@ -12,7 +13,9 @@ export const AppProviders = ({ children }) => {
         <FetcherProvider>
           <AuthProvider>
             <MenuOptionsProvider>
-              <DogSearchProvider>{children}</DogSearchProvider>
+              <FavoriteDogsProvider>
+                <DogSearchProvider>{children}</DogSearchProvider>
+              </FavoriteDogsProvider>
             </MenuOptionsProvider>
           </AuthProvider>
         </FetcherProvider>

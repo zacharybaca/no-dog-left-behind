@@ -12,7 +12,7 @@ const Dashboard = () => {
        <div className="hero-container">
           <HeroSection fetchDogs={fetchDogs} isLoading={isLoading}/>
        </div>
-       <div className="adoptable-dogs-container">
+       <div className="adoptable-dogs-wrapper">
           <AdoptableDogs dogs={dogs} dogIds={dogIds}/>
        </div>
        <div className="pagination-controls">

@@ -1,6 +1,7 @@
 import { DogSearchContext } from './DogSearchContext'
 import { useState, useEffect, useMemo, useRef } from 'react'
 import { useFetcher } from '../../hooks/useFetcher'
+import { useNotification } from '../../hooks/useNotification'
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL
 
@@ -13,6 +14,7 @@ export const DogSearchProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null)
 
   const { fetcher } = useFetcher()
+  const { addNotification } = useNotification()
 
   // Track request IDs for stale response protection
   const activeSearchId = useRef(0)
@@ -34,13 +36,16 @@ export const DogSearchProvider = ({ children }) => {
       }
     } catch (err) {
       if (thisRequestId === activeSearchId.current) {
-        console.error('❌ fetchDogs error:', err)
+         addNotification('Error', err.message, '/assets/error.jpg', 'danger', '.toast-warm')
+        console.error('❌ fetchDogs error:', err.message)
+        return { success: false, error: err.message }
       }
     } finally {
       if (thisRequestId === activeSearchId.current) {
         setIsLoading(false)
       }
     }
+    console.log('Dog IDs: ', dogIds);
   }
 
   const checkAuth = async () => {

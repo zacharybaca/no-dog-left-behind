@@ -1,6 +1,6 @@
 import './hero-section.css'
 
-export default function HeroSection({ fetchDogs }) {
+export default function HeroSection({ fetchDogs, isLoading }) {
   
 
   return (

@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { useState, useEffect } from 'react'
 
 export const NotificationProvider = ({ children }) => {
+  // Fix the addNotification function in DogSearchProvider, FavoriteDogsProvider, FetcherProvider
   const MAX_NOTIFICATIONS = 5
   const [showNotification, setShowNotification] = useState(true)
   const [notifications, setNotifications] = useState([
@@ -111,6 +112,7 @@ export const NotificationProvider = ({ children }) => {
 
       if (newNotification.headerText && newNotification.bodyText) {
         updated = [...prev, newNotification]
+        console.log('New Notification Added')
       }
       else {
         updated = [...prev]

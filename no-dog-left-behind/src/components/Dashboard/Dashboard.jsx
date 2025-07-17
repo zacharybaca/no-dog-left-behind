@@ -13,7 +13,12 @@ const Dashboard = () => {
           <HeroSection fetchDogs={fetchDogs} isLoading={isLoading}/>
        </div>
        <div className="adoptable-dogs-wrapper">
-          <AdoptableDogs dogs={dogs} dogIds={dogIds}/>
+          <div className="catelog-title-container">
+            <h1>Discover Your New Best Friend!</h1>
+          </div>
+          <div className="adoptable-dog-list-container">
+            <AdoptableDogs dogs={dogs} dogIds={dogIds} />
+          </div>
        </div>
        <div className="pagination-controls">
           <button disabled={!prevQuery} onClick={goToPrevPage}>

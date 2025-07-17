@@ -14,10 +14,23 @@
 
 .adoptable-dogs-wrapper {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     max-width: 90vw;
     overflow: auto;
+    padding-top: 6%;
+    padding-bottom: 6%;
     border: 2px solid black;
+}
+
+.catelog-title-container {
+    display: flex;
+    justify-content: center;
+}
+
+.adoptable-dog-list-container {
+    display: flex;
+    justify-content: space-around;
 }
 
 @media screen and (max-width: 390px) {

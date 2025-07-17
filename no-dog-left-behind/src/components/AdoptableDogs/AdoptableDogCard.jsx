@@ -25,7 +25,7 @@ const AdoptableDogCard = ({ Id, dogImg, dogName, dogAge, zipOfDog, dogBreed }) =
         </Card.Text>
         <div className="card-button-container">
           <Button variant="primary" className="favorite-button">
-            {favoriteDogs.some((dog) => dog.id === Id) ? <FontAwesomeIcon icon={faRegularHeart} style={{ color: '#f60940' }} /> :  <FontAwesomeIcon icon={faHeart} style={{ color: "#f60940" }} />}
+            {favoriteDogs.some((dog) => dog.id === Id) ? <FontAwesomeIcon icon={faRegularHeart} size="lg" style={{ color: '#f60940' }} /> :  <FontAwesomeIcon icon={faHeart} size="lg" style={{ color: "#f60940" }} />}
           </Button>
         </div>
       </Card.Body>

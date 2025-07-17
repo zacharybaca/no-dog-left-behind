@@ -9,26 +9,31 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-container">
-       <div className="hero-container">
-          <HeroSection fetchDogs={fetchDogs} isLoading={isLoading}/>
-       </div>
-       <div className="adoptable-dogs-wrapper">
-          <div className="catelog-title-container">
-            <h1>Discover Your New Best Friend!</h1>
+        {dogs.length === 0 && (
+          <div className="hero-container">
+            <HeroSection fetchDogs={fetchDogs} isLoading={isLoading}/>
           </div>
-          <div className="adoptable-dog-list-container">
-            <AdoptableDogs dogs={dogs} dogIds={dogIds} />
-          </div>
-       </div>
-       <div className="pagination-controls">
-          <button disabled={!prevQuery} onClick={goToPrevPage}>
-            Previous
-          </button>
-          <button disabled={!nextQuery} onClick={goToNextPage}>
-            Next
-          </button>
+        )}
+        {dogs.length !== 0 && (
+           <>
+            <div className="adoptable-dogs-wrapper">
+              <div className="catelog-title-container">
+                <h1>Discover Your New Best Friend!</h1>
+              </div>
+              <div className="adoptable-dog-list-container">
+                <AdoptableDogs dogs={dogs} dogIds={dogIds} />
+              </div>
+            </div>
+            <div className="pagination-controls">
+              <button disabled={!prevQuery} onClick={goToPrevPage}>
+                Previous
+              </button>
+              <button disabled={!nextQuery} onClick={goToNextPage}>
+                Next
+              </button>
+            </div></>
+          )}
       </div>
-    </div>
   )
 }
 

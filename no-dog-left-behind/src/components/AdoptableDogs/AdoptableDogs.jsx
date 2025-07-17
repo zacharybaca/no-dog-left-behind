@@ -15,6 +15,14 @@ const AdoptableDogs = ({ dogs }) => {
                 dogAge={dog.age}
                 zipOfDog={dog.zip_code}
                 dogBreed={dog.breed}
+                dog={{
+                    id: `${dog.id}`,
+                    img: `${dog.img}`,
+                    name: `${dog.name}`,
+                    age: `${dog.age}`,
+                    zip_code: `${dog.zip_code}`,
+                    breed: `${dog.breed}`
+                }}
             />
         ))
         :   <div className="adoptable-dogs-text-container">

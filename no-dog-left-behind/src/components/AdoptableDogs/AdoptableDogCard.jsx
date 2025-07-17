@@ -6,11 +6,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faRegularHeart } from '@fortawesome/free-regular-svg-icons';
 
-const AdoptableDogCard = ({ Id, dogImg, dogName, dogAge, zipOfDog, dogBreed }) => {
-  const { addFavoriteDog, favoritedDog } = useFavoriteDogs()
+const AdoptableDogCard = ({ Id, dogImg, dogName, dogAge, zipOfDog, dogBreed, dog }) => {
+  const { addFavoriteDog, favoritedDog, isAFavoriteDog } = useFavoriteDogs()
+  const aFavoriteDog = isAFavoriteDog(Id)
 
-  const handleFavoriteClick = (Id) => {
-    addFavoriteDog(Id)
+  const handleFavoriteClick = (dog) => {
+    addFavoriteDog(dog)
   }
 
   return (
@@ -28,8 +29,8 @@ const AdoptableDogCard = ({ Id, dogImg, dogName, dogAge, zipOfDog, dogBreed }) =
           Breed of Dog: {dogBreed}
         </Card.Text>
         <div className="card-button-container">
-          <Button variant="primary" className="favorite-button" onClick={() => handleFavoriteClick(Id)}>
-            {!favoritedDog ? <FontAwesomeIcon icon={faRegularHeart} size="lg" style={{ color: '#f60940' }} /> :  <FontAwesomeIcon icon={faHeart} size="lg" style={{ color: "#f60940" }} />}
+          <Button variant="primary" className="favorite-button" onClick={() => handleFavoriteClick(dog)}>
+            {!favoritedDog && !aFavoriteDog ? <FontAwesomeIcon icon={faRegularHeart} size="lg" style={{ color: '#f60940' }} /> : <FontAwesomeIcon icon={faHeart} size="lg" style={{ color: "#f60940" }} />}
           </Button>
         </div>
       </Card.Body>

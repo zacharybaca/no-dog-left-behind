@@ -1,7 +1,9 @@
 import './slide-out-menu.css'
 import Logout from '../Logout/Logout.jsx'
+import { useAuth } from '../../hooks/useAuth.js'
 
 const SlideOutMenu = ({ isOpen, onClose }) => {
+  const { isAuthenticated } = useAuth()
 
   return (
     <>
@@ -18,23 +20,27 @@ const SlideOutMenu = ({ isOpen, onClose }) => {
             <Logout />
           </div>
         )}
-        <ul onClick={onClose}>
-          <li>
-            <a href="#home">🏠 Home</a>
-          </li>
-          <li>
-            <a href="#admin">💼 Admin</a>
-          </li>
-          <li>
-            <a href="#adopt">🐶 Adopt</a>
-          </li>
-          <li>
-            <a href="#favorites">⭐ Favorites</a>
-          </li>
-          <li>
-            <a href="#about">📖 About</a>
-          </li>
-        </ul>
+        {isAuthenticated ? (
+          <ul onClick={onClose}>
+            <li>
+              <a href="#home">🏠 Home</a>
+            </li>
+            <li>
+              <a href="#admin">💼 Admin</a>
+            </li>
+            <li>
+              <a href="#adopt">🐶 Adopt</a>
+            </li>
+            <li>
+              <a href="#favorites">⭐ Favorites</a>
+            </li>
+            <li>
+              <a href="#about">📖 About</a>
+            </li>
+          </ul>
+        ) : <div className="menu-placeholder-container">
+              <img src="/assets/paw-print-image.png" alt="image of paw print" />
+          </div>}
       </div>
       {isOpen && <div className="backdrop" onClick={onClose} />}
     </>

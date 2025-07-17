@@ -24,7 +24,13 @@ export const AuthProvider = ({ children }) => {
     if (!name || !email) {
       const fallbackError = 'Please enter both your name and e-mail address.'
       setError(fallbackError)
-      addNotification('Login Error', fallbackError, '/assets/warning.jpg', 'danger', '.toast-warm')
+      addNotification({
+        headerText: 'Error',
+        bodyText: fallbackError,
+        imgURL: '/assets/warning.jpg',
+        variantTheme: 'danger',
+        customTheme: '.toast-warm'
+      })
       return { success: false, error: fallbackError }
     }
 
@@ -40,13 +46,25 @@ export const AuthProvider = ({ children }) => {
       setSuccess(true)
       setIsAuthenticated(true)
       setUserInfo({ name, email })
-      addNotification('Login Successful', 'You have successfully logged in.', '/assets/success.png', 'success', '.toast-success')
+      addNotification({
+        headerText: 'Success',
+        bodyText: 'You have successfully logged in.',
+        imgURL: '/assets/success.png',
+        variantTheme: 'success',
+        customTheme: '.toast-success'
+      })
       return { success: true }
     } else {
       setError(res.error)
       setSuccess(false)
       setIsAuthenticated(false)
-      addNotification('Login Error', res.error, '/assets/error.jpg', 'danger', '.toast-error')
+      addNotification({
+        headerText: 'Error',
+        bodyText: res.error,
+        imgURL: '/assets/error.jpg',
+        variantTheme: 'danger',
+        customTheme: '.toast-error'
+      })
       return { success: false, error: res.error }
     }
   }
@@ -60,10 +78,22 @@ export const AuthProvider = ({ children }) => {
       setUserInfo({ name: '', email: '' })
       setSuccess(true)
       setIsAuthenticated(false)
-      addNotification('Logout Successful', 'You have been logged out.', '/assets/success.png', 'success', '.toast-success')
+      addNotification({
+        headerText: 'Success',
+        bodyText: 'You have been logged out.',
+        imgURL: '/assets/success.png',
+        variantTheme: 'success',
+        customTheme: '.toast-success'
+      })
       return { success: true }
     } else {
-      addNotification('Logout Error', res.error, '/assets/error.jpg', 'danger', '.toast-error')
+      addNotification({
+        headerText: 'Error',
+        bodyText: res.error,
+        imgURL: '/assets/error.jpg',
+        variantTheme: 'danger',
+        customTheme: '.toast-error'
+      })
       return { success: false, error: res.error }
     }
   }

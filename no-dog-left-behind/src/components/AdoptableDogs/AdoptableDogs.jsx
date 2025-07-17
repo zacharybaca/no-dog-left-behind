@@ -1,7 +1,7 @@
 import './adoptable-dogs.css'
 import AdoptableDogCard from './AdoptableDogCard.jsx'
 
-const AdoptableDogs = ({ dogs, dogIds }) => {
+const AdoptableDogs = ({ dogs }) => {
     let dogsForAdoption = dogs.length > 0
     console.log('Dogs For Adoption: ', dogsForAdoption)
 

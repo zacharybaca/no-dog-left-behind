@@ -17,6 +17,7 @@
     flex-direction: column;
     justify-content: center;
     max-width: 90vw;
+    width: 90vw;
     overflow: auto;
     padding-top: 6%;
     padding-bottom: 6%;
@@ -29,6 +30,7 @@
     font-family: "Schoolbell", cursive;
     font-weight: 400;
     font-style: normal;
+    padding-bottom: 4%;
 }
 
 .adoptable-dog-list-container {

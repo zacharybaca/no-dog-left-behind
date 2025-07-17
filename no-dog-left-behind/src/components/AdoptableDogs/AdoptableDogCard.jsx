@@ -7,8 +7,12 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faRegularHeart } from '@fortawesome/free-regular-svg-icons';
 
 const AdoptableDogCard = ({ Id, dogImg, dogName, dogAge, zipOfDog, dogBreed }) => {
-  const { favoriteDogs } = useFavoriteDogs()
+  const { favoriteDogs, addFavoriteDog, favoritedDog } = useFavoriteDogs()
   const isIncluded = favoriteDogs.some((dog) => dog.id === Id)
+
+  const handleFavoriteClick = (Id) => {
+    addFavoriteDog(Id)
+  }
 
   return (
     <Card id="custom-dog-card">
@@ -25,8 +29,8 @@ const AdoptableDogCard = ({ Id, dogImg, dogName, dogAge, zipOfDog, dogBreed }) =
           Breed of Dog: {dogBreed}
         </Card.Text>
         <div className="card-button-container">
-          <Button variant="primary" className="favorite-button">
-            {!isIncluded ? <FontAwesomeIcon icon={faRegularHeart} size="lg" style={{ color: '#f60940' }} /> :  <FontAwesomeIcon icon={faHeart} size="lg" style={{ color: "#f60940" }} />}
+          <Button variant="primary" className="favorite-button" onClick={() => handleFavoriteClick(Id)}>
+            {!favoritedDog ? <FontAwesomeIcon icon={faRegularHeart} size="lg" style={{ color: '#f60940' }} /> :  <FontAwesomeIcon icon={faHeart} size="lg" style={{ color: "#f60940" }} />}
           </Button>
         </div>
       </Card.Body>

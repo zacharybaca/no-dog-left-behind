@@ -1,11 +1,14 @@
 import './adoptable-dog-card.css'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { useFavoriteDogs } from '../../hooks/useFavoriteDogs'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faRegularHeart } from '@fortawesome/free-regular-svg-icons';
 
 const AdoptableDogCard = ({ Id, dogImg, dogName, dogAge, zipOfDog, dogBreed }) => {
+  const { favoriteDogs } = useFavoriteDogs()
+
   return (
     <Card id="custom-dog-card">
       <Card.Img className="card-image" variant="top" src={dogImg} />
@@ -22,8 +25,7 @@ const AdoptableDogCard = ({ Id, dogImg, dogName, dogAge, zipOfDog, dogBreed }) =
         </Card.Text>
         <div className="card-button-container">
           <Button variant="primary" className="favorite-button">
-            <FontAwesomeIcon icon={faHeart} style={{ color: "#f60940" }} />
-            <FontAwesomeIcon icon={faRegularHeart} style={{ color: '#f60940' }} />
+            {favoriteDogs.some((dog) => dog.id === Id) ? <FontAwesomeIcon icon={faRegularHeart} style={{ color: '#f60940' }} /> :  <FontAwesomeIcon icon={faHeart} style={{ color: "#f60940" }} />}
           </Button>
         </div>
       </Card.Body>

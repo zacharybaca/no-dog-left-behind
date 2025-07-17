@@ -3,14 +3,19 @@ import { useState, useEffect } from 'react'
 
 export const FavoriteDogsProvider = ({ children }) => {
     const [favoriteDogs, setFavoriteDogs] = useState([])
+    const [favoritedDog, setFavoritedDog] = useState(false)
 
     const addFavoriteDog = (favoritedDog) => {
         const isFavoriteDogIncluded = favoriteDogs.some((dog) => dog.id === favoritedDog.id)
 
         if (!isFavoriteDogIncluded) {
             setFavoriteDogs((prev) => [...prev, favoritedDog])
+            setFavoritedDog(true)
+            console.log('Favorited')
         } else {
-            throw new Error('Dog Already Exists!')
+            deleteFavoriteDog(favoritedDog)
+            setFavoritedDog(false)
+            console.log('Unfavorited')
         }
     }
 
@@ -38,6 +43,7 @@ export const FavoriteDogsProvider = ({ children }) => {
     return (
         <FavoriteDogsContext.Provider value={{
             favoriteDogs,
+            favoritedDog,
             addFavoriteDog,
             deleteFavoriteDog
         }}>

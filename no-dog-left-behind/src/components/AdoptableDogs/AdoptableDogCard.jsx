@@ -7,8 +7,7 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faRegularHeart } from '@fortawesome/free-regular-svg-icons';
 
 const AdoptableDogCard = ({ Id, dogImg, dogName, dogAge, zipOfDog, dogBreed }) => {
-  const { favoriteDogs, addFavoriteDog, favoritedDog } = useFavoriteDogs()
-  const isIncluded = favoriteDogs.some((dog) => dog.id === Id)
+  const { addFavoriteDog, favoritedDog } = useFavoriteDogs()
 
   const handleFavoriteClick = (Id) => {
     addFavoriteDog(Id)

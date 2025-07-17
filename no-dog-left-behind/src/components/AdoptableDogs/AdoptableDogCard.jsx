@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as faRegularHeart } from '@fortawesome/free-regular-svg-icons';
 
 const AdoptableDogCard = ({ Id, dogImg, dogName, dogAge, zipOfDog, dogBreed }) => {
   return (
@@ -22,6 +23,7 @@ const AdoptableDogCard = ({ Id, dogImg, dogName, dogAge, zipOfDog, dogBreed }) =
         <div className="card-button-container">
           <Button variant="primary" className="favorite-button">
             <FontAwesomeIcon icon={faHeart} style={{ color: "#f60940" }} />
+            <FontAwesomeIcon icon={faRegularHeart} style={{ color: '#f60940' }} />
           </Button>
         </div>
       </Card.Body>

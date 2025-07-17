@@ -23,6 +23,7 @@
 .card-button-container {
   display: flex;
   justify-content: center;
+  align-items: center;
   height: 20%;
   border: 2px solid black;
 }
@@ -30,4 +31,10 @@
 .favorite-button {
   width: 50%;
   border: 3px solid blue;
+}
+
+@media screen and (max-width: 390px) {
+  .card-button-container {
+    height: 25%;
+  }
 }

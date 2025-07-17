@@ -1,11 +1,18 @@
 import './dashboard.css'
 import { useDogSearch } from '../../hooks/useDogSearch'
+import { useNavigate } from 'react-router-dom'
 import HeroSection from '../HeroSection/HeroSection'
 import AdoptableDogs from '../AdoptableDogs/AdoptableDogs'
 
 const Dashboard = () => {
   const { dogIds, dogs, isLoading, fetchDogs, nextQuery, prevQuery, goToNextPage, goToPrevPage } =
     useDogSearch()
+
+  const navigate = useNavigate()
+
+  const handleDetailsClick = (navigateComponentURL) => {
+    navigate(`/${navigateComponentURL}`)
+  }
 
   return (
     <div className="dashboard-container">
@@ -25,11 +32,14 @@ const Dashboard = () => {
               </div>
             </div>
             <div className="pagination-controls">
-              <button disabled={!prevQuery} onClick={goToPrevPage}>
+              <button type="button" disabled={!prevQuery} onClick={goToPrevPage}>
                 Previous
               </button>
-              <button disabled={!nextQuery} onClick={goToNextPage}>
+              <button type="button" disabled={!nextQuery} onClick={goToNextPage}>
                 Next
+              </button>
+              <button type="button" onClick={() => handleDetailsClick('dog-details')}>
+                Get More Information
               </button>
             </div></>
           )}

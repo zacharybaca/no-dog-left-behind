@@ -8,6 +8,7 @@ import { faHeart as faRegularHeart } from '@fortawesome/free-regular-svg-icons';
 
 const AdoptableDogCard = ({ Id, dogImg, dogName, dogAge, zipOfDog, dogBreed }) => {
   const { favoriteDogs } = useFavoriteDogs()
+  const isIncluded = favoriteDogs.some((dog) => dog.id === Id)
 
   return (
     <Card id="custom-dog-card">
@@ -25,7 +26,7 @@ const AdoptableDogCard = ({ Id, dogImg, dogName, dogAge, zipOfDog, dogBreed }) =
         </Card.Text>
         <div className="card-button-container">
           <Button variant="primary" className="favorite-button">
-            {favoriteDogs.some((dog) => dog.id === Id) ? <FontAwesomeIcon icon={faRegularHeart} size="lg" style={{ color: '#f60940' }} /> :  <FontAwesomeIcon icon={faHeart} size="lg" style={{ color: "#f60940" }} />}
+            {!isIncluded ? <FontAwesomeIcon icon={faRegularHeart} size="lg" style={{ color: '#f60940' }} /> :  <FontAwesomeIcon icon={faHeart} size="lg" style={{ color: "#f60940" }} />}
           </Button>
         </div>
       </Card.Body>

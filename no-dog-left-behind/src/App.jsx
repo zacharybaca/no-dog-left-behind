@@ -12,6 +12,7 @@ import Dashboard from './components/Dashboard/Dashboard.jsx'
 import LoadingScreen from './components/LoadingScreen/LoadingScreen.jsx'
 import LoadingApplication from './components/LoadingApplication/LoadingApplication.jsx';
 import FavoriteDogs from './components/FavoriteDogs/FavoriteDogs.jsx';
+import DogDetails from './components/DogDetails/DogDetails.jsx';
 
 function App() {
   const { isLoaded, setIsLoaded } = useFetcher()
@@ -46,6 +47,7 @@ function App() {
         <Route exact path="/" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/favorites" element={<FavoriteDogs />} />
+        <Route path="/dog-details" element={<DogDetails />} />
         <Route path="/loading" element={<LoadingApplication />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>

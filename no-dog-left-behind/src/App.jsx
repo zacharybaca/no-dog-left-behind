@@ -29,10 +29,13 @@ function App() {
   }, [])
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoaded(true);
-    }, 2000)
-  })
+  const timer = setTimeout(() => {
+    setIsLoaded(true);
+  }, 2000)
+
+  return () => clearTimeout(timer)
+}, [])
+
   
   return !loadingApplication && !isLoading ? (
     <div id="app-container">
@@ -46,7 +49,7 @@ function App() {
       <hr className="horizontal-ruler-default" />
 
       <Routes basename="/">
-        <Route exact path="/" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Login />} />
         <Route path="/favorites" element={isAuthenticated ? <FavoriteDogs /> : <Login />} />
         <Route path="/dog-details" element={isAuthenticated ? <DogDetails /> : <Login />} />

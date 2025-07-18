@@ -4,9 +4,7 @@ import Button from 'react-bootstrap/Button'
 import { useAuth } from '../../hooks/useAuth'
 
 const Login = () => {
-  const { error, success, handleChange, handleSubmit, login, userInfo } = useAuth()
-
-  const [loading, setLoading] = useState(false)
+  const { error, success, loading, setLoading, handleChange, handleSubmit, login, userInfo } = useAuth()
 
   useEffect(() => {
     function simulateNetworkRequest() {
@@ -22,10 +20,7 @@ const Login = () => {
     }
   }, [loading])
 
-  const handleClick = () => {
-    setLoading(true)
-    login(userInfo.name, userInfo.email)
-  }
+ 
 
   return (
     <div className="login-container">
@@ -52,7 +47,7 @@ const Login = () => {
           autoComplete="off"
           required
         />
-        <Button variant="primary" disabled={loading} onClick={!loading ? handleClick : null}>
+        <Button type="submit" variant="primary" disabled={loading}>
           {loading ? 'Logging In…' : 'Login'}
         </Button>
       </form>

@@ -176,6 +176,11 @@
   height: 100%;
 }
 
+#placeholder-image {
+  width: 500px;
+  height: 500px;
+}
+
 @media screen and (min-width: 1440px) {
   .slideout-menu img {
     width: 10%;

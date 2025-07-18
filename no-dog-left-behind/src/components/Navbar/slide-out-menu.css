@@ -2,11 +2,12 @@
   position: fixed;
   top: 0;
   right: -100%;
-  width: 70%;
+  width: 50%;
   height: 100%;
   background-color: #efc65d;
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.4s ease-in-out;
+  opacity: 0.90;
   z-index: 2000;
   padding: 2rem;
 }
@@ -193,6 +194,13 @@
   }
 }
 
+@media screen and (max-width: 768px) {
+  #placeholder-image {
+    width: 200px;
+    height: 200px;
+  }
+}
+
 @media screen and (max-width: 390px) {
   .slideout-menu img {
     width: 25%;
@@ -207,6 +215,16 @@
   #menu-close-button-container {
     min-height: 10%;
   }
+
+  .slideout-menu {
+    width: 70%;
+  }
+
+  #placeholder-image {
+    width: 200px;
+    height: 200px;
+  }
+
 }
 
 @media (prefers-reduced-motion: no-preference) {

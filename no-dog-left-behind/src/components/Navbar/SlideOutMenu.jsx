@@ -39,7 +39,7 @@ const SlideOutMenu = ({ isOpen, onClose }) => {
             </li>
           </ul>
         ) : <div className="menu-placeholder-container">
-              <img src="/assets/paw-print-image.png" alt="image of paw print" />
+              <img src="/assets/paw-print-image.png" id="placeholder-image" alt="image of paw print" />
           </div>}
       </div>
       {isOpen && <div className="backdrop" onClick={onClose} />}

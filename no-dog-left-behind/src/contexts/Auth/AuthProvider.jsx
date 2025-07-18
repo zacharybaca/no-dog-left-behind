@@ -54,6 +54,7 @@ export const AuthProvider = ({ children }) => {
         variantTheme: 'success',
         customTheme: '.toast-success'
       })
+      navigate('/dashboard')
       return { success: true }
     } else if (!res.success) {
       setError(res.error)
@@ -66,8 +67,10 @@ export const AuthProvider = ({ children }) => {
         variantTheme: 'danger',
         customTheme: '.toast-error'
       })
+      navigate('/')
       return { success: false, error: res.error }
     }
+    navigate('/')
     return null
   }
 

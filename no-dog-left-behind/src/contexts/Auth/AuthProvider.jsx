@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const login = async (name, email) => {
     if (!name || !email) {
@@ -54,7 +55,7 @@ export const AuthProvider = ({ children }) => {
         customTheme: '.toast-success'
       })
       return { success: true }
-    } else {
+    } else if (!res.success) {
       setError(res.error)
       setSuccess(false)
       setIsAuthenticated(false)
@@ -67,6 +68,7 @@ export const AuthProvider = ({ children }) => {
       })
       return { success: false, error: res.error }
     }
+    return null
   }
 
   const logout = async () => {
@@ -105,9 +107,11 @@ export const AuthProvider = ({ children }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setLoading(true)
     const result = await login(userInfo.name, userInfo.email)
 
     if (result.success) {
+      setLoading(false)
       navigate('/dashboard')
     }
   }
@@ -118,6 +122,8 @@ export const AuthProvider = ({ children }) => {
         userInfo,
         error,
         isAuthenticated,
+        loading,
+        setLoading,
         setError,
         success,
         login,

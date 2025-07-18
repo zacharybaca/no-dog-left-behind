@@ -24,21 +24,21 @@ export const FetcherProvider = ({ children }) => {
         const errorMessage = message || fallbackError
 
         if (response.status === 401) {
-          addNotification(
-            'User Not Authenticated',
-            'You are not authorized to access this content.',
-            '/assets/warning.jpg',
-            'danger',
-            '.toast-warm'
-          )
+          addNotification({
+            headerText: 'Error',
+            bodyText: 'You are not authorized to access this content.',
+            imgURL: '/assets/warning.jpg',
+            variantTheme: 'danger',
+            customTheme: '.toast-warm'
+          })
         } else if (!response.ok) {
-          addNotification(
-            'Request Failed',
-            errorMessage,
-            '/assets/error.jpg',
-            'danger',
-            '.toast-error'
-          )
+          addNotification({
+            headerText: 'Error',
+            bodyText: errorMessage,
+            imgURL: '/assets/error.jpg',
+            variantTheme: 'danger',
+            customTheme: '.toast-error'
+          })
         }
         setIsLoaded(true)
         return { success: false, error: errorMessage, status: response.status }
@@ -49,13 +49,13 @@ export const FetcherProvider = ({ children }) => {
       return { success: true, data }
 
     } catch (err) {
-      addNotification(
-        'Network Error',
-        'Unable to reach the server.',
-        '/assets/error.jpg',
-        'danger',
-        '.toast-error'
-      )
+      addNotification({
+        headerText: 'Error',
+        bodyText: 'Unable to reach the server.',
+        imgURL: '/assets/error.jpg',
+        variantTheme: 'danger',
+        customTheme: '.toast-error'
+      })
       setIsLoaded(true)
       return { success: false, error: 'Network error', status: null }
     }

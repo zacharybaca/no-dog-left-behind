@@ -44,7 +44,13 @@ export const DogSearchProvider = ({ children }) => {
       }
     } catch (err) {
       if (thisRequestId === activeSearchId.current) {
-         addNotification('Error', err.message, '/assets/error.jpg', 'danger', '.toast-warm')
+        addNotification({
+          headerText: 'Error',
+          bodyText: err.message,
+          imgURL: '/assets/error.jpg',
+          variantTheme: 'danger',
+          customTheme: '.toast-warm'
+        })
         console.error('❌ fetchDogs error:', err.message)
       }
     } finally {

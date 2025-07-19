@@ -20,7 +20,7 @@ function App() {
   const { isLoading } = useDogSearch()
   const { isAuthenticated } = useAuth()
   const [loadingApplication, setLoadingApplication] = useState(true)
-  
+
 
   useEffect(() => {
     setTimeout(() => {
@@ -36,17 +36,17 @@ function App() {
   return () => clearTimeout(timer)
 }, [])
 
-  
   return !loadingApplication && !isLoading ? (
     <div id="app-container">
       <Navbar />
-      <img
-        src="/assets/no-dog-left-behind-hero-image.png"
-        alt="hero image branding"
-        className="application-logo"
-      />
-      
-      <hr className="horizontal-ruler-default" />
+      {!isAuthenticated &&
+        <>
+          <img
+            src="/assets/no-dog-left-behind-hero-image.png"
+            alt="hero image branding"
+            className="application-logo" /><hr className="horizontal-ruler-default"
+          />
+        </>}
 
       <Routes basename="/">
         <Route path="/" element={<Login />} />

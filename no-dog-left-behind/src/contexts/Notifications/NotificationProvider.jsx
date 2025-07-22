@@ -5,7 +5,10 @@ import { useState, useEffect } from 'react'
 export const NotificationProvider = ({ children }) => {
   const MAX_NOTIFICATIONS = 5
   const [showNotification, setShowNotification] = useState(false)
-  const [disableNotifications, setDisableNotifications] = useState(true)
+  const [disableNotifications, setDisableNotifications] = useState(() => {
+    const stored = localStorage.getItem('disable-notifications');
+    return stored ? JSON.parse(stored) : false;
+  });
   const [notifications, setNotifications] = useState([
     {
       _id: uuidv4(),
@@ -48,23 +51,33 @@ export const NotificationProvider = ({ children }) => {
       visible: false,
     },
   ])
+
   const toggleNotification = (id) => {
     setNotifications((prev) => prev.map((n) => (n._id === id ? { ...n, visible: !n.visible } : n)))
   }
 
   const [elapsedMinutes, setElapsedMinutes] = useState(0)
 
-  // Sync to localStorage whenever notifications change
+  // Persist disableNotifications state
   useEffect(() => {
-    localStorage.setItem('notifications', JSON.stringify(notifications))
-  }, [notifications])
+    localStorage.setItem('disable-notifications', JSON.stringify(disableNotifications))
+  }, [disableNotifications])
+
+  // Persist notifications unless disabled
+  useEffect(() => {
+    if (!disableNotifications) {
+      localStorage.setItem('notifications', JSON.stringify(notifications))
+    }
+  }, [notifications, disableNotifications])
 
   // On mount, restore from localStorage
   useEffect(() => {
-    const stored = localStorage.getItem('notifications')
-    if (stored) {
+    const storedNotifications = localStorage.getItem('notifications')
+    const storedDisable = localStorage.getItem('disable-notifications')
+    if (storedNotifications && storedDisable) {
       try {
-        setNotifications(JSON.parse(stored))
+        setDisableNotifications(JSON.parse(storedDisable))
+        setNotifications(JSON.parse(storedNotifications))
       } catch (e) {
         console.error('Failed to parse notifications from localStorage', e)
       }
@@ -79,7 +92,7 @@ export const NotificationProvider = ({ children }) => {
     const now = Date.now()
     const elapsedMs = now - createdTimestamp
 
-    const totalMinutes = Math.floor(elapsedMs / 60000) // 1 minute = 60,000 ms
+    const totalMinutes = Math.floor(elapsedMs / 60000)
     const hours = Math.floor(totalMinutes / 60)
     const minutes = totalMinutes % 60
 
@@ -108,13 +121,11 @@ export const NotificationProvider = ({ children }) => {
       visible: true,
     }
     setNotifications((prev) => {
-      let updated;
-
+      let updated
       if (newNotification.headerText && newNotification.bodyText) {
         updated = [...prev, newNotification]
         console.log('New Notification Added')
-      }
-      else {
+      } else {
         updated = [...prev]
       }
 
@@ -132,7 +143,6 @@ export const NotificationProvider = ({ children }) => {
 
     setNotifications(updatedNotifications)
 
-    // Determine if at least one notification is visible
     const anyVisible = updatedNotifications.some((notification) => notification.visible)
     setShowNotification(anyVisible)
   }
@@ -157,7 +167,7 @@ export const NotificationProvider = ({ children }) => {
         handleSwipeDismiss,
         toggleNotifications,
         disableNotifications,
-        blockNotifications
+        blockNotifications,
       }}
     >
       {children}

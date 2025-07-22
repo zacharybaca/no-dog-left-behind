@@ -4,10 +4,12 @@ import SlideOutMenu from './SlideOutMenu.jsx'
 import NotificationBell from '../NotificationBell/NotificationBell.jsx'
 import { useLocation } from 'react-router-dom'
 import { useMenuOptions } from '../../hooks/useMenuOptions.js'
+import { useAuth } from '../../hooks/useAuth.js'
 import './nav-bar.css'
 
 const Navbar = () => {
   const { menuOpen, setMenuOpen } = useMenuOptions()
+  const { isAuthenticated } = useAuth()
   const location = useLocation()
 
   // Close menu on route change
@@ -22,9 +24,11 @@ const Navbar = () => {
   return (
     <>
       <nav className="navbar shadow-lg">
+        {isAuthenticated &&
         <div className="notification-bell-icon-container">
           <NotificationBell />
         </div>
+        }
 
         <div className="logo-container">
           <img

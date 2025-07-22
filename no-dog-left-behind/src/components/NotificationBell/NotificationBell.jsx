@@ -2,11 +2,11 @@ import './notification-bell.css'
 import { useNotification } from '../../hooks/useNotification'
 
 const NotificationBell = () => {
-  const { toggleNotifications, notifications } = useNotification()
+  const { toggleNotifications, notifications, disableNotifications } = useNotification()
 
   return (
     <>
-      {notifications && notifications.length > 0 ? (
+      {disableNotifications ? <img src="/assets/notifications-disabled.png" className="disabled-notifications-img" alt="notification disabled" /> : notifications && notifications.length > 0 ? (
         <img
           src="/assets/notification-bell-icon.png"
           alt="notification icon"

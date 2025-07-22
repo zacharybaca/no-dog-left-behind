@@ -7,6 +7,10 @@ img:hover {
   cursor: url('/assets/select-cursor-image.png'), pointer;
 }
 
+.disabled-notifications-img:hover {
+  cursor: not-allowed;
+}
+
 @media screen and (max-width: 390px) {
   img {
     width: 35%;

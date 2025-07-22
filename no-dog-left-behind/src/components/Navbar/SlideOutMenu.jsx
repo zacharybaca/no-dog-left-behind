@@ -1,5 +1,6 @@
 import './slide-out-menu.css'
 import Logout from '../Logout/Logout.jsx'
+import DisableNotificationsToggle from '../DisableNotificationsToggle/DisableNotificationsToggle.jsx'
 import { useAuth } from '../../hooks/useAuth.js'
 import { Link } from 'react-router-dom'
 
@@ -17,6 +18,7 @@ const SlideOutMenu = ({ isOpen, onClose }) => {
               className="menu-close-icon"
               onClick={onClose}
             />
+            <DisableNotificationsToggle />
             <span className="tooltip-text">Close menu</span>
             <Logout />
           </div>

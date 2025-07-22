@@ -5,10 +5,10 @@ import { useNotification } from '../../hooks/useNotification.js'
 import SwipeableToast from '../SwipeableToast/SwipeableToast.jsx'
 
 const Notification = () => {
-  const { showNotification, calculateElapsedHoursAndMinutes, notifications } = useNotification()
+  const { showNotification, disableNotifications, calculateElapsedHoursAndMinutes, notifications } = useNotification()
 
   return (
-    <div id="notifications-container">
+    <div className={showNotification || !disableNotifications ? "notifications-container" : "notifications-container-hidden"}>
       {notifications.length > 0 && showNotification && (
         <ToastContainer className="p-3 custom-toast-container custom-toast" position="bottom-end">
           {notifications.map((notification) => (

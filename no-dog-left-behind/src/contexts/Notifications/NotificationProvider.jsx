@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react'
 
 export const NotificationProvider = ({ children }) => {
   const MAX_NOTIFICATIONS = 5
-  const [showNotification, setShowNotification] = useState(true)
+  const [showNotification, setShowNotification] = useState(false)
+  const [disableNotifications, setDisableNotifications] = useState(true)
   const [notifications, setNotifications] = useState([
     {
       _id: uuidv4(),
@@ -14,7 +15,7 @@ export const NotificationProvider = ({ children }) => {
       imgURL: '/assets/success.png',
       customTheme: '.toast-success',
       timestamp: Date.now(),
-      visible: true,
+      visible: false,
     },
     {
       _id: uuidv4(),
@@ -24,7 +25,7 @@ export const NotificationProvider = ({ children }) => {
       imgURL: '/assets/error.jpg',
       customTheme: '.toast-error',
       timestamp: Date.now(),
-      visible: true,
+      visible: false,
     },
     {
       _id: uuidv4(),
@@ -34,7 +35,7 @@ export const NotificationProvider = ({ children }) => {
       imgURL: '/assets/information.jpg',
       customTheme: '.toast-info',
       timestamp: Date.now(),
-      visible: true,
+      visible: false,
     },
     {
       _id: uuidv4(),
@@ -44,7 +45,7 @@ export const NotificationProvider = ({ children }) => {
       imgURL: '/assets/warning.jpg',
       customTheme: '.toast-warm',
       timestamp: Date.now(),
-      visible: true,
+      visible: false,
     },
   ])
   const toggleNotification = (id) => {
@@ -124,12 +125,20 @@ export const NotificationProvider = ({ children }) => {
   }
 
   const toggleNotifications = () => {
-    setNotifications((prev) =>
-      prev.map((notification) => ({
-        ...notification,
-        visible: !notification.visible,
-      }))
-    )
+    const updatedNotifications = notifications.map((notification) => ({
+      ...notification,
+      visible: !notification.visible,
+    }))
+
+    setNotifications(updatedNotifications)
+
+    // Determine if at least one notification is visible
+    const anyVisible = updatedNotifications.some((notification) => notification.visible)
+    setShowNotification(anyVisible)
+  }
+
+  const blockNotifications = () => {
+    setDisableNotifications((prev) => !prev)
   }
 
   return (
@@ -147,6 +156,8 @@ export const NotificationProvider = ({ children }) => {
         addNotification,
         handleSwipeDismiss,
         toggleNotifications,
+        disableNotifications,
+        blockNotifications
       }}
     >
       {children}

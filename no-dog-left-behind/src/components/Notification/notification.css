@@ -1,4 +1,4 @@
-#notifications-container {
+.notifications-container {
   position: fixed;
   bottom: 0.25rem;
   right: 1rem;
@@ -8,6 +8,24 @@
   overflow-y: auto;
   background-color: rgba(0, 0, 0, 0.1);
   border: 3px solid black;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.notifications-container-hidden {
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  border: none;
+}
+
+.notifications-container-hidden {
+  display: none;
+  transition: all 0.3s ease-in-out;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .btn-close:hover {

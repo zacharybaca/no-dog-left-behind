@@ -1,8 +1,6 @@
 import './App.css'
 import { useEffect, useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
-import { useFetcher } from './hooks/useFetcher.js'
-import { useDogSearch } from './hooks/useDogSearch.js'
 import { useAuth } from './hooks/useAuth.js'
 import PrivateRoute from './components/PrivateRoute/PrivateRoute.jsx'
 import Navbar from './components/Navbar/Navbar.jsx'
@@ -17,27 +15,18 @@ import FavoriteDogs from './components/FavoriteDogs/FavoriteDogs.jsx';
 import DogDetails from './components/DogDetails/DogDetails.jsx';
 
 function App() {
-  const { isLoaded, setIsLoaded } = useFetcher()
-  const { isLoading } = useDogSearch()
   const { isAuthenticated } = useAuth()
   const [loadingApplication, setLoadingApplication] = useState(true)
 
-
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setLoadingApplication(false)
     }, 5000)
+
+    return () => clearTimeout(timer)
   }, [])
 
-  useEffect(() => {
-  const timer = setTimeout(() => {
-    setIsLoaded(true);
-  }, 2000)
-
-  return () => clearTimeout(timer)
-}, [])
-
-  return !loadingApplication && !isLoading ? (
+  return !loadingApplication ? (
     <div id="app-container">
       <Navbar />
       {!isAuthenticated &&

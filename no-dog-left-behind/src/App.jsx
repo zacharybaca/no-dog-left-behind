@@ -59,7 +59,7 @@ function App() {
       </Routes>
 
       {/* Render visible notifications */}
-      {isAuthenticated && <Notification />}
+      <Notification />
 
       <hr className="horizontal-ruler-default" />
       <Footer />

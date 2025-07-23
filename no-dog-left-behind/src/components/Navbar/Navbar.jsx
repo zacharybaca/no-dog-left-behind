@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import ThemedToggleButton from './ThemedToggleButton.jsx'
 import SlideOutMenu from './SlideOutMenu.jsx'
 import NotificationBell from '../NotificationBell/NotificationBell.jsx'
+import DateWidget from '../DateWidget/DateWidget.jsx'
 import { useLocation } from 'react-router-dom'
 import { useMenuOptions } from '../../hooks/useMenuOptions.js'
 import { useAuth } from '../../hooks/useAuth.js'
@@ -29,9 +30,7 @@ const Navbar = () => {
           <NotificationBell />
         </div>
         :
-        <div className="date-container">
-          Today's Date
-        </div>
+        <DateWidget />
         }
 
         <div className="logo-container">

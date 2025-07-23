@@ -1,15 +1,21 @@
 import { useEffect, useState } from 'react'
 import './date-widget.css'
 
+const MOCK_EVENTS = [
+  { date: '2025-07-25', title: '🐕 Bailey’s Adoption Anniversary!' },
+  { date: '2025-08-01', title: '🎉 Volunteer Appreciation Day' },
+]
+
 const DateWidget = () => {
   const [currentDate, setCurrentDate] = useState('')
   const [currentTime, setCurrentTime] = useState('')
   const [dayGreeting, setDayGreeting] = useState('')
+  const [isExpanded, setIsExpanded] = useState(true)
+  const [showCalendar, setShowCalendar] = useState(false)
 
   useEffect(() => {
     const now = new Date()
-
-    const dateFormatted = now.toLocaleDateString('en-US', {
+    const formatted = now.toLocaleDateString('en-US', {
       weekday: 'long',
       month: 'long',
       day: 'numeric',
@@ -28,7 +34,7 @@ const DateWidget = () => {
 
     const today = now.toLocaleDateString('en-US', { weekday: 'long' })
 
-    setCurrentDate(dateFormatted)
+    setCurrentDate(formatted)
     setDayGreeting(greetings[today] || '🐶 Welcome back!')
   }, [])
 
@@ -48,11 +54,40 @@ const DateWidget = () => {
     return () => clearInterval(interval)
   }, [])
 
+  const toggleCollapse = () => setIsExpanded((prev) => !prev)
+  const toggleCalendar = () => setShowCalendar((prev) => !prev)
+
   return (
     <div className="date-widget-container">
-      <div className="date-widget-greeting">{dayGreeting}</div>
-      <div className="date-widget-date">{currentDate}</div>
-      <div className="date-widget-time">{currentTime}</div>
+      <div className="date-widget-top">
+        <button onClick={toggleCollapse} className="date-widget-toggle">
+          {isExpanded ? '–' : '+'}
+        </button>
+        <button onClick={toggleCalendar} className="date-widget-calendar-btn" title="Show Calendar">
+          📅
+        </button>
+      </div>
+
+      {isExpanded && (
+        <>
+          <div className="date-widget-greeting">{dayGreeting}</div>
+          <div className="date-widget-date">{currentDate}</div>
+          <div className="date-widget-time">{currentTime}</div>
+        </>
+      )}
+
+      {showCalendar && (
+        <div className="date-widget-calendar">
+          <h4>Upcoming Events</h4>
+          <ul>
+            {MOCK_EVENTS.map((event) => (
+              <li key={event.date}>
+                <strong>{new Date(event.date).toLocaleDateString()}</strong> — {event.title}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   )
 }

@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom'
 import { useFetcher } from './hooks/useFetcher.js'
 import { useDogSearch } from './hooks/useDogSearch.js'
 import { useAuth } from './hooks/useAuth.js'
+import PrivateRoute from './components/PrivateRoute/PrivateRoute.jsx'
 import Navbar from './components/Navbar/Navbar.jsx'
 import Login from './components/Login/Login.jsx'
 import Footer from './components/Footer/Footer.jsx'
@@ -50,9 +51,9 @@ function App() {
 
       <Routes basename="/">
         <Route path="/" element={<Login />} />
-        <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Login />} />
-        <Route path="/favorites" element={isAuthenticated ? <FavoriteDogs /> : <Login />} />
-        <Route path="/dog-details" element={isAuthenticated ? <DogDetails /> : <Login />} />
+        <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+        <Route path="/favorites" element={<PrivateRoute><FavoriteDogs /></PrivateRoute>} />
+        <Route path="/dog-details" element={<PrivateRoute><DogDetails /></PrivateRoute>} />
         <Route path="/loading" element={<LoadingApplication />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>

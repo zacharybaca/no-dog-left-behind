@@ -4,7 +4,7 @@ import { useFetcher } from '../../hooks/useFetcher'
 import { useNotification } from '../../hooks/useNotification'
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL
-
+// Need to merge isAuthenticated state with Auth Context
 export const DogSearchProvider = ({ children }) => {
   const [dogIds, setDogIds] = useState([])
   const [dogs, setDogs] = useState([{

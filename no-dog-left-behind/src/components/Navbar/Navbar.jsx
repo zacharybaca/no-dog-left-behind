@@ -24,9 +24,13 @@ const Navbar = () => {
   return (
     <>
       <nav className="navbar shadow-lg">
-        {isAuthenticated &&
+        {isAuthenticated ?
         <div className="notification-bell-icon-container">
           <NotificationBell />
+        </div>
+        :
+        <div className="date-container">
+          Today's Date
         </div>
         }
 

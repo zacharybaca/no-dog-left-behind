@@ -69,11 +69,11 @@ const DateWidget = () => {
       </div>
 
       {isExpanded && (
-        <>
+        <div className="date-info-container">
           <div className="date-widget-greeting">{dayGreeting}</div>
           <div className="date-widget-date">{currentDate}</div>
           <div className="date-widget-time">{currentTime}</div>
-        </>
+        </div>
       )}
 
       {showCalendar && (

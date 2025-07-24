@@ -1,6 +1,6 @@
 import { AuthContext } from './AuthContext'
 import { useNotification } from '../../hooks/useNotification'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useFetcher } from '../../hooks/useFetcher'
 
@@ -23,6 +23,7 @@ export const AuthProvider = ({ children }) => {
   return stored !== null ? JSON.parse(stored) : false
   })
   const [loading, setLoading] = useState(false)
+  
   const saveAuthToLocalStorage = () => {
   localStorage.setItem('is-authenticated', JSON.stringify(isAuthenticated));
 }

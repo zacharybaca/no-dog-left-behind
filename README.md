@@ -70,13 +70,24 @@ Check out the live app here: [No Dog Left Behind Demo](https://no-dog-left-behin
   /favicons               # Device specific sized favicons
 /src
   /components             # Reusable UI elements
+    /AdoptableDogs        # List of adoptable dogs from an API
     /Dashboard            # Main page that displays dog objects
+    /DateWidget           # Component that displays current date/time & calendar events
+    /Disable-
+     Notifications-
+     Toggle               # Component that enables a user to disable or enable notifications
+    /FavoriteDogs         # Component that displays dogs that a user marked as their favorite
     /ErrorNotification    # Component that displays custom errors
     /Footer               # Component that displays helpful info about the application
     /HeroSection          # Component that is the main "center-piece" when the application loads
+    /LoadingScreen        # Component that shows a splash screen while application state is loading
     /Login                # Component where a user can login to access their favorite dogs to adopt
+    /Logout               # Component that displays 'Logout' or 'Login' depending on the user's authentication state
     /Navbar               # Component that provides navigational links to get around the application
+    /Notification         # Component that shows a notification that is related to certain activity that a user executed in the application
+    /NotificationBell     # Component that shows a bell icon showing if a user has any notifications, or if they have notifications disabled
     /PageNotFound         # Component that displays when a user hits an endpoint that doesn't exist
+    /PrivateRoute         # Component that determines if a user can access certain content of the application
     /SuccessNotification  # Component that displays custom success messages
     /SwipeableToast       # Component that includes the ability to be swiped away when on a mobile device
   /contexts               # App-wide state

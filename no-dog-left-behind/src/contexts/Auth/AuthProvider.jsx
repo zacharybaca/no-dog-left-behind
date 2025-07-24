@@ -21,6 +21,14 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [loading, setLoading] = useState(false)
 
+  const saveAuthToLocalStorage = () => {
+  localStorage.setItem('is-authenticated', JSON.stringify(isAuthenticated));
+}
+
+  useEffect(() => {
+  localStorage.setItem('is-authenticated', JSON.stringify(isAuthenticated));
+}, [isAuthenticated]);
+
   const login = async (name, email) => {
     if (!name || !email) {
       const fallbackError = 'Please enter both your name and e-mail address.'
@@ -55,6 +63,7 @@ export const AuthProvider = ({ children }) => {
         customTheme: '.toast-success'
       })
       navigate('/dashboard')
+      saveAuthToLocalStorage()
       return { success: true }
     } else if (!res.success) {
       setError(res.error)
@@ -90,6 +99,7 @@ export const AuthProvider = ({ children }) => {
         variantTheme: 'success',
         customTheme: '.toast-success'
       })
+      saveAuthToLocalStorage()
       return { success: true }
     } else {
       addNotification({

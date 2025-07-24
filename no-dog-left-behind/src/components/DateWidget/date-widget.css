@@ -63,11 +63,11 @@
 
 /* Calendar Popup */
 .date-widget-calendar {
-  position: absolute; /* ⬅️ Key change */
-  top: 100%;           /* Places it just below the container */
-  right: 0;            /* Aligns it to the right edge */
+  position: absolute; 
+  top: 100%;           
+  right: 0;            
   margin-top: 0.5rem;
-  background: #fff;
+  background: #ac7948;
   border: 1px solid #ddd;
   padding: 0.5rem;
   border-radius: 6px;
@@ -96,6 +96,8 @@
 .date-widget-calendar li {
   margin: 0.25rem 0;
   color: #444;
+  background-color: #feda9c;
+  border: 2px solid black;
 }
 
 @keyframes fadeDropIn {

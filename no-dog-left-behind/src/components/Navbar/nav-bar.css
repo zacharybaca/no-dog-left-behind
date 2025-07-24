@@ -23,9 +23,6 @@
   flex-basis: 15%;
   position: absolute;
   left: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .logo-container {
@@ -57,9 +54,6 @@
 }
 
 .themed-toggle-button-container {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
   flex-basis: 15%;
   position: absolute;
   right: 1rem;
@@ -120,7 +114,7 @@
   }
 
   .logo-container {
-    padding-right: 4.5rem;
+    padding: 0 3rem;
   }
 }
 

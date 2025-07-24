@@ -1,6 +1,6 @@
 .navbar {
   display: flex;
-  justify-content: space-around;
+  justify-content: center; /* Center the logo */
   align-items: center;
   position: fixed;
   top: 0;
@@ -10,7 +10,7 @@
   height: fit-content;
   z-index: 1000;
   background: linear-gradient(135deg, #ffcf99 0%, #fca311 100%);
-  padding: 0 1.75rem 1.75rem 1rem;
+  padding: 1rem 0 1.75rem 0;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   border-bottom: 4px solid #5a250c;
   box-sizing: border-box;
@@ -21,6 +21,11 @@
   align-items: center;
   justify-content: center;
   flex-basis: 15%;
+  position: absolute;
+  left: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .logo-container {
@@ -50,6 +55,11 @@
   align-items: center;
   justify-content: flex-end;
   flex-basis: 15%;
+  position: absolute;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .notification-bell-icon-container:hover,
@@ -77,14 +87,28 @@
   .themed-toggle-button-container {
     flex-basis: 25%;
   }
+
+  .logo-container {
+    padding-right: 5rem;
+  }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 390px) {
   .navbar-subheading {
     display: none;
   }
 
   .navbar {
     padding: 0 0.5rem;
+  }
+
+  .logo-container {
+    padding-right: 4.5rem;
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .logo-container {
+    padding-right: 7rem;
   }
 }

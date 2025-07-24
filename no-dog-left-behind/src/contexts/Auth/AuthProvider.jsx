@@ -18,9 +18,11 @@ export const AuthProvider = ({ children }) => {
 
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+  const stored = localStorage.getItem('is-authenticated')
+  return stored !== null ? JSON.parse(stored) : false
+  })
   const [loading, setLoading] = useState(false)
-
   const saveAuthToLocalStorage = () => {
   localStorage.setItem('is-authenticated', JSON.stringify(isAuthenticated));
 }

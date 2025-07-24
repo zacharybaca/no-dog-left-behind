@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import ThemedToggleButton from './ThemedToggleButton.jsx'
 import SlideOutMenu from './SlideOutMenu.jsx'
 import NotificationBell from '../NotificationBell/NotificationBell.jsx'

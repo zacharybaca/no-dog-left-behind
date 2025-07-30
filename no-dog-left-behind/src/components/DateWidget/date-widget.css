@@ -14,6 +14,23 @@
 .date-info-container {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
+  position: absolute;
+  top: 100%;
+  left: 5%;
+  margin-top: 0.5rem;
+  background: #fffdfa;
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  max-width: fit-content;
+  z-index: 1100;
+  opacity: 0;
+  transform: translateY(-10px);
+  transform: translateZ(30px);
+  animation: fadeDropIn 0.3s ease-out forwards;
+  border: 2px solid black;
 }
 
 .date-widget-top {
@@ -42,30 +59,29 @@
 
 .date-widget-greeting {
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 1.85rem;
   color: #b85d34;
-  white-space: nowrap;
 }
 
 .date-widget-date {
-  font-size: 0.75rem;
+  font-size: 1.75rem;
   color: #777;
-  white-space: nowrap;
 }
 
 .date-widget-time {
-  font-size: 0.75rem;
+  font-size: 1.75rem;
   color: #999;
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.5px;
-  white-space: nowrap;
 }
 
 /* Calendar Popup */
 .date-widget-calendar {
-  position: absolute; 
-  top: 100%;           
-  right: 0;            
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 5%;
   margin-top: 0.5rem;
   background: #ac7948;
   border: 1px solid #ddd;
@@ -73,16 +89,16 @@
   border-radius: 6px;
   font-size: 0.75rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 260px;
+  max-width: fit-content;
   z-index: 1100;
   opacity: 0;
   transform: translateY(-10px);
+  transform: translateZ(10rem);
   animation: fadeDropIn 0.3s ease-out forwards;
 }
 
 .date-widget-calendar h4 {
-  font-size: 0.8rem;
+  font-size: 1rem;
   margin-bottom: 0.25rem;
   color: #333;
 }
@@ -94,6 +110,7 @@
 }
 
 .date-widget-calendar li {
+  font-size: 1.25rem;
   margin: 0.25rem 0;
   color: #444;
   background-color: #feda9c;

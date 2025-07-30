@@ -28,6 +28,7 @@ function App() {
 
   return !loadingApplication ? (
     <div id="app-container">
+      <br />
       <Navbar />
       {!isAuthenticated &&
         <>

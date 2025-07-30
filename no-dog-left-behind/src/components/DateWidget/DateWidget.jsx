@@ -56,27 +56,48 @@ const DateWidget = () => {
 
   const toggleCollapse = () => setIsExpanded((prev) => !prev)
   const toggleCalendar = () => setShowCalendar((prev) => !prev)
+  const toggleCalendarOptions = () => {
+    if (isExpanded) {
+      setIsExpanded(false)
+      setShowCalendar(true)
+    }
+    else {
+      setIsExpanded(true)
+      setShowCalendar(false)
+    }
+  }
+
+  const toggleDateOptions = () => {
+    if (showCalendar) {
+      setShowCalendar(false)
+      setIsExpanded(true)
+    }
+    else {
+      setShowCalendar(true)
+      setIsExpanded(false)
+    }
+  }
 
   return (
     <div className="date-widget-container">
       <div className="date-widget-top">
-        <button onClick={toggleCollapse} className="date-widget-toggle">
+        <button onClick={toggleDateOptions} className="date-widget-toggle">
           {isExpanded ? '–' : '+'}
         </button>
-        <button onClick={toggleCalendar} className="date-widget-calendar-btn" title="Show Calendar">
+        <button onClick={toggleCalendarOptions} className="date-widget-calendar-btn" title="Show Calendar">
           📅
         </button>
       </div>
 
-      {isExpanded && (
+      {isExpanded ? (
         <div className="date-info-container">
           <div className="date-widget-greeting">{dayGreeting}</div>
           <div className="date-widget-date">{currentDate}</div>
           <div className="date-widget-time">{currentTime}</div>
         </div>
-      )}
+      ) : ""}
 
-      {showCalendar && (
+      {showCalendar ? (
         <div className="date-widget-calendar">
           <h4>Upcoming Events</h4>
           <ul>
@@ -87,7 +108,7 @@ const DateWidget = () => {
             ))}
           </ul>
         </div>
-      )}
+      ) : ""}
     </div>
   )
 }

@@ -4,7 +4,7 @@
   align-items: center;
   padding: 4%;
   padding-top: 100px;
-  gap: clamp(1rem, 2vw, 2rem);
+  gap: clamp(1rem, 2vw, 2.75rem);
   box-sizing: border-box;
   min-width: 100%;
   width: 100%; /* Ensures full width */
@@ -30,5 +30,12 @@
   .application-logo {
     width: 30%;
     height: 30%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .application-logo {
+    width: 50%;
+    height: 50%;
   }
 }

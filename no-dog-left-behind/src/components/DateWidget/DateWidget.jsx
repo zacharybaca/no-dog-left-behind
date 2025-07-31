@@ -10,7 +10,7 @@ const DateWidget = () => {
   const [currentDate, setCurrentDate] = useState('')
   const [currentTime, setCurrentTime] = useState('')
   const [dayGreeting, setDayGreeting] = useState('')
-  const [isExpanded, setIsExpanded] = useState(true)
+  const [isExpanded, setIsExpanded] = useState(false)
   const [showCalendar, setShowCalendar] = useState(false)
 
   useEffect(() => {
@@ -57,25 +57,13 @@ const DateWidget = () => {
   const toggleCollapse = () => setIsExpanded((prev) => !prev)
   const toggleCalendar = () => setShowCalendar((prev) => !prev)
   const toggleCalendarOptions = () => {
-    if (isExpanded) {
       setIsExpanded(false)
-      setShowCalendar(true)
-    }
-    else {
-      setIsExpanded(true)
-      setShowCalendar(false)
-    }
+      setShowCalendar(prev => !prev)
   }
 
   const toggleDateOptions = () => {
-    if (showCalendar) {
       setShowCalendar(false)
-      setIsExpanded(true)
-    }
-    else {
-      setShowCalendar(true)
-      setIsExpanded(false)
-    }
+      setIsExpanded(prev => !prev)
   }
 
   return (

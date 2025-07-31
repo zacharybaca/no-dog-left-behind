@@ -18,7 +18,7 @@
 }
 
 .slideout-menu img:hover {
-  cursor: url('assets/paw-cursor-hover.png'), pointer;
+  cursor: url('/assets/paw-cursor-hover.png'), pointer;
 }
 
 .slideout-menu.open {

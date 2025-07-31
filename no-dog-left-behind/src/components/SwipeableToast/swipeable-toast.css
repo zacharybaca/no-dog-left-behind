@@ -7,7 +7,7 @@
 }
 
 #delete-button:hover {
-  cursor: url('assets/paw-cursor-hover.png'), pointer;
+  cursor: url('/assets/paw-cursor-hover.png'), pointer;
 }
 
 img.rounded.me-2 {

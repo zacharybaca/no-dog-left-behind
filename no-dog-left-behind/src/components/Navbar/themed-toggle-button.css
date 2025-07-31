@@ -4,7 +4,7 @@
   justify-content: space-between;
   background: transparent;
   background-color: #AA7645;
-  cursor: url('assets/paw-cursor-hover.png'), pointer;
+  cursor: url('/assets/paw-cursor-hover.png'), pointer;
   padding: 0;
   z-index: 1001;
 }

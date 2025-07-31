@@ -4,7 +4,7 @@ img {
 }
 
 img:hover {
-  cursor: url('/assets/paw-cursor-hover.png'), pointer;
+  cursor: url('/assets/paw-cursor-hover.ico'), pointer;
 }
 
 .disabled-notifications-img:hover {

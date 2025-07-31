@@ -22,10 +22,6 @@
   border-radius: 10px;
 }
 
-.application-logo:hover {
-  cursor: url('assets/regular-cursor-image.png'), pointer;
-}
-
 @media screen and (min-width: 1440px) {
   .application-logo {
     width: 30%;

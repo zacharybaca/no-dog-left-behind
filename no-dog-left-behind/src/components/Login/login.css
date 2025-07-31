@@ -67,11 +67,6 @@
 }
 
 .login-form button:hover {
-  cursor: url('/assets/select-cursor-image.png'), pointer;
+  cursor: url('assets/paw-cursor-hover.png'), pointer;
   background-color: var(--color-accent-dark);
-}
-
-/* Form Images */
-.login-form img {
-  cursor: url('/assets/regular-cursor-image.png'), pointer;
 }

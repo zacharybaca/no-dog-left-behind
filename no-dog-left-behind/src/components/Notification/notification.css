@@ -29,7 +29,7 @@
 }
 
 .btn-close:hover {
-  cursor: url('assets/select-cursor-image.png'), pointer;
+  cursor: url('assets/paw-cursor-hover.png'), pointer;
 }
 
 .custom-toast-container {

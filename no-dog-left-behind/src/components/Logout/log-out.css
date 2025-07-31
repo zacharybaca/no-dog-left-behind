@@ -13,7 +13,7 @@
   background-color: #ef5350;
   box-shadow: 0 0 12px rgba(239, 83, 80, 0.6);
   transform: translateY(-1px);
-  cursor: url('/assets/paw-cursor-hover.png'), pointer;
+  cursor: url('/assets/paw-cursor-hover.ico'), pointer;
 }
 
 .logout-button:active {

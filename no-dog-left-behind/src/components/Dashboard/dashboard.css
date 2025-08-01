@@ -12,6 +12,10 @@
     gap: 25px;
 }
 
+.pagination-controls button:hover {
+    cursor: url('/assets/paw-cursor-hover.cur'), pointer;
+}
+
 .adoptable-dogs-wrapper {
     display: flex;
     flex-direction: column;

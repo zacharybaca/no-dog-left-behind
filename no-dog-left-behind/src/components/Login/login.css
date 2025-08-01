@@ -67,6 +67,6 @@
 }
 
 .login-form button:hover {
-  cursor: url('/assets/paw-cursor-hover.ico'), pointer;
+  cursor: url('/assets/paw-cursor-hover.cur'), pointer;
   background-color: var(--color-accent-dark);
 }

@@ -49,7 +49,7 @@ html:focus-within {
 
 body {
   text-rendering: optimizeSpeed; /* Optional */
-  cursor: url('/assets/paw-cursor.ico')16 16, pointer;
+  cursor: url('/assets/paw-cursor.cur'), pointer;
 }
 
 html,
@@ -73,7 +73,7 @@ select {
 
 button:hover,
 a:hover {
-  cursor: url('/assets/paw-cursor-hover.ico')16 16, pointer;
+  cursor: url('/assets/paw-cursor-hover.cur'), pointer;
 }
 
 /* 6. Links */

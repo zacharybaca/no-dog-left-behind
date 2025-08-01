@@ -31,6 +31,10 @@
   border-radius: 10px;
 }
 
+.card-button-container button:hover {
+  cursor: url('/assets/paw-cursor-hover.cur'), pointer;
+}
+
 @media screen and (max-width: 390px) {
   .card-button-container {
     height: 25%;

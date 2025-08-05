@@ -23,14 +23,84 @@ export const AuthProvider = ({ children }) => {
   return stored !== null ? JSON.parse(stored) : false
   })
   const [loading, setLoading] = useState(false)
-  
+
   const saveAuthToLocalStorage = () => {
-  localStorage.setItem('is-authenticated', JSON.stringify(isAuthenticated));
-}
+    const expirationTime = Date.now() + 60 * 60 * 1000; // 1 hour from now
+    setIsAuthenticated(true)
+
+    localStorage.setItem('is-authenticated', JSON.stringify(isAuthenticated));
+    localStorage.setItem('auth-expiration', expirationTime.toString());
+
+    // Set up automatic logout
+    setTimeout(() => {
+      localStorage.removeItem('is-authenticated');
+      localStorage.removeItem('auth-expiration');
+      setIsAuthenticated(false);
+    }, 60 * 60 * 1000);
+  };
+
+  const loadAuthFromLocalStorage = () => {
+    const isAuth = JSON.parse(localStorage.getItem('is-authenticated'));
+    const expiration = parseInt(localStorage.getItem('auth-expiration'), 10);
+
+    if (!isAuth || !expiration || Date.now() > expiration) {
+      localStorage.removeItem('is-authenticated');
+      localStorage.removeItem('auth-expiration');
+      setIsAuthenticated(false);
+    } else {
+      setIsAuthenticated(true);
+
+      // Set remaining timeout to auto-logout
+      const timeLeft = expiration - Date.now();
+      setTimeout(() => {
+        localStorage.removeItem('is-authenticated');
+        localStorage.removeItem('auth-expiration');
+        setIsAuthenticated(false);
+      }, timeLeft);
+    }
+  };
+
+  const checkAuthenticatedSessionTime = () => {
+    const authExpiration = localStorage.getItem('auth-expiration') ? parseInt(localStorage.getItem('auth-expiration'), 10) : null
+
+    const timeLeft = authExpiration - Date.now()
+
+    return timeLeft ? `You Have This Amount of Time Left: ${timeLeft}` : 'You Are Not Logged In'
+
+    }
+
 
   useEffect(() => {
-  localStorage.setItem('is-authenticated', JSON.stringify(isAuthenticated));
-}, [isAuthenticated]);
+    loadAuthFromLocalStorage();
+  }, []);
+
+  const checkAuth = () => {
+    loadAuthFromLocalStorage()
+
+    try {
+      if (isAuthenticated) {
+        return true
+      } else {
+        addNotification({
+          headerText: 'Access Denied',
+          bodyText: 'User is not authorized to view content or perform specified action',
+          imgURL: '/assets/error.jpg',
+          variantTheme: 'danger',
+          customTheme: '.toast-error'
+        })
+        return false
+      }
+    } catch (err) {
+      addNotification({
+        headerText: 'Error',
+        bodyText: err,
+        imgURL: '/assets/error.jpg',
+        variantTheme: 'danger',
+        customTheme: '.toast-error'
+      })
+      console.error('❌ checkAuth error:', err)
+    }
+  }
 
   const login = async (name, email) => {
     if (!name || !email) {
@@ -56,7 +126,6 @@ export const AuthProvider = ({ children }) => {
 
     if (res.success) {
       setSuccess(true)
-      setIsAuthenticated(true)
       setUserInfo({ name, email })
       addNotification({
         headerText: 'Success',
@@ -94,7 +163,9 @@ export const AuthProvider = ({ children }) => {
     if (res.success) {
       setUserInfo({ name: '', email: '' })
       setSuccess(true)
-      setIsAuthenticated(false)
+      localStorage.getItem('is-authenticated') ? localStorage.removeItem('is-authenticated') : null;
+      localStorage.getItem('auth-expiration') ? localStorage.removeItem('auth-expiration') : null;
+      setIsAuthenticated(false);
       addNotification({
         headerText: 'Success',
         bodyText: 'You have been logged out.',
@@ -102,7 +173,6 @@ export const AuthProvider = ({ children }) => {
         variantTheme: 'success',
         customTheme: '.toast-success'
       })
-      saveAuthToLocalStorage()
       return { success: true }
     } else {
       addNotification({
@@ -146,6 +216,7 @@ export const AuthProvider = ({ children }) => {
         logout,
         handleChange,
         handleSubmit,
+        checkAuth
       }}
     >
       {children}

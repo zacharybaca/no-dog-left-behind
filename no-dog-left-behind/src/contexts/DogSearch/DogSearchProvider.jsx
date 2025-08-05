@@ -2,8 +2,10 @@ import { DogSearchContext } from './DogSearchContext'
 import { useState, useEffect, useMemo, useRef } from 'react'
 import { useFetcher } from '../../hooks/useFetcher'
 import { useNotification } from '../../hooks/useNotification'
+import { useAuth } from '../../hooks/useAuth'
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL
+const dogBreedUrl = import.meta.env.VITE_DOG_BREED_URL
 // Need to merge isAuthenticated state with Auth Context
 export const DogSearchProvider = ({ children }) => {
   const [dogIds, setDogIds] = useState([])
@@ -15,20 +17,20 @@ export const DogSearchProvider = ({ children }) => {
     zip_code: '46350',
     breed: 'Chi'
   }])
+  const [breedData, setBreedData] = useState("")
   const [nextQuery, setNextQuery] = useState(null)
   const [prevQuery, setPrevQuery] = useState(null)
   // Boolean to Keep Track if Loading Screen for Fetching Dogs Should Appear or Not
   const [isLoading, setIsLoading] = useState(false)
-  const [isAuthenticated, setIsAuthenticated] = useState(null)
-
   const { fetcher } = useFetcher()
   const { addNotification } = useNotification()
+  const { isAuthenticated } = useAuth()
 
   // Track request IDs for stale response protection
   const activeSearchId = useRef(0)
   const activeDetailId = useRef(0)
 
-  const fetchDogs = async (query = '') => {
+  const fetchDogs = async (query = '', breed) => {
     setIsLoading(true)
     const thisRequestId = ++activeSearchId.current
 
@@ -36,6 +38,12 @@ export const DogSearchProvider = ({ children }) => {
       const res = await fetcher(`${baseUrl}/dogs/search${query}`, { method: 'GET' })
 
       const data = res.data
+
+      if (query === 'breeds' && breed) {
+        const resDogBreed = await fetcher(`${dogBreedUrl}/search?q=terrier`, { method: 'GET' })
+        const dogBreedFacts = resDogBreed.data
+        setBreedData(dogBreedFacts)
+      }
 
       if (thisRequestId === activeSearchId.current) {
         setDogIds(data && data.resultIds ? data.resultIds : [])
@@ -60,25 +68,6 @@ export const DogSearchProvider = ({ children }) => {
     }
     console.log('Dog IDs: ', dogIds);
   }
-
-  const checkAuth = async () => {
-    try {
-      const res = await fetcher(`${baseUrl}/dogs/breeds`, { method: 'GET' })
-
-      if (res.ok) {
-        setIsAuthenticated(true)
-      } else {
-        setIsAuthenticated(false)
-      }
-    } catch (err) {
-      console.error('❌ checkAuth error:', err)
-      setIsAuthenticated(false)
-    }
-  }
-
-  useEffect(() => {
-    checkAuth()
-  }, [])
 
   useEffect(() => {
     if (isAuthenticated) {

@@ -6,6 +6,7 @@ import { useAuth } from '../../hooks/useAuth'
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL
 const dogBreedUrl = import.meta.env.VITE_DOG_BREED_URL
+const dogBreedApiKey = import.meta.env.VITE_DOG_API_KEY
 
 export const DogSearchProvider = ({ children }) => {
   const [dogIds, setDogIds] = useState([])
@@ -65,7 +66,7 @@ export const DogSearchProvider = ({ children }) => {
     if (!breed) return
 
     try {
-      const data = await fetcher(`${dogBreedUrl}/search?q=${breed}`, { method: 'GET' })
+      const data = await fetcher(`${dogBreedUrl}/search?q=${breed}`, { method: 'GET', headers: { 'x-api-key': dogBreedApiKey } })
       setBreedData(data)
     } catch (err) {
       console.error('❌ fetchBreedData error:', err.message)

@@ -11,7 +11,7 @@ export const VerifyEmailAddress = async (email) => {
       }
     }
 
-    if (data.action === 'approve') {
+    if (data.action === 'allow') {
       return {
         status: 'E-mail Approved',
       }

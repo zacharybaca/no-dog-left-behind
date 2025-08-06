@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom'
 import { useFetcher } from '../../hooks/useFetcher'
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL
+const verifyURL = import.meta.env.VITE_EMAIL_VERIFY_URL
+const verifyApiKey = import.meta.env.VITE_EMAIL_VERIFY_API_KEY
 
 export const AuthProvider = ({ children }) => {
   const { addNotification } = useNotification()
@@ -201,6 +203,7 @@ export const AuthProvider = ({ children }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
+    const res = await fetch(verifyURL, { method: 'POST', headers: { 'X-API-KEY': verifyApiKey }})
     const result = await login(userInfo.name, userInfo.email)
 
     if (result.success) {

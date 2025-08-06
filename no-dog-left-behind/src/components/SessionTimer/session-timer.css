@@ -1,1 +1,37 @@
+.session-timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  background-color: #f7f7f7;
+  color: #333;
+  padding: 8px 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.07);
+  max-width: fit-content;
+  margin: 1rem auto;
+  transition: background-color 0.3s ease;
+}
 
+.countdown-text::before {
+  content: '🐾 ';
+}
+
+.expired-text {
+  color: #c62828;
+  font-weight: bold;
+}
+
+.session-timer.expiring-soon {
+  background-color: #fff3e0;
+  color: #ef6c00;
+  border: 1px solid #ef6c00;
+}
+
+.session-timer.expired {
+  background-color: #ffe6e6;
+  color: #c62828;
+  border: 1px solid #c62828;
+}

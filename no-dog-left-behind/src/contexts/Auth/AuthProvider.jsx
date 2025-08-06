@@ -203,7 +203,7 @@ export const AuthProvider = ({ children }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
-    const res = await fetch(verifyURL, { method: 'POST', headers: { 'X-API-KEY': verifyApiKey }})
+    const res = await fetch(verifyURL, { method: 'POST', headers: { 'X-API-KEY': verifyApiKey }, body: JSON.stringify( {'email': userInfo.email})} )
     const result = await login(userInfo.name, userInfo.email)
 
     if (result.success) {

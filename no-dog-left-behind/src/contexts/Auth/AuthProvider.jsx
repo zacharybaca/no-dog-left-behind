@@ -204,9 +204,12 @@ export const AuthProvider = ({ children }) => {
     e.preventDefault()
     setLoading(true)
     const res = await fetch(verifyURL, { method: 'POST', headers: { 'X-API-KEY': verifyApiKey }, body: JSON.stringify( {'email': userInfo.email})} )
+    const data = res.statusCode !== 401 ? res.json() : null
     const result = await login(userInfo.name, userInfo.email)
 
-    if (result.success) {
+    console.log('Email Verify Info: ', data)
+    
+    if (result.success && res.statuCode === 200) {
       setLoading(false)
       navigate('/dashboard')
     }

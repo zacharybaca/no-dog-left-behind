@@ -6,7 +6,7 @@ import { useAuth } from '../../hooks/useAuth'
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL
 const dogBreedUrl = import.meta.env.VITE_DOG_BREED_URL
-// Need to merge isAuthenticated state with Auth Context
+
 export const DogSearchProvider = ({ children }) => {
   const [dogIds, setDogIds] = useState([])
   const [dogs, setDogs] = useState([{
@@ -20,35 +20,27 @@ export const DogSearchProvider = ({ children }) => {
   const [breedData, setBreedData] = useState("")
   const [nextQuery, setNextQuery] = useState(null)
   const [prevQuery, setPrevQuery] = useState(null)
-  // Boolean to Keep Track if Loading Screen for Fetching Dogs Should Appear or Not
   const [isLoading, setIsLoading] = useState(false)
+
   const { fetcher } = useFetcher()
   const { addNotification } = useNotification()
   const { isAuthenticated } = useAuth()
 
-  // Track request IDs for stale response protection
   const activeSearchId = useRef(0)
   const activeDetailId = useRef(0)
 
-  const fetchDogs = async (query = '', breed) => {
+  // Fetch paginated dogs from the API
+  const fetchDogs = async (query = '') => {
     setIsLoading(true)
     const thisRequestId = ++activeSearchId.current
 
     try {
-      const res = await fetcher(`${baseUrl}/dogs/search${query}`, { method: 'GET' })
-
-      const data = res.data
-
-      if (query === 'breeds' && breed) {
-        const resDogBreed = await fetcher(`${dogBreedUrl}/search?q=terrier`, { method: 'GET' })
-        const dogBreedFacts = resDogBreed.data
-        setBreedData(dogBreedFacts)
-      }
+      const data = await fetcher(`${baseUrl}/dogs/search${query}`, { method: 'GET' })
 
       if (thisRequestId === activeSearchId.current) {
-        setDogIds(data && data.resultIds ? data.resultIds : [])
-        setNextQuery(data && data.next ? data.next : null)
-        setPrevQuery(data && data.prev ? data.prev : null)
+        setDogIds(data?.resultIds ?? [])
+        setNextQuery(data?.next ?? null)
+        setPrevQuery(data?.prev ?? null)
       }
     } catch (err) {
       if (thisRequestId === activeSearchId.current) {
@@ -66,15 +58,21 @@ export const DogSearchProvider = ({ children }) => {
         setIsLoading(false)
       }
     }
-    console.log('Dog IDs: ', dogIds);
   }
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      fetchDogs()
-    }
-  }, [isAuthenticated])
+  // Separate function to fetch breed info
+  const fetchBreedData = async (breed) => {
+    if (!breed) return
 
+    try {
+      const data = await fetcher(`${dogBreedUrl}/search?q=${breed}`, { method: 'GET' })
+      setBreedData(data)
+    } catch (err) {
+      console.error('❌ fetchBreedData error:', err.message)
+    }
+  }
+
+  // Fetch full dog details by ID list
   useEffect(() => {
     if (dogIds.length === 0) return
 
@@ -82,30 +80,31 @@ export const DogSearchProvider = ({ children }) => {
 
     const fetchDogDetails = async () => {
       try {
-        const res = await fetcher(`${baseUrl}/dogs`, {
+        const data = await fetcher(`${baseUrl}/dogs`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ ids: dogIds }),
         })
-
-        if (!res.ok) {
-          throw new Error(`Details failed with status ${res.status}`)
-        }
-
-        const data = await res.json()
 
         if (thisRequestId === activeDetailId.current) {
           setDogs(data)
         }
       } catch (err) {
         if (thisRequestId === activeDetailId.current) {
-          console.error('❌ fetchDogDetails error:', err)
+          console.error('❌ fetchDogDetails error:', err.message)
         }
       }
     }
 
     fetchDogDetails()
-  }, [dogIds, fetcher])
+  }, [dogIds])
+
+  // Initial fetch when authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchDogs()
+    }
+  }, [isAuthenticated])
 
   const goToNextPage = () => {
     if (nextQuery) {
@@ -123,6 +122,8 @@ export const DogSearchProvider = ({ children }) => {
     dogIds,
     dogs,
     fetchDogs,
+    fetchBreedData,
+    breedData,
     nextQuery,
     prevQuery,
     goToNextPage,
@@ -131,6 +132,7 @@ export const DogSearchProvider = ({ children }) => {
   }), [
     dogIds,
     dogs,
+    breedData,
     nextQuery,
     prevQuery,
     isLoading,

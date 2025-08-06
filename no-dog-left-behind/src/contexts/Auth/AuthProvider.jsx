@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
     const expirationTime = Date.now() + 60 * 60 * 1000; // 1 hour from now
     setIsAuthenticated(true)
 
-    localStorage.setItem('is-authenticated', JSON.stringify(isAuthenticated));
+    localStorage.setItem('is-authenticated', JSON.stringify(true));
     localStorage.setItem('auth-expiration', expirationTime.toString());
 
     // Set up automatic logout
@@ -65,10 +65,17 @@ export const AuthProvider = ({ children }) => {
 
     const timeLeft = authExpiration - Date.now()
 
-    return timeLeft ? `You Have This Amount of Time Left: ${timeLeft}` : 'You Are Not Logged In'
+    if (timeLeft <= 0) {
+      return "You do not have any time left"
+    } else {
+      const totalMinutes = Math.floor(timeLeft / (1000 * 60))
+      const hours = Math.floor(totalMinutes / 60)
+      const minutes = totalMinutes % 60
 
+      return `✅ Time until cookie expires: ${hours}h ${minutes}m`
     }
 
+    }
 
   useEffect(() => {
     loadAuthFromLocalStorage();

@@ -204,14 +204,24 @@ export const AuthProvider = ({ children }) => {
     e.preventDefault()
     setLoading(true)
     const res = await fetch(verifyURL, { method: 'POST', headers: { 'X-API-KEY': verifyApiKey }, body: JSON.stringify( {'email': userInfo.email})} )
-    const data = res.statusCode !== 401 ? res.json() : null
+    const data = res.json()
     const result = await login(userInfo.name, userInfo.email)
 
     console.log('Email Verify Info: ', data)
-    
-    if (result.success && res.statuCode === 200) {
+
+    if (result.success && res.statusCode === 200 && data.action === "allow") {
       setLoading(false)
       navigate('/dashboard')
+    }
+    else if (result.success && res.statusCode === 401) {
+      console.log('Unauthorized to access API')
+    }
+    else if (result.success && res.statusCode === 201 && data.action === "deny") {
+      setLoading(false)
+      navigate('/')
+    }
+    else {
+      navigate('/')
     }
   }
 

@@ -135,7 +135,7 @@ export const AuthProvider = ({ children }) => {
       body: JSON.stringify({ name, email }),
     })
 
-    const verified = useVerifyEmailAddress(email)
+    
 
     if (res.success && verified.status === 'E-mail Approved') {
       setSuccess(true)
@@ -210,20 +210,22 @@ export const AuthProvider = ({ children }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
-    const res = await fetch(verifyURL, { method: 'POST', headers: { 'X-API-KEY': verifyApiKey }, body: JSON.stringify( {'email': userInfo.email})} )
+    const res = await fetch(useVerifyEmailAddress, { method: 'POST',headers: {'X-API-KEY': verifyApiKey,'Content-Type': 'application/json' },
+      body: JSON.stringify({ 'email': userInfo.email })
+    });
     const data = res.json()
     const result = await login(userInfo.name, userInfo.email)
 
     console.log('Email Verify Info: ', data)
 
-    if (result.success && res.statusCode === 200 && data.action === "allow") {
+    if (result.success && res.statusCode === 200 && data.status === "E-mail Approved") {
       setLoading(false)
       navigate('/dashboard')
     }
     else if (result.success && res.statusCode === 401) {
       console.log('Unauthorized to access API')
     }
-    else if (result.success && res.statusCode === 201 && data.action === "deny") {
+    else if (result.success && res.statusCode === 201 && data.status === "E-mail Not Approved") {
       setLoading(false)
       navigate('/')
     }

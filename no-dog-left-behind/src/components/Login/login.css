@@ -28,13 +28,15 @@
 /* Close button inside modal */
 .login-close-btn {
   position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
+  top: 0.1rem;
+  right: 0.1rem;
   font-size: 1.5rem;
   background: transparent;
   border: none;
   color: #333;
   cursor: pointer;
+  width: 24px;
+  height: 24px;
 }
 
 /* Fade-in animation */

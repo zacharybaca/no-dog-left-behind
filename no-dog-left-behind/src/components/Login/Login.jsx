@@ -19,7 +19,9 @@ const Login = ({ onClose }) => {
   return (
     <div className="login-overlay">
       <div className="login-modal">
-        <button className="login-close-btn" onClick={onClose}>×</button>
+        <Button className="login-close-btn" onClick={onClose}>
+          <img src="/assets/cross-close-icon.png" alt="close button" className="login-close-btn" />
+        </Button>
 
         <form className="login-form" onSubmit={handleSubmit}>
           <img src="/assets/paw-print-image.jpg" alt="Paw Print" className="login-bg" />

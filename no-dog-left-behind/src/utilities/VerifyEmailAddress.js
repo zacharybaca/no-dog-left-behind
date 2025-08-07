@@ -3,7 +3,7 @@ export async function VerifyEmailAddress(email) {
   const apiUrl = import.meta.env.VITE_EMAIL_VERIFY_URL
 
   try {
-    const response = await fetch(apiUrl, { method: 'POST', headers: { 'X-API-KEY': apiKey }, body: JSON.stringify( {'email': email})} )
+    const response = await fetch(apiUrl, { method: 'POST', headers: { 'X-API-KEY': apiKey, 'Content-Type': 'application/json' }, body: JSON.stringify( {'email': email})} )
 
     if (!response.ok) {
       throw new Error(`Request failed with status ${response.status}`)

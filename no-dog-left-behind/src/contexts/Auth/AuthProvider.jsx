@@ -12,14 +12,13 @@ const verifyApiKey = import.meta.env.VITE_EMAIL_VERIFY_API_KEY
 export const AuthProvider = ({ children }) => {
   const { addNotification } = useNotification()
   const { fetcher } = useFetcher()
-  const { VerifyEmailAddress } = useVerifyEmailAddress()
   const navigate = useNavigate()
 
   const [userInfo, setUserInfo] = useState({
     name: '',
     email: '',
   })
-
+  const [verified, setVerified] = useState("")
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
   const [showLogin, setShowLogin] = useState(false)
@@ -136,7 +135,9 @@ export const AuthProvider = ({ children }) => {
       body: JSON.stringify({ name, email }),
     })
 
-    if (res.success) {
+    const verified = useVerifyEmailAddress(email)
+
+    if (res.success && verified.status === 'E-mail Approved') {
       setSuccess(true)
       setShowLogin(false)
       setUserInfo({ name, email })
@@ -150,7 +151,7 @@ export const AuthProvider = ({ children }) => {
       navigate('/dashboard')
       saveAuthToLocalStorage()
       return { success: true }
-    } else if (!res.success) {
+    } else if (!res.success || verified.status === 'E-mail Not Approved') {
       setError(res.error)
       setSuccess(false)
       setShowLogin(true)

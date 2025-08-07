@@ -15,9 +15,8 @@ import FavoriteDogs from './components/FavoriteDogs/FavoriteDogs.jsx';
 import DogDetails from './components/DogDetails/DogDetails.jsx';
 
 function App() {
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, showLogin } = useAuth()
   const [loadingApplication, setLoadingApplication] = useState(true)
-  const [showLogin, setShowLogin] = useState(false)
 
   useEffect(() => {
     const timer = setTimeout(() => {

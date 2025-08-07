@@ -22,6 +22,7 @@ export const AuthProvider = ({ children }) => {
 
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
+  const [showLogin, setShowLogin] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
   const stored = localStorage.getItem('is-authenticated')
   return stored !== null ? JSON.parse(stored) : false
@@ -137,6 +138,7 @@ export const AuthProvider = ({ children }) => {
 
     if (res.success) {
       setSuccess(true)
+      setShowLogin(false)
       setUserInfo({ name, email })
       addNotification({
         headerText: 'Success',
@@ -151,6 +153,7 @@ export const AuthProvider = ({ children }) => {
     } else if (!res.success) {
       setError(res.error)
       setSuccess(false)
+      setShowLogin(true)
       setIsAuthenticated(false)
       addNotification({
         headerText: 'Error',
@@ -162,6 +165,7 @@ export const AuthProvider = ({ children }) => {
       navigate('/')
       return { success: false, error: res.error }
     }
+    setShowLogin(true)
     navigate('/')
     return null
   }
@@ -241,7 +245,8 @@ export const AuthProvider = ({ children }) => {
         logout,
         handleChange,
         handleSubmit,
-        checkAuth
+        checkAuth,
+        showLogin
       }}
     >
       {children}

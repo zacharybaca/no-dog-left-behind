@@ -13,7 +13,7 @@ const SlideOutMenu = ({ isOpen, onClose }) => {
         {isOpen && (
           <div id="menu-close-button-container">
             <img
-              src="/assets/dog-bone-close-icon.png"
+              src="/assets/dog-bones-close-icon.png"
               alt="menu close icon"
               className="menu-close-icon"
               onClick={onClose}

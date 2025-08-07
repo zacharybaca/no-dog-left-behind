@@ -17,6 +17,7 @@ import DogDetails from './components/DogDetails/DogDetails.jsx';
 function App() {
   const { isAuthenticated } = useAuth()
   const [loadingApplication, setLoadingApplication] = useState(true)
+  const [showLogin, setShowLogin] = useState(false)
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -32,12 +33,20 @@ function App() {
       <Navbar />
       {!isAuthenticated &&
         <>
-          <img
-            src="/assets/no-dog-left-behind-hero-image.png"
-            alt="hero image branding"
-            className="application-logo" /><hr className="horizontal-ruler-default"
-          />
-        </>}
+          <>
+            <img
+              src="/assets/no-dog-left-behind-hero-image.png"
+              alt="hero image branding"
+              className="application-logo" 
+            />
+            <hr className="horizontal-ruler-default" />
+          </>
+          <>
+            <button onClick={() => setShowLogin(true)}>Login</button>
+            {showLogin && <Login onClose={() => setShowLogin(false)} />}
+          </>
+        </>
+        }
 
       <Routes basename="/">
         <Route path="/" element={<Login />} />

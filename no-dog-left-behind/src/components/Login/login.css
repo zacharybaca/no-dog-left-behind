@@ -120,3 +120,9 @@
   cursor: url('/assets/paw-cursor-hover.cur'), pointer;
   background-color: var(--color-accent-dark);
 }
+
+@media screen and (max-width: 390px) {
+  .login-modal {
+    width: 75%;
+  }
+}

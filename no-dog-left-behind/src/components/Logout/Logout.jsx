@@ -5,15 +5,17 @@ import { useMenuOptions } from '../../hooks/useMenuOptions'
 import { useNavigate } from 'react-router-dom'
 
 const Logout = () => {
-  const { logout, isAuthenticated } = useAuth()
+  const { logout, isAuthenticated, setShowLogin } = useAuth()
   const { setMenuOpen } = useMenuOptions()
   const navigate = useNavigate()
 
   const handleClick = async () => {
     if (isAuthenticated) {
       await logout()
+      setShowLogin(prev => !prev)
     } else {
       setMenuOpen(false)
+      setShowLogin(true)
       navigate('/')
     }
   }

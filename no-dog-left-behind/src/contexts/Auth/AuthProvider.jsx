@@ -246,7 +246,8 @@ export const AuthProvider = ({ children }) => {
         handleChange,
         handleSubmit,
         checkAuth,
-        showLogin
+        showLogin,
+        setShowLogin
       }}
     >
       {children}

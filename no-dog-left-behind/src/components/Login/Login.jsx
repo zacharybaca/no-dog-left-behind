@@ -3,8 +3,8 @@ import { useEffect } from 'react'
 import Button from 'react-bootstrap/Button'
 import { useAuth } from '../../hooks/useAuth'
 
-const Login = ({ onClose }) => {
-  const { error, success, loading, setLoading, handleChange, handleSubmit } = useAuth()
+const Login = () => {
+  const { error, success, loading, setLoading, handleChange, handleSubmit, setShowLogin, showLogin } = useAuth()
 
   useEffect(() => {
     function simulateNetworkRequest() {
@@ -17,9 +17,9 @@ const Login = ({ onClose }) => {
   }, [loading, setLoading])
 
   return (
-    <div className="login-overlay">
+    showLogin && <div className="login-overlay">
       <div className="login-modal">
-        <Button className="login-close-btn" onClick={onClose}>
+        <Button className="login-close-btn" onClick={() => setShowLogin(prev => !prev)}>
           <img src="/assets/cross-close-icon.png" alt="close button" className="login-close-btn" />
         </Button>
 

@@ -15,7 +15,7 @@ import FavoriteDogs from './components/FavoriteDogs/FavoriteDogs.jsx';
 import DogDetails from './components/DogDetails/DogDetails.jsx';
 
 function App() {
-  const { isAuthenticated, showLogin } = useAuth()
+  const { isAuthenticated } = useAuth()
   const [loadingApplication, setLoadingApplication] = useState(true)
 
   useEffect(() => {
@@ -39,10 +39,6 @@ function App() {
               className="application-logo" 
             />
             <hr className="horizontal-ruler-default" />
-          </>
-          <>
-            <button onClick={() => setShowLogin(true)}>Login</button>
-            {showLogin && <Login onClose={() => setShowLogin(false)} />}
           </>
         </>
         }

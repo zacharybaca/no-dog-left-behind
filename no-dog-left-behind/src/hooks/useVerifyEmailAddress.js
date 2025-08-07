@@ -1,6 +1,6 @@
 import { VerifyEmailAddress } from '../utilities/VerifyEmailAddress.js'
 
-export const VerifyEmailAddress = async (email) => {
+export const useVerifyEmailAddress = async (email) => {
   try {
     const data = await VerifyEmailAddress(email)
 

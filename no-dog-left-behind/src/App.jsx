@@ -38,7 +38,6 @@ function App() {
               alt="hero image branding"
               className="application-logo" 
             />
-            <hr className="horizontal-ruler-default" />
           </>
         </>
         }

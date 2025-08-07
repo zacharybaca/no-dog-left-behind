@@ -3,6 +3,7 @@ import { useNotification } from '../../hooks/useNotification'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useFetcher } from '../../hooks/useFetcher'
+import { useVerifyEmailAddress } from '../../hooks/useVerifyEmailAddress'
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL
 const verifyURL = import.meta.env.VITE_EMAIL_VERIFY_URL
@@ -11,6 +12,7 @@ const verifyApiKey = import.meta.env.VITE_EMAIL_VERIFY_API_KEY
 export const AuthProvider = ({ children }) => {
   const { addNotification } = useNotification()
   const { fetcher } = useFetcher()
+  const { VerifyEmailAddress } = useVerifyEmailAddress()
   const navigate = useNavigate()
 
   const [userInfo, setUserInfo] = useState({

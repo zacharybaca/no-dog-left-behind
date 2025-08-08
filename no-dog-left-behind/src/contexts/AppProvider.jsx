@@ -6,6 +6,7 @@ import { MenuOptionsProvider } from './MenuOptions/MenuOptionsProvider.jsx'
 import { FetcherProvider } from './Fetcher/FetcherProvider.jsx'
 import { FavoriteDogsProvider } from './FavoriteDogs/FavoriteDogsProvider.jsx'
 import { WidgetOptionsProvider } from './WidgetOptions/WidgetOptionsProvider.jsx'
+import { VerifyEmailProvider } from './VerifyEmailAddress/VerifyEmailAddressProvider.jsx'
 
 export const AppProviders = ({ children }) => {
   return (
@@ -13,13 +14,15 @@ export const AppProviders = ({ children }) => {
       <WidgetOptionsProvider>
         <NotificationProvider>
           <FetcherProvider>
-            <AuthProvider>
-              <MenuOptionsProvider>
-                <FavoriteDogsProvider>
-                  <DogSearchProvider>{children}</DogSearchProvider>
-                </FavoriteDogsProvider>
-              </MenuOptionsProvider>
-            </AuthProvider>
+            <VerifyEmailProvider> {/* ✅ Inserted here */}
+              <AuthProvider>
+                <MenuOptionsProvider>
+                  <FavoriteDogsProvider>
+                    <DogSearchProvider>{children}</DogSearchProvider>
+                  </FavoriteDogsProvider>
+                </MenuOptionsProvider>
+              </AuthProvider>
+            </VerifyEmailProvider>
           </FetcherProvider>
         </NotificationProvider>
       </WidgetOptionsProvider>

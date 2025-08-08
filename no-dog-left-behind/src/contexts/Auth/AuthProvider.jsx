@@ -1,116 +1,90 @@
 import { AuthContext } from './AuthContext'
-import { useNotification } from '../../hooks/useNotification'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useFetcher } from '../../hooks/useFetcher'
+import { useNotification } from '../../hooks/useNotification'
 import { useVerifyEmailAddress } from '../../hooks/useVerifyEmailAddress'
+import { useFetcher } from '../../hooks/useFetcher'
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL
-const verifyURL = import.meta.env.VITE_EMAIL_VERIFY_URL
-const verifyApiKey = import.meta.env.VITE_EMAIL_VERIFY_API_KEY
 
 export const AuthProvider = ({ children }) => {
   const { addNotification } = useNotification()
+  const { verifyEmailAddress } = useVerifyEmailAddress()
   const { fetcher } = useFetcher()
   const navigate = useNavigate()
 
-  const [userInfo, setUserInfo] = useState({
-    name: '',
-    email: '',
-  })
-  const [verified, setVerified] = useState("")
+  const [userInfo, setUserInfo] = useState({ name: '', email: '' })
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
   const [showLogin, setShowLogin] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
-  const stored = localStorage.getItem('is-authenticated')
-  return stored !== null ? JSON.parse(stored) : false
+    const stored = localStorage.getItem('is-authenticated')
+    return stored !== null ? JSON.parse(stored) : false
   })
   const [loading, setLoading] = useState(false)
 
   const saveAuthToLocalStorage = () => {
-    const expirationTime = Date.now() + 60 * 60 * 1000; // 1 hour from now
+    const expirationTime = Date.now() + 60 * 60 * 1000 // 1 hour
     setIsAuthenticated(true)
 
-    localStorage.setItem('is-authenticated', JSON.stringify(true));
-    localStorage.setItem('auth-expiration', expirationTime.toString());
+    localStorage.setItem('is-authenticated', JSON.stringify(true))
+    localStorage.setItem('auth-expiration', expirationTime.toString())
 
-    // Set up automatic logout
     setTimeout(() => {
-      localStorage.removeItem('is-authenticated');
-      localStorage.removeItem('auth-expiration');
-      setIsAuthenticated(false);
-    }, 60 * 60 * 1000);
-  };
+      localStorage.removeItem('is-authenticated')
+      localStorage.removeItem('auth-expiration')
+      setIsAuthenticated(false)
+    }, 60 * 60 * 1000)
+  }
 
   const loadAuthFromLocalStorage = () => {
-    const isAuth = JSON.parse(localStorage.getItem('is-authenticated'));
-    const expiration = parseInt(localStorage.getItem('auth-expiration'), 10);
+    const isAuth = JSON.parse(localStorage.getItem('is-authenticated'))
+    const expiration = parseInt(localStorage.getItem('auth-expiration'), 10)
 
     if (!isAuth || !expiration || Date.now() > expiration) {
-      localStorage.removeItem('is-authenticated');
-      localStorage.removeItem('auth-expiration');
-      setIsAuthenticated(false);
+      localStorage.removeItem('is-authenticated')
+      localStorage.removeItem('auth-expiration')
+      setIsAuthenticated(false)
     } else {
-      setIsAuthenticated(true);
-
-      // Set remaining timeout to auto-logout
-      const timeLeft = expiration - Date.now();
+      setIsAuthenticated(true)
+      const timeLeft = expiration - Date.now()
       setTimeout(() => {
-        localStorage.removeItem('is-authenticated');
-        localStorage.removeItem('auth-expiration');
-        setIsAuthenticated(false);
-      }, timeLeft);
+        localStorage.removeItem('is-authenticated')
+        localStorage.removeItem('auth-expiration')
+        setIsAuthenticated(false)
+      }, timeLeft)
     }
-  };
+  }
 
-  const checkAuthenticatedSessionTime = () => {
-    const authExpiration = localStorage.getItem('auth-expiration') ? parseInt(localStorage.getItem('auth-expiration'), 10) : null
+  const getSessionExpirationTimeMessage = () => {
+    const expiration = parseInt(localStorage.getItem('auth-expiration'), 10)
+    const timeLeft = expiration - Date.now()
 
-    const timeLeft = authExpiration - Date.now()
+    if (!expiration || timeLeft <= 0) return 'You do not have any time left'
 
-    if (timeLeft <= 0) {
-      return "You do not have any time left"
-    } else {
-      const totalMinutes = Math.floor(timeLeft / (1000 * 60))
-      const hours = Math.floor(totalMinutes / 60)
-      const minutes = totalMinutes % 60
+    const totalMinutes = Math.floor(timeLeft / (1000 * 60))
+    const hours = Math.floor(totalMinutes / 60)
+    const minutes = totalMinutes % 60
 
-      return `✅ Time until cookie expires: ${hours}h ${minutes}m`
-    }
-
-    }
+    return `✅ Time until cookie expires: ${hours}h ${minutes}m`
+  }
 
   useEffect(() => {
-    loadAuthFromLocalStorage();
-  }, []);
+    loadAuthFromLocalStorage()
+  }, [])
 
   const checkAuth = () => {
     loadAuthFromLocalStorage()
+    if (isAuthenticated) return true
 
-    try {
-      if (isAuthenticated) {
-        return true
-      } else {
-        addNotification({
-          headerText: 'Access Denied',
-          bodyText: 'User is not authorized to view content or perform specified action',
-          imgURL: '/assets/error.jpg',
-          variantTheme: 'danger',
-          customTheme: '.toast-error'
-        })
-        return false
-      }
-    } catch (err) {
-      addNotification({
-        headerText: 'Error',
-        bodyText: err,
-        imgURL: '/assets/error.jpg',
-        variantTheme: 'danger',
-        customTheme: '.toast-error'
-      })
-      console.error('❌ checkAuth error:', err)
-    }
+    addNotification({
+      headerText: 'Access Denied',
+      bodyText: 'User is not authorized to view content or perform specified action',
+      imgURL: '/assets/error.jpg',
+      variantTheme: 'danger',
+      customTheme: '.toast-error',
+    })
+    return false
   }
 
   const login = async (name, email) => {
@@ -122,73 +96,83 @@ export const AuthProvider = ({ children }) => {
         bodyText: fallbackError,
         imgURL: '/assets/warning.jpg',
         variantTheme: 'danger',
-        customTheme: '.toast-warm'
+        customTheme: '.toast-warm',
       })
       return { success: false, error: fallbackError }
     }
 
+    const verification = await verifyEmailAddress(email)
+    console.log('✅ Email Verification Result:', verification)
+
+    if (verification.status !== 'E-mail Approved') {
+      addNotification({
+        headerText: 'Access Denied',
+        bodyText: 'E-mail verification failed.',
+        imgURL: '/assets/error.jpg',
+        variantTheme: 'danger',
+        customTheme: '.toast-error',
+      })
+      return { success: false, error: 'E-mail not approved' }
+    }
+
     const res = await fetcher(`${baseUrl}/auth/login`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, email }),
     })
 
-    
-
-    if (res.success && verified.status === 'E-mail Approved') {
+    if (res.success) {
       setSuccess(true)
       setShowLogin(false)
       setUserInfo({ name, email })
+      saveAuthToLocalStorage()
+
       addNotification({
         headerText: 'Success',
         bodyText: 'You have successfully logged in.',
         imgURL: '/assets/success.png',
         variantTheme: 'success',
-        customTheme: '.toast-success'
+        customTheme: '.toast-success',
       })
-      navigate('/dashboard')
-      saveAuthToLocalStorage()
+
       return { success: true }
-    } else if (!res.success || verified.status === 'E-mail Not Approved') {
-      setError(res.error)
+    } else {
+      const errMsg = res.error || 'Login failed'
+      setError(errMsg)
       setSuccess(false)
       setShowLogin(true)
       setIsAuthenticated(false)
+
       addNotification({
         headerText: 'Error',
-        bodyText: res.error,
+        bodyText: errMsg,
         imgURL: '/assets/error.jpg',
         variantTheme: 'danger',
-        customTheme: '.toast-error'
+        customTheme: '.toast-error',
       })
-      navigate('/')
-      return { success: false, error: res.error }
+
+      return { success: false, error: errMsg }
     }
-    setShowLogin(true)
-    navigate('/')
-    return null
   }
 
   const logout = async () => {
-    const res = await fetcher(`${baseUrl}/auth/logout`, {
-      method: 'POST',
-    })
+    const res = await fetcher(`${baseUrl}/auth/logout`, { method: 'POST' })
 
     if (res.success) {
       setUserInfo({ name: '', email: '' })
       setSuccess(true)
-      localStorage.getItem('is-authenticated') ? localStorage.removeItem('is-authenticated') : null;
-      localStorage.getItem('auth-expiration') ? localStorage.removeItem('auth-expiration') : null;
-      setIsAuthenticated(false);
+      localStorage.removeItem('is-authenticated')
+      localStorage.removeItem('auth-expiration')
+      setIsAuthenticated(false)
+
       addNotification({
         headerText: 'Success',
         bodyText: 'You have been logged out.',
         imgURL: '/assets/success.png',
         variantTheme: 'success',
-        customTheme: '.toast-success'
+        customTheme: '.toast-success',
       })
+
       return { success: true }
     } else {
       addNotification({
@@ -196,8 +180,9 @@ export const AuthProvider = ({ children }) => {
         bodyText: res.error,
         imgURL: '/assets/error.jpg',
         variantTheme: 'danger',
-        customTheme: '.toast-error'
+        customTheme: '.toast-error',
       })
+
       return { success: false, error: res.error }
     }
   }
@@ -210,26 +195,14 @@ export const AuthProvider = ({ children }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
-    const res = await fetch(useVerifyEmailAddress, { method: 'POST',headers: {'X-API-KEY': verifyApiKey,'Content-Type': 'application/json' },
-      body: JSON.stringify({ 'email': userInfo.email })
-    });
-    const data = res.json()
+
     const result = await login(userInfo.name, userInfo.email)
 
-    console.log('Email Verify Info: ', data)
+    setLoading(false)
 
-    if (result.success && res.statusCode === 200 && data.status === "E-mail Approved") {
-      setLoading(false)
+    if (result.success) {
       navigate('/dashboard')
-    }
-    else if (result.success && res.statusCode === 401) {
-      console.log('Unauthorized to access API')
-    }
-    else if (result.success && res.statusCode === 201 && data.status === "E-mail Not Approved") {
-      setLoading(false)
-      navigate('/')
-    }
-    else {
+    } else {
       navigate('/')
     }
   }
@@ -250,7 +223,7 @@ export const AuthProvider = ({ children }) => {
         handleSubmit,
         checkAuth,
         showLogin,
-        setShowLogin
+        setShowLogin,
       }}
     >
       {children}

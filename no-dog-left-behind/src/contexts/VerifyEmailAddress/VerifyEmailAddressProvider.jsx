@@ -2,7 +2,7 @@ import { VerifyEmailAddressContext } from './VerifyEmailAddressContext'
 import { useFetcher } from '../../hooks/useFetcher'
 
 export const VerifyEmailProvider = ({ children }) => {
-  const { fetcher } = useFetcher() // ✅ Hook must be called at top level
+  const { fetcher } = useFetcher()
 
   const verifyEmailAddress = async (email) => {
     const apiKey = import.meta.env.VITE_EMAIL_VERIFY_API_KEY
@@ -14,20 +14,20 @@ export const VerifyEmailProvider = ({ children }) => {
         'X-API-KEY': apiKey,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email }),
+      body: JSON.stringify({ "email": email, "type": "full" }),
     })
 
-
+    console.log('Data From Verify: ', res)
 
     try {
-      if (res.action === 'deny') {
+      if (res.data.action === 'deny') {
         return {
           status: 'E-mail Not Approved',
           reasons: res.data.reasons, // ✅ fixed typo
         }
       }
 
-      if (res.action === 'allow') {
+      if (res.data.action === 'allow') {
         return {
           status: 'E-mail Approved',
         }

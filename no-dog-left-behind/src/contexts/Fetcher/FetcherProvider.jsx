@@ -12,7 +12,7 @@ export const FetcherProvider = ({ children }) => {
   try {
     const response = await fetch(url, config)
     const data = await response.json().catch(() => ({})) // failsafe for non-JSON
-
+    console.log('Data From Fetcher Call: ', data)
     if (!response.ok || data.success === false) {
       const errorMessage = data?.message || fallbackError
 
@@ -31,7 +31,7 @@ export const FetcherProvider = ({ children }) => {
     }
 
     setIsLoaded(true)
-    return { success: true, data }
+    return { success: true, data: data }
 
   } catch (err) {
     addNotification({

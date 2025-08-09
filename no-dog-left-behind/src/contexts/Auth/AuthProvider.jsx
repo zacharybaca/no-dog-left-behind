@@ -197,12 +197,14 @@ export const AuthProvider = ({ children }) => {
     setLoading(true)
 
     const result = await login(userInfo.name, userInfo.email)
-
+    console.log('Result From Submitting: ', result)
     setLoading(false)
 
     if (result.success) {
+      setShowLogin(false)
       navigate('/dashboard')
     } else {
+      setShowLogin(true)
       navigate('/')
     }
   }

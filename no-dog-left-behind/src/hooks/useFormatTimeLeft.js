@@ -5,10 +5,10 @@ export const useTimeLeft = (expirationMs) => {
   const [timeRemaining, setTimeRemaining] = useState(() => FormatTimeLeft(expirationMs))
 
   useEffect(() => {
-    if (!expirationMs) return
+    if (!timeRemaining) return
 
     const interval = setInterval(() => {
-      setTimeRemaining(formatTimeUntil(expirationMs))
+      setTimeRemaining(FormatTimeLeft(expirationMs))
     }, 1000) // update every second
 
     return () => clearInterval(interval)

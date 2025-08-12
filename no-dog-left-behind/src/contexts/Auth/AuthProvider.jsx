@@ -62,11 +62,12 @@ export const AuthProvider = ({ children }) => {
 
     if (!expiration || timeLeft <= 0) return 'You do not have any time left'
 
-    const totalMinutes = Math.floor(timeLeft / (1000 * 60))
-    const hours = Math.floor(totalMinutes / 60)
-    const minutes = totalMinutes % 60
+    // const totalMinutes = Math.floor(timeLeft / (1000 * 60))
+    // const hours = Math.floor(totalMinutes / 60)
+    // const minutes = totalMinutes % 60
 
-    return `✅ Time until cookie expires: ${hours}h ${minutes}m`
+    // return `✅ Time until cookie expires: ${hours}h ${minutes}m`
+    return timeLeft;
   }
 
   useEffect(() => {
@@ -226,6 +227,7 @@ export const AuthProvider = ({ children }) => {
         checkAuth,
         showLogin,
         setShowLogin,
+        getSessionExpirationTimeMessage
       }}
     >
       {children}

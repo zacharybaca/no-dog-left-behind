@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useNotification } from '../../hooks/useNotification'
 import { useVerifyEmailAddress } from '../../hooks/useVerifyEmailAddress'
 import { useFetcher } from '../../hooks/useFetcher'
+import { useTimeLeft } from '../../hooks/useFormatTimeLeft'
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL
 
@@ -60,14 +61,15 @@ export const AuthProvider = ({ children }) => {
     const expiration = parseInt(localStorage.getItem('auth-expiration'), 10)
     const timeLeft = expiration - Date.now()
 
-    if (!expiration || timeLeft <= 0) return 'You do not have any time left'
+    if (!expiration || timeLeft <= 0) return 0
 
     // const totalMinutes = Math.floor(timeLeft / (1000 * 60))
     // const hours = Math.floor(totalMinutes / 60)
     // const minutes = totalMinutes % 60
 
     // return `✅ Time until cookie expires: ${hours}h ${minutes}m`
-    return timeLeft;
+    const remainingTime = useTimeLeft(timeLeft)
+    return remainingTime;
   }
 
   useEffect(() => {

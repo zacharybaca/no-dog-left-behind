@@ -2,22 +2,31 @@ import { useEffect, useState } from 'react'
 import { FormatTimeLeft } from '../utilities/FormatTimeLeft.js'
 
 export const useTimeLeft = (expirationMs) => {
-  const [timeRemaining, setTimeRemaining] = useState(expirationMs ? expirationMs : 0)
   const [formattedTime, setFormattedTime] = useState("")
 
   useEffect(() => {
-    if (!timeRemaining) return
-    if (timeRemaining <= 0) return 0
+    if (!expirationMs) return
+
+    const updateTime = () => {
+      const remainingTime = expirationMs - Date.now()
+      if (remainingTime <= 0) {
+        setFormattedTime("00:00")
+        return false // stop timer
+      }
+      setFormattedTime(FormatTimeLeft(remainingTime))
+      return true
+    }
+
+    // Initial run
+    updateTime()
 
     const interval = setInterval(() => {
-      const remainingTime = timeRemaining - Date.now()
-      setTimeRemaining(remainingTime)
-      const formatted = FormatTimeLeft(remainingTime)
-      setFormattedTime(formatted)
-    }, 1000) // update every second
+      const shouldContinue = updateTime()
+      if (!shouldContinue) clearInterval(interval)
+    }, 1000)
 
     return () => clearInterval(interval)
-  }, [timeRemaining])
+  }, [expirationMs])
 
   return formattedTime
 }

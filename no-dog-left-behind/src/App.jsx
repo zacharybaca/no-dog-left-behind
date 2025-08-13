@@ -1,38 +1,36 @@
 import './App.css'
 import { useEffect, useState, lazy, Suspense } from 'react'
-import { Routes, Route, Outlet } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import { useAuth } from './hooks/useAuth.js'
 import LoadingScreen from './components/LoadingScreen/LoadingScreen.jsx'
+
+// Lazy Loading Components — move outside the component
+const Login = lazy(() => import("./components/Login/Login.jsx"))
+const PrivateRoute = lazy(() => import("./components/PrivateRoute/PrivateRoute.jsx"))
+const Navbar = lazy(() => import("./components/Navbar/Navbar.jsx"))
+const Footer = lazy(() => import("./components/Footer/Footer.jsx"))
+const PageNotFound = lazy(() => import("./components/PageNotFound/PageNotFound.jsx"))
+const Notification = lazy(() => import("./components/Notification/Notification.jsx"))
+const Dashboard = lazy(() => import("./components/Dashboard/Dashboard.jsx"))
+const LoadingApplication = lazy(() => import("./components/LoadingApplication/LoadingApplication.jsx"))
+const FavoriteDogs = lazy(() => import("./components/FavoriteDogs/FavoriteDogs.jsx"))
+const DogDetails = lazy(() => import("./components/DogDetails/DogDetails.jsx"))
+const SessionTimer = lazy(() => import("./components/SessionTimer/SessionTimer.jsx"))
 
 function App() {
   const { isAuthenticated, getSessionExpirationTimeMessage } = useAuth()
   const [loadingApplication, setLoadingApplication] = useState(true)
 
-  // Lazy Loading Components
-  const Login = lazy(() => import("./components/Login/Login.jsx"))
-  const PrivateRoute = lazy(() => import("./components/PrivateRoute/PrivateRoute.jsx"))
-  const Navbar = lazy(() => import("./components/Navbar/Navbar.jsx"))
-  const Footer = lazy(() => import("./components/Footer/Footer.jsx"))
-  const PageNotFound = lazy(() => import("./components/PageNotFound/PageNotFound.jsx"))
-  const Notification = lazy(() => import("./components/Notification/Notification.jsx"))
-  const Dashboard = lazy(() => import("./components/Dashboard/Dashboard.jsx"))
-  const LoadingApplication = lazy(() => import("./components/LoadingApplication/LoadingApplication.jsx"))
-  const FavoriteDogs = lazy(() => import("./components/FavoriteDogs/FavoriteDogs.jsx"))
-  const DogDetails = lazy(() => import("./components/DogDetails/DogDetails.jsx"))
-  const SessionTimer = lazy(() => import("./components/SessionTimer/SessionTimer.jsx"))
-
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoadingApplication(false)
     }, 5000)
-
     return () => clearTimeout(timer)
   }, [])
 
   return !loadingApplication ? (
-    <Suspense fallback={<h1>Loading...</h1>}>
+    <Suspense fallback={<LoadingScreen />}>
       <div id="app-container">
-        <br />
         <Navbar />
         {isAuthenticated && (
           <SessionTimer timeLeft={getSessionExpirationTimeMessage} />

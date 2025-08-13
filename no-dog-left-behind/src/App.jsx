@@ -18,7 +18,7 @@ const DogDetails = lazy(() => import("./components/DogDetails/DogDetails.jsx"))
 const SessionTimer = lazy(() => import("./components/SessionTimer/SessionTimer.jsx"))
 
 function App() {
-  const { isAuthenticated, getSessionExpirationTimeMessage } = useAuth()
+  const { isAuthenticated, expirationTime } = useAuth()
   const [loadingApplication, setLoadingApplication] = useState(true)
 
   useEffect(() => {
@@ -33,7 +33,7 @@ function App() {
       <div id="app-container">
         <Navbar />
         {isAuthenticated && (
-          <SessionTimer timeLeft={getSessionExpirationTimeMessage} />
+          <SessionTimer expirationTime={expirationTime} />
         )}
         {!isAuthenticated && (
           <img

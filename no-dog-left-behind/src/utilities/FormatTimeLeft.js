@@ -8,7 +8,6 @@ export function FormatTimeLeft(expirationMs) {
   const minutes = Math.floor((totalSeconds % 3600) / 60)
   const seconds = totalSeconds % 60
 
-  // Return "1h 5m" or "5m 30s" depending on range
   if (hours > 0) return `${hours}h ${minutes}m`
   if (minutes > 0) return `${minutes}m ${seconds}s`
   return `${seconds}s`

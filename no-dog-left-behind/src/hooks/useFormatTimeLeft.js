@@ -1,38 +1,31 @@
 import { useEffect, useState } from 'react'
-import { useAuth } from './useAuth.js' // make sure path is correct
+import { useAuth } from './useAuth.js'
 import { FormatTimeLeft } from '../utilities/FormatTimeLeft.js'
 
 export const useTimeLeft = (expirationMs) => {
-  const { logout } = useAuth() // grab logout function from AuthProvider
+  const { logout } = useAuth()
 
-  const [timeRemaining, setTimeRemaining] = useState(() => {
-    if (!expirationMs) return 0
-    return Math.max(expirationMs - Date.now(), 0)
-  })
-
-  const [formattedTime, setFormattedTime] = useState(() =>
-    FormatTimeLeft(timeRemaining)
-  )
+  const [timeRemaining, setTimeRemaining] = useState(expirationMs - Date.now())
+  const [formattedTime, setFormattedTime] = useState(() => FormatTimeLeft(expirationMs))
 
   const isExpired = timeRemaining <= 0
-  const expiringSoon = !isExpired && timeRemaining <= 5 * 60 * 1000 // < 5 mins
+  const expiringSoon = !isExpired && timeRemaining <= 5 * 60 * 1000 // < 5 min
 
   useEffect(() => {
     if (!expirationMs) return
 
     const update = () => {
-      const remaining = Math.max(expirationMs - Date.now(), 0)
+      const remaining = expirationMs - Date.now()
       setTimeRemaining(remaining)
-      setFormattedTime(FormatTimeLeft(remaining))
+      setFormattedTime(FormatTimeLeft(expirationMs))
 
       if (remaining <= 0) {
-        logout() // expire session immediately
+        logout()
       }
     }
 
-    update() // run immediately on mount
+    update() // run immediately
     const interval = setInterval(update, 1000)
-
     return () => clearInterval(interval)
   }, [expirationMs, logout])
 

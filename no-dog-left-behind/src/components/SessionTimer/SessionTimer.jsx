@@ -1,5 +1,5 @@
 import './session-timer.css'
-import { useTimeLeft } from '../../hooks/useTimeLeft'
+import { useTimeLeft } from '../../hooks/useFormatTimeLeft'
 
 const SessionTimer = ({ expirationTime }) => {
   const { formatted, isExpired, expiringSoon } = useTimeLeft(expirationTime)

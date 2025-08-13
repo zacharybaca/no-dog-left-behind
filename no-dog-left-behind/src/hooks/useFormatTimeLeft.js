@@ -1,32 +1,32 @@
 import { useEffect, useState } from 'react'
 import { FormatTimeLeft } from '../utilities/FormatTimeLeft.js'
 
+/**
+ * expirationMs — absolute timestamp in milliseconds (not duration)
+ */
 export const useTimeLeft = (expirationMs) => {
-  const [formattedTime, setFormattedTime] = useState("")
+  const [timeLeft, setTimeLeft] = useState(() => {
+    if (!expirationMs) return 0
+    return expirationMs - Date.now()
+  })
 
   useEffect(() => {
     if (!expirationMs) return
-
-    const updateTime = () => {
-      const remainingTime = expirationMs - Date.now()
-      if (remainingTime <= 0) {
-        setFormattedTime("00:00")
-        return false // stop timer
-      }
-      setFormattedTime(FormatTimeLeft(remainingTime))
-      return true
+    const tick = () => {
+      setTimeLeft(expirationMs - Date.now())
     }
-
-    // Initial run
-    updateTime()
-
-    const interval = setInterval(() => {
-      const shouldContinue = updateTime()
-      if (!shouldContinue) clearInterval(interval)
-    }, 1000)
-
+    tick() // initial
+    const interval = setInterval(tick, 1000)
     return () => clearInterval(interval)
   }, [expirationMs])
 
-  return formattedTime
+  const isExpired = timeLeft <= 0
+  const expiringSoon = !isExpired && timeLeft <= 5 * 60 * 1000 // <= 5 min
+
+  return {
+    formatted: isExpired ? 'Expired' : FormatTimeLeft(timeLeft),
+    isExpired,
+    expiringSoon,
+    rawMs: timeLeft
+  }
 }

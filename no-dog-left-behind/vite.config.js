@@ -1,8 +1,21 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import reactScan from '@react-scan/vite-plugin-react-scan';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    reactScan({
+      enable: process.env.NODE_ENV === 'development',
+      autoDisplayNames: true, 
+      scanOptions: {
+        log: true,               
+        trackUnnecessaryRenders: true,
+        animationSpeed: 'fast',
+      },
+      debug: false,             
+    }),
+  ],
   server: {
     port: 5173,
     fs: { strict: false },
@@ -10,7 +23,7 @@ export default defineConfig({
       webmanifest: 'application/manifest+json',
     },
     historyApiFallback: {
-      disableDotRule: true, // Ensures non-HTML files aren't caught in SPA routing
+      disableDotRule: true, 
     },
     proxy: {
       '/api': {
@@ -20,8 +33,9 @@ export default defineConfig({
       },
     },
   },
+  
   build: {
-    outDir: 'dist', // ✅ Ensures dist exists after build
-    assetsDir: 'assets', // ✅ Used for bundled assets
+    outDir: 'dist', 
+    assetsDir: 'assets', 
   },
 });

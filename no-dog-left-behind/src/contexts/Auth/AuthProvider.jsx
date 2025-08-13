@@ -23,39 +23,44 @@ export const AuthProvider = ({ children }) => {
     return stored !== null ? JSON.parse(stored) : false
   })
   const [loading, setLoading] = useState(false)
+  const [expirationTime, setExpirationTime] = useState(null)
 
   const saveAuthToLocalStorage = () => {
-    const expirationTime = Date.now() + 60 * 60 * 1000 // 1 hour
+  const expiration = Date.now() + 60 * 60 * 1000 // 1 hour
+  setIsAuthenticated(true)
+  setExpirationTime(expiration)
+
+  localStorage.setItem('is-authenticated', JSON.stringify(true))
+  localStorage.setItem('auth-expiration', expiration.toString())
+
+  setTimeout(() => {
+    localStorage.removeItem('is-authenticated')
+    localStorage.removeItem('auth-expiration')
+    setIsAuthenticated(false)
+    setExpirationTime(null)
+  }, 60 * 60 * 1000)
+}
+
+  const loadAuthFromLocalStorage = () => {
+  const isAuth = JSON.parse(localStorage.getItem('is-authenticated'))
+  const expiration = parseInt(localStorage.getItem('auth-expiration'), 10)
+
+  if (!isAuth || !expiration || Date.now() > expiration) {
+    localStorage.removeItem('is-authenticated')
+    localStorage.removeItem('auth-expiration')
+    setIsAuthenticated(false)
+    setExpirationTime(null)
+  } else {
     setIsAuthenticated(true)
-
-    localStorage.setItem('is-authenticated', JSON.stringify(true))
-    localStorage.setItem('auth-expiration', expirationTime.toString())
-
+    setExpirationTime(expiration)
+    const timeLeft = expiration - Date.now()
     setTimeout(() => {
       localStorage.removeItem('is-authenticated')
       localStorage.removeItem('auth-expiration')
       setIsAuthenticated(false)
-    }, 60 * 60 * 1000)
-  }
-
-  const loadAuthFromLocalStorage = () => {
-    const isAuth = JSON.parse(localStorage.getItem('is-authenticated'))
-    const expiration = parseInt(localStorage.getItem('auth-expiration'), 10)
-
-    if (!isAuth || !expiration || Date.now() > expiration) {
-      localStorage.removeItem('is-authenticated')
-      localStorage.removeItem('auth-expiration')
-      setIsAuthenticated(false)
-    } else {
-      setIsAuthenticated(true)
-      const timeLeft = expiration - Date.now()
-      setTimeout(() => {
-        localStorage.removeItem('is-authenticated')
-        localStorage.removeItem('auth-expiration')
-        setIsAuthenticated(false)
-      }, timeLeft)
-    }
-  }
+      setExpirationTime(null)
+    }, timeLeft)
+  }}
 
   const getSessionExpirationTimeMessage = () => {
     const expiration = parseInt(localStorage.getItem('auth-expiration'), 10)
@@ -229,7 +234,8 @@ export const AuthProvider = ({ children }) => {
         checkAuth,
         showLogin,
         setShowLogin,
-        getSessionExpirationTimeMessage
+        getSessionExpirationTimeMessage,
+        expirationTime: parseInt(localStorage.getItem('auth-expiration'), 10) || null
       }}
     >
       {children}

@@ -1,32 +1,35 @@
 import { useEffect, useState } from 'react'
 import { FormatTimeLeft } from '../utilities/FormatTimeLeft.js'
 
-/**
- * expirationMs — absolute timestamp in milliseconds (not duration)
- */
 export const useTimeLeft = (expirationMs) => {
-  const [timeLeft, setTimeLeft] = useState(() => {
+  const [timeRemaining, setTimeRemaining] = useState(() => {
     if (!expirationMs) return 0
-    return expirationMs - Date.now()
+    return Math.max(expirationMs - Date.now(), 0)
   })
 
+  const [formattedTime, setFormattedTime] = useState(() => 
+    FormatTimeLeft(timeRemaining)
+  )
+
+  const isExpired = timeRemaining <= 0
+  const expiringSoon = !isExpired && timeRemaining <= 5 * 60 * 1000 // 5 minutes
+
   useEffect(() => {
-    if (!expirationMs) return
-    const tick = () => {
-      setTimeLeft(expirationMs - Date.now())
+    // If no expiration time or already expired, no need to set interval
+    if (!expirationMs || isExpired) return
+
+    const update = () => {
+      const remaining = Math.max(expirationMs - Date.now(), 0)
+      setTimeRemaining(remaining)
+      setFormattedTime(FormatTimeLeft(remaining))
     }
-    tick() // initial
-    const interval = setInterval(tick, 1000)
+
+    // Run immediately so UI updates without waiting a second
+    update()
+
+    const interval = setInterval(update, 1000)
     return () => clearInterval(interval)
-  }, [expirationMs])
+  }, [expirationMs, isExpired])
 
-  const isExpired = timeLeft <= 0
-  const expiringSoon = !isExpired && timeLeft <= 5 * 60 * 1000 // <= 5 min
-
-  return {
-    formatted: isExpired ? 'Expired' : FormatTimeLeft(timeLeft),
-    isExpired,
-    expiringSoon,
-    rawMs: timeLeft
-  }
+  return { formatted: formattedTime, isExpired, expiringSoon }
 }

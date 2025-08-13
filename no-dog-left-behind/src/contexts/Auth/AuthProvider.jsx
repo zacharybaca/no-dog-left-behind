@@ -27,7 +27,6 @@ export const AuthProvider = ({ children }) => {
   const saveAuthToLocalStorage = () => {
   const expiration = Date.now() + 60 * 60 * 1000 // 1 hour
   setIsAuthenticated(true)
-  setExpirationTime(expiration)
 
   localStorage.setItem('is-authenticated', JSON.stringify(true))
   localStorage.setItem('auth-expiration', expiration.toString())
@@ -36,7 +35,6 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('is-authenticated')
     localStorage.removeItem('auth-expiration')
     setIsAuthenticated(false)
-    setExpirationTime(null)
   }, 60 * 60 * 1000)
 }
 

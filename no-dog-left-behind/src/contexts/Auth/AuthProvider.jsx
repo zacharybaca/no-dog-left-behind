@@ -24,16 +24,19 @@ export const AuthProvider = ({ children }) => {
   })
   const [loading, setLoading] = useState(false)
 
+
   const saveAuthToLocalStorage = () => {
   const expiration = Date.now() + 60 * 60 * 1000 // 1 hour
   setIsAuthenticated(true)
 
   localStorage.setItem('is-authenticated', JSON.stringify(true))
   localStorage.setItem('auth-expiration', expiration.toString())
+  localStorage.setItem('user-name', JSON.stringify(userInfo.name))
 
   setTimeout(() => {
     localStorage.removeItem('is-authenticated')
     localStorage.removeItem('auth-expiration')
+    localStorage.removeItem('user-name')
     setIsAuthenticated(false)
   }, 60 * 60 * 1000)
 }
@@ -41,10 +44,12 @@ export const AuthProvider = ({ children }) => {
   const loadAuthFromLocalStorage = () => {
   const isAuth = JSON.parse(localStorage.getItem('is-authenticated'))
   const expiration = parseInt(localStorage.getItem('auth-expiration'), 10)
+  const userName = JSON.parse(localStorage.getItem('user-name'))
 
-  if (!isAuth || !expiration || Date.now() > expiration) {
+  if (!isAuth || !expiration || Date.now() > expiration || !userName) {
     localStorage.removeItem('is-authenticated')
     localStorage.removeItem('auth-expiration')
+    localStorage.removeItem('user-name')
     setIsAuthenticated(false)
   } else {
     setIsAuthenticated(true)
@@ -52,6 +57,7 @@ export const AuthProvider = ({ children }) => {
     setTimeout(() => {
       localStorage.removeItem('is-authenticated')
       localStorage.removeItem('auth-expiration')
+      localStorage.removeItem('user-name')
       setIsAuthenticated(false)
     }, timeLeft)
   }}
@@ -165,6 +171,7 @@ export const AuthProvider = ({ children }) => {
       setSuccess(true)
       localStorage.removeItem('is-authenticated')
       localStorage.removeItem('auth-expiration')
+      localStorage.removeItem('user-name')
       setIsAuthenticated(false)
 
       addNotification({

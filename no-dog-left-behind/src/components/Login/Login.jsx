@@ -87,7 +87,7 @@ const Login = () => {
 
           <div className="login-content">
             <img
-              src="/assets/paw-print-image.jpg"
+              src="/assets/dog-login-logo.png"
               alt="No Dog Left Behind Logo"
               className="login-logo"
             />

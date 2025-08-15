@@ -37,12 +37,15 @@ export const DogSearchProvider = ({ children }) => {
 
     try {
       const data = await fetcher(`${baseUrl}/dogs/search${query}`, { method: 'GET' })
-
+      console.log('Next Data from Fetch Dogs: ', data.data.next)
+      console.log('Result Ids Data From Fetch: ', data.data.resultIds)
       if (thisRequestId === activeSearchId.current) {
-        setDogIds(data?.resultIds ?? [])
-        setNextQuery(data?.next ?? null)
-        setPrevQuery(data?.prev ?? null)
+        setDogIds(data?.data.resultIds ?? [])
+        setNextQuery(data?.data.next ?? null)
+        setPrevQuery(data?.data.prev ?? null)
       }
+      console.log('Prev Query: ', prevQuery)
+      console.log('Next Query: ', nextQuery)
     } catch (err) {
       if (thisRequestId === activeSearchId.current) {
         addNotification({
@@ -68,12 +71,14 @@ export const DogSearchProvider = ({ children }) => {
     try {
       const data = await fetcher(`${dogBreedUrl}/search?q=${breed}`, { method: 'GET', headers: { 'x-api-key': dogBreedApiKey } })
       setBreedData(data)
+      console.log('Breed Data: ', breedData)
     } catch (err) {
       console.error('❌ fetchBreedData error:', err.message)
     }
   }
 
   // Fetch full dog details by ID list
+  // Need to Set Dogs from Data instead of hard-coded data
   useEffect(() => {
     if (dogIds.length === 0) return
 
@@ -88,7 +93,8 @@ export const DogSearchProvider = ({ children }) => {
         })
 
         if (thisRequestId === activeDetailId.current) {
-          setDogs(data)
+          setDogs(dogs)
+          console.log('Dog Details: ', dogs)
         }
       } catch (err) {
         if (thisRequestId === activeDetailId.current) {
@@ -110,12 +116,14 @@ export const DogSearchProvider = ({ children }) => {
   const goToNextPage = () => {
     if (nextQuery) {
       fetchDogs(nextQuery)
+      console.log('Next Q: ', nextQuery)
     }
   }
 
   const goToPrevPage = () => {
     if (prevQuery) {
       fetchDogs(prevQuery)
+      console.log('Prev Q: ', prevQuery)
     }
   }
 

@@ -89,9 +89,9 @@ export const DogSearchProvider = ({ children }) => {
         const data = await fetcher(`${baseUrl}/dogs`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ids: dogIds }),
+          body: JSON.stringify(dogIds),
         })
-
+        console.log('Fetched Dog Data: ', data)
         if (thisRequestId === activeDetailId.current) {
           setDogs(dogs)
           console.log('Dog Details: ', dogs)

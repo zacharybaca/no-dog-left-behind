@@ -15,7 +15,7 @@ const AdoptableDogCard = ({ Id, dogImg, dogName, dogAge, zipOfDog, dogBreed, dog
   }
 
   return (
-    <div className="card-wrapper">
+    <div className="card-wrapper" key={Id}>
       <Card id="custom-dog-card">
         <Card.Img className="card-image" variant="top" src={dogImg} />
         <Card.Body>
@@ -24,7 +24,6 @@ const AdoptableDogCard = ({ Id, dogImg, dogName, dogAge, zipOfDog, dogBreed, dog
           </div>
           <hr />
           <Card.Text>
-            Dog ID: {Id}<br />
             Age of Dog: {dogAge}<br />
             ZipCode of Dog: {zipOfDog}<br />
             Breed of Dog: {dogBreed}

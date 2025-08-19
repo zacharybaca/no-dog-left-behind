@@ -5,29 +5,29 @@
 
 #custom-dog-card {
   display: flex;
-  justify-content: center;
-  gap: 20px;
-  padding: 30px;
-  min-width: 100%;
-  height: 50vh;
-  background-color: #fff9e6; /* light cream base */
-  /* Soft beige paw prints */
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;          /* stretch to match tallest card in row */
+  padding: 20px;
+  background-color: #fff9e6;
   background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23f5d6a1' fill-opacity='0.4'%3E%3Ccircle cx='10' cy='10' r='5'/%3E%3Ccircle cx='25' cy='8' r='3'/%3E%3Ccircle cx='20' cy='25' r='4'/%3E%3Ccircle cx='30' cy='28' r='2.5'/%3E%3C/g%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 80px 80px;
   border: 4px solid #5A2209;
   border-radius: 10px;
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 .card-wrapper {
-  min-width: 100%;
-  height: 50vh;
+  width: 100%;
+  height: 100%;
 }
 
 .card-image {
   width: 100%;
-  height: 70%;
+  height: 180px;
+  object-fit: cover;         /* crop instead of stretching */
 }
 
 .dog-name-title {
@@ -38,11 +38,11 @@
 .card-button-container {
   display: flex;
   justify-content: center;
-  align-items: center;
+  margin-top: auto;          /* button sticks to bottom */
 }
 
 .favorite-button {
-  width: 50%;
+  width: 60%;
   border-radius: 10px;
 }
 
@@ -53,5 +53,16 @@
 @media screen and (max-width: 390px) {
   .card-button-container {
     height: 25%;
+  }
+
+  .favorite-button {
+    width: 75%;
+  }
+
+}
+
+@media screen and (max-width: 768px) {
+  .favorite-button {
+    width: 75%;
   }
 }

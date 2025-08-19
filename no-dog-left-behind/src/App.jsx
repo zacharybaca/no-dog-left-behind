@@ -16,6 +16,7 @@ const LoadingApplication = lazy(() => import("./components/LoadingApplication/Lo
 const FavoriteDogs = lazy(() => import("./components/FavoriteDogs/FavoriteDogs.jsx"))
 const DogDetails = lazy(() => import("./components/DogDetails/DogDetails.jsx"))
 const SessionTimer = lazy(() => import("./components/SessionTimer/SessionTimer.jsx"))
+const UserName = lazy(() => import("./components/UserName/UserName.jsx"))
 
 function App() {
   const { isAuthenticated, expirationTime } = useAuth()
@@ -32,6 +33,8 @@ function App() {
     <Suspense fallback={<LoadingScreen />}>
       <div id="app-container">
         <Navbar />
+        <hr className="horizontal-ruler-default" />
+        <UserName />
         <hr className="horizontal-ruler-default" />
         {isAuthenticated && (
           <SessionTimer expirationTime={expirationTime} />

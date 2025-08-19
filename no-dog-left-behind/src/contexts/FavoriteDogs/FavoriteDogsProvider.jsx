@@ -12,17 +12,15 @@ export const FavoriteDogsProvider = ({ children }) => {
             return []
         }
     })
-    const [favoritedDog, setFavoritedDog] = useState(false)
     const { addNotification } = useNotification()
 
-    const addFavoriteDog = (favoritedDog, event) => {
-         event.stopPropagation()
-         
-        const isFavoriteDogIncluded = favoriteDogs.some((dog) => dog.id === favoritedDog.id)
+    const addFavoriteDog = (dog, event) => {
+        event.stopPropagation()
+
+        const isFavoriteDogIncluded = favoriteDogs.some((d) => d.id === dog.id)
 
         if (!isFavoriteDogIncluded) {
-            setFavoriteDogs((prev) => [...prev, favoritedDog])
-            setFavoritedDog(true)
+            setFavoriteDogs((prev) => [...prev, dog])
             addNotification({
                 headerText: 'Info',
                 bodyText: 'You Added a New Favorite Dog to Your List!',
@@ -31,24 +29,21 @@ export const FavoriteDogsProvider = ({ children }) => {
                 customTheme: '.toast-success',
             })
         } else {
-            deleteFavoriteDog(favoritedDog)
-            setFavoritedDog(false)
+            deleteFavoriteDog(dog)
             console.log('Unfavorited')
         }
     }
 
     const isAFavoriteDog = (id) => {
-        const isFavorite = favoriteDogs.some((dog) => dog.id === String(id))
-        return isFavorite
+        return favoriteDogs.some((dog) => dog.id === String(id) || dog.id === id)
     }
 
-    const deleteFavoriteDog = (favoritedDog) => {
+    const deleteFavoriteDog = (dog) => {
         setFavoriteDogs((prev) =>
-            prev.filter((dog) => dog.id !== favoritedDog.id)
+            prev.filter((d) => d.id !== dog.id)
         )
     }
 
-    // Save favorites to localStorage when they change
     useEffect(() => {
         localStorage.setItem('favorite-dogs', JSON.stringify(favoriteDogs))
     }, [favoriteDogs])
@@ -56,7 +51,6 @@ export const FavoriteDogsProvider = ({ children }) => {
     return (
         <FavoriteDogsContext.Provider value={{
             favoriteDogs,
-            favoritedDog,
             isAFavoriteDog,
             addFavoriteDog,
             deleteFavoriteDog

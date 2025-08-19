@@ -4,9 +4,12 @@
 }
 
 #custom-dog-card {
+  display: flex;
   background-color: #feb057;
   color: #001858;
-  max-height: fit-content;
+  width: fit-content;
+  height: fit-content;
+  border: 3px solid blue;
 }
 
 .card-image {

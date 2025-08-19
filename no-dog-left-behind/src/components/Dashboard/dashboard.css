@@ -16,6 +16,7 @@
     display: flex;
     justify-content: center;
     gap: 25px;
+    padding-bottom: 2rem;
 }
 
 .pagination-controls button:hover {
@@ -38,7 +39,6 @@ button:disabled {
     overflow: auto;
     padding-top: 6%;
     padding-bottom: 6%;
-    border: 2px solid black;
 }
 
 .catelog-title-container {

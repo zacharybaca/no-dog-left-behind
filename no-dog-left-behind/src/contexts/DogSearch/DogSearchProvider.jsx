@@ -91,9 +91,9 @@ export const DogSearchProvider = ({ children }) => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(dogIds),
         })
-        console.log('Fetched Dog Data: ', data)
+        console.log('Fetched Dog Data: ', data['data'])
         if (thisRequestId === activeDetailId.current) {
-          setDogs(dogs)
+          setDogs(data['data'])
           console.log('Dog Details: ', dogs)
         }
       } catch (err) {

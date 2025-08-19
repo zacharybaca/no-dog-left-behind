@@ -33,9 +33,9 @@ function App() {
     <Suspense fallback={<LoadingScreen />}>
       <div id="app-container">
         <Navbar />
-        <hr className="horizontal-ruler-default" />
+        {isAuthenticated && <hr className="horizontal-ruler-default" />}
         <UserName />
-        <hr className="horizontal-ruler-default" />
+        {isAuthenticated && <hr className="horizontal-ruler-default" />}
         {isAuthenticated && (
           <SessionTimer expirationTime={expirationTime} />
         )}

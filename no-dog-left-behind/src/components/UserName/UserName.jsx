@@ -4,7 +4,7 @@ const UserName = () => {
     const name = localStorage.getItem('user-name') ? localStorage.getItem('user-name') : null
 
     return (
-        <div className="name-container">
+        <div className={name ? "name-container" : ""}>
             {name ? <h1>Welcome {name.replace(/^"|"$/g, '')}!</h1> : ""}
         </div>
     )

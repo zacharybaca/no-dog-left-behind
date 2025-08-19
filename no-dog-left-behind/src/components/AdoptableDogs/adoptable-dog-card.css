@@ -4,11 +4,9 @@
 }
 
 #custom-dog-card {
-  display: flex;
   background-color: #feb057;
   color: #001858;
   width: fit-content;
-  height: fit-content;
   border: 3px solid blue;
 }
 
@@ -26,7 +24,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 20%;
+  border: 2px solid black;
 }
 
 .favorite-button {

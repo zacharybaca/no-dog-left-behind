@@ -5,7 +5,7 @@ const UserName = () => {
 
     return (
         <div className={name ? "name-container" : ""}>
-            {name ? <h1>Welcome {name.replace(/^"|"$/g, '')}!</h1> : ""}
+            {name ? <h1>Welcome Back, {name.replace(/^"|"$/g, '')}!</h1> : ""}
         </div>
     )
 }

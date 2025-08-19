@@ -32,37 +32,53 @@ export const DogSearchProvider = ({ children }) => {
 
   // Fetch paginated dogs from the API
   const fetchDogs = async (query = '') => {
-    setIsLoading(true)
-    const thisRequestId = ++activeSearchId.current
+  setIsLoading(true)
+  const thisRequestId = ++activeSearchId.current
 
-    try {
-      const data = await fetcher(`${baseUrl}/dogs/search${query}`, { method: 'GET' })
-      console.log('Next Data from Fetch Dogs: ', data.data.next)
-      console.log('Result Ids Data From Fetch: ', data.data.resultIds)
-      if (thisRequestId === activeSearchId.current) {
-        setDogIds(data?.data.resultIds ?? [])
-        setNextQuery(data?.data.next ?? null)
-        setPrevQuery(data?.data.prev ?? null)
-      }
-      console.log('Prev Query: ', prevQuery)
-      console.log('Next Query: ', nextQuery)
-    } catch (err) {
-      if (thisRequestId === activeSearchId.current) {
-        addNotification({
-          headerText: 'Error',
-          bodyText: err.message,
-          imgURL: '/assets/error.jpg',
-          variantTheme: 'danger',
-          customTheme: '.toast-warm'
-        })
-        console.error('❌ fetchDogs error:', err.message)
-      }
-    } finally {
-      if (thisRequestId === activeSearchId.current) {
-        setIsLoading(false)
-      }
+  try {
+    let url
+
+    if (!query) {
+      // first fetch
+      url = `${baseUrl}/dogs/search`
+    } else if (query.startsWith('/dogs')) {
+      // API already gave us the full path
+      url = `${baseUrl}${query}`
+    } else {
+      // query is just "?size=25&from=25"
+      url = `${baseUrl}/dogs/search${query}`
+    }
+
+    const data = await fetcher(url, { method: 'GET' })
+
+    if (thisRequestId === activeSearchId.current) {
+      setDogIds(data?.data?.resultIds ?? [])
+      setNextQuery(data?.data?.next ?? null)
+      setPrevQuery(data?.data?.prev ?? null)
+
+      console.log('✅ Updated pagination:', {
+        next: data?.data?.next,
+        prev: data?.data?.prev,
+        resultIds: data?.data?.resultIds
+      })
+    }
+  } catch (err) {
+    if (thisRequestId === activeSearchId.current) {
+      addNotification({
+        headerText: 'Error',
+        bodyText: err.message,
+        imgURL: '/assets/error.jpg',
+        variantTheme: 'danger',
+        customTheme: '.toast-warm'
+      })
+      console.error('❌ fetchDogs error:', err.message)
+    }
+  } finally {
+    if (thisRequestId === activeSearchId.current) {
+      setIsLoading(false)
     }
   }
+}
 
   // Separate function to fetch breed info
   const fetchBreedData = async (breed) => {

@@ -5,7 +5,7 @@ const UserName = () => {
 
     return (
         <div>
-            {name ? <h1>`Welcome ${name}!`</h1> : ""}
+            {name ? <h1>Welcome {name.replace(/^"|"$/g, '')}!</h1> : ""}
         </div>
     )
 }

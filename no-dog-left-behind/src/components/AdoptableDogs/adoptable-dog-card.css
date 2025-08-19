@@ -4,10 +4,14 @@
 }
 
 #custom-dog-card {
+  display: flex;
   background-color: #feb057;
   color: #001858;
-  width: fit-content;
-  border: 3px solid blue;
+  min-width: 500px;
+  height: 50vh;
+  overflow-y: auto;
+  border: 4px solid #5A2209;
+  border-radius: 10px;
 }
 
 .card-image {

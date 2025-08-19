@@ -15,7 +15,9 @@ export const FavoriteDogsProvider = ({ children }) => {
     const [favoritedDog, setFavoritedDog] = useState(false)
     const { addNotification } = useNotification()
 
-    const addFavoriteDog = (favoritedDog) => {
+    const addFavoriteDog = (favoritedDog, event) => {
+         event.stopPropagation()
+         
         const isFavoriteDogIncluded = favoriteDogs.some((dog) => dog.id === favoritedDog.id)
 
         if (!isFavoriteDogIncluded) {

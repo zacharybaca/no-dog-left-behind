@@ -8,7 +8,7 @@ const SessionTimer = ({ expirationTime }) => {
     <div className={`session-timer ${isExpired ? 'expired' : ''} ${expiringSoon ? 'expiring-soon' : ''}`}>
       {isExpired
         ? <span className="expired-text">🔒 Session Expired</span>
-        : <span className="countdown-text">⏳ Expires in: {formatted}</span>}
+        : <span className="countdown-text">⏳ Session Expires in: {formatted}</span>}
     </div>
   )
 }

@@ -21,14 +21,7 @@ export default defineConfig(({ mode }) => {
     ],
     server: {
       fs: { strict: false },
-      historyApiFallback: true,
-      proxy: {
-        '/api': {
-        target: 'https://api.trueguard.io',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-    },
-  }
+      historyApiFallback: true, // for SPA routing
     },
     build: {
       outDir: 'dist',

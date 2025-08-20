@@ -120,7 +120,7 @@ export const VerifyEmailProvider = ({ children }) => {
 
   const verifyEmailAddress = async (email) => {
     // ✅ Use your backend, not TrueGuard directly
-    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
+    const apiBaseUrl = import.meta.env.VITE_API_EMAIL_URL
 
     console.log("ℹ️ Email verification request →", `${apiBaseUrl}/verification`)
 

@@ -1,33 +1,30 @@
 import { VerifyEmailAddressContext } from './VerifyEmailAddressContext'
-import { useFetcher } from '../../hooks/useFetcher'
 
 export const VerifyEmailProvider = ({ children }) => {
-  const { fetcher } = useFetcher()
+  // Determine backend URL based on environment
+  const backendUrl = import.meta.env.VITE_BACKEND_URL || ''
 
   const verifyEmailAddress = async (email) => {
-    const apiKey = import.meta.env.VITE_EMAIL_VERIFY_API_KEY
-    const apiUrl = import.meta.env.VITE_EMAIL_VERIFY_URL
-
-    const res = await fetcher(apiUrl, {
-      method: 'POST',
-      headers: {
-        'X-API-KEY': apiKey,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ "email": email, "type": "full" }),
-    })
-
-    console.log('Data From Verify: ', res)
-
     try {
-      if (res.data.action === 'deny') {
+      const res = await fetch(`${backendUrl}/verify-email`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      })
+
+      const data = await res.json()
+      console.log('Data From Verify:', data)
+
+      if (data.action === 'deny') {
         return {
           status: 'E-mail Not Approved',
-          reasons: res.data.reasons, // ✅ fixed typo
+          reasons: data.reasons || [],
         }
       }
 
-      if (res.data.action === 'allow') {
+      if (data.action === 'allow') {
         return {
           status: 'E-mail Approved',
         }
@@ -35,7 +32,7 @@ export const VerifyEmailProvider = ({ children }) => {
 
       return {
         status: res.status,
-        message: res.message,
+        message: data.message || 'Unknown response',
       }
     } catch (err) {
       console.error('❌ Verification Error:', err.message)

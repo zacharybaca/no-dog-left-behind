@@ -13,7 +13,7 @@ img:hover {
 
 @media screen and (max-width: 390px) {
   img {
-    width: 35%;
-    height: 35%;
+    max-width: 35%;
+    max-height: 35%;
   }
 }

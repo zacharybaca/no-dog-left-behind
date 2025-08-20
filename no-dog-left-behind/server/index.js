@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 
 // proxy route
-app.post("/api/verify", async (req, res) => {
+app.post("/api/verification", async (req, res) => {
   try {
     const response = await fetch("https://api.trueguard.io/verification", {
       method: "POST",

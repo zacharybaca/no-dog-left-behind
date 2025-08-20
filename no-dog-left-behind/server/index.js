@@ -1,5 +1,4 @@
 import express from "express"
-import fetch from "node-fetch" // or built-in fetch in Node 18+
 import cors from "cors"
 import dotenv from "dotenv"
 
@@ -16,12 +15,12 @@ app.post("/verification", async (req, res) => {
   try {
     const { email, type } = req.body
 
-    // Forward request to TrueGuard
+    // Forward request to TrueGuard using built-in fetch
     const response = await fetch("https://api.trueguard.io/verification", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-API-KEY": process.env.VITE_EMAIL_VERIFY_API_KEY,
+        "X-API-KEY": process.env.VITE_EMAIL_VERIFY_API_KEY, // make sure your env variable is correct
       },
       body: JSON.stringify({ email, type }),
     })

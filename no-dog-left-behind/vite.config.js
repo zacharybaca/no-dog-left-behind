@@ -22,6 +22,12 @@ export default defineConfig(({ mode }) => {
     server: {
       fs: { strict: false },
       historyApiFallback: true, // for SPA routing
+      proxy: {
+        '/verify-email': {
+          target: 'http://localhost:9000',
+          changeOrigin: true,
+        },
+      },
     },
     build: {
       outDir: 'dist',

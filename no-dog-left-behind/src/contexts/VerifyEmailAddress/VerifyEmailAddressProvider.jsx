@@ -1,54 +1,115 @@
-import { VerifyEmailAddressContext } from './VerifyEmailAddressContext'
-import { useFetcher } from '../../hooks/useFetcher'
+// import { VerifyEmailAddressContext } from './VerifyEmailAddressContext'
+// import { useFetcher } from '../../hooks/useFetcher'
+
+// export const VerifyEmailProvider = ({ children }) => {
+//   const { fetcher } = useFetcher()
+
+//   const verifyEmailAddress = async (email) => {
+//     const apiKey = import.meta.env.VITE_EMAIL_VERIFY_API_KEY
+//     const apiUrl = import.meta.env.VITE_EMAIL_VERIFY_URL
+
+//     const res = await fetcher(apiUrl, {
+//       method: 'POST',
+//       headers: {
+//         'X-API-KEY': apiKey,
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify({ "email": email, "type": "full" }),
+//     })
+
+//     console.log('Data From Verify: ', res)
+
+//     try {
+//       if (res.data.action === 'deny') {
+//         return {
+//           status: 'E-mail Not Approved',
+//           reasons: res.data.reasons, // ✅ fixed typo
+//         }
+//       }
+
+//       if (res.data.action === 'allow') {
+//         return {
+//           status: 'E-mail Approved',
+//         }
+//       }
+
+//       return {
+//         status: res.status,
+//         message: res.message,
+//       }
+//     } catch (err) {
+//       console.error('❌ Verification Error:', err.message)
+//       return {
+//         status: 'Error',
+//         message: err.message,
+//       }
+//     }
+//   }
+
+//   return (
+//     <VerifyEmailAddressContext.Provider value={{ verifyEmailAddress }}>
+//       {children}
+//     </VerifyEmailAddressContext.Provider>
+//   )
+// }
+import { VerifyEmailAddressContext } from './VerifyEmailAddressContext';
+import { useFetcher } from '../../hooks/useFetcher';
 
 export const VerifyEmailProvider = ({ children }) => {
-  const { fetcher } = useFetcher()
+  const { fetcher } = useFetcher();
+  const isDev = import.meta.env.MODE === 'development';
 
   const verifyEmailAddress = async (email) => {
-    const apiKey = import.meta.env.VITE_EMAIL_VERIFY_API_KEY
-    const apiUrl = import.meta.env.VITE_EMAIL_VERIFY_URL
+    const apiUrl = import.meta.env.VITE_EMAIL_VERIFY_URL;
+    const apiKey = import.meta.env.VITE_EMAIL_VERIFY_API_KEY;
 
-    const res = await fetcher('/api/verification', {
-      method: 'POST',
-      headers: {
-        'X-API-KEY': apiKey,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ "email": email, "type": "full" }),
-    })
+    if (!apiUrl) {
+      console.error('❌ Missing VITE_EMAIL_VERIFY_URL');
+      return { status: 'Error', message: 'API URL not set' };
+    }
+    if (!apiKey) {
+      console.error('❌ Missing VITE_EMAIL_VERIFY_API_KEY');
+      return { status: 'Error', message: 'API key not set' };
+    }
 
-    console.log('Data From Verify: ', res)
+    if (isDev) {
+      console.info(`ℹ️ Dev Mode: Email verification request → ${apiUrl}`);
+    }
 
     try {
-      if (res.data.action === 'deny') {
-        return {
-          status: 'E-mail Not Approved',
-          reasons: res.data.reasons, // ✅ fixed typo
-        }
+      const res = await fetcher(apiUrl, {
+        method: 'POST',
+        headers: {
+          'X-API-KEY': apiKey,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, type: 'full' }),
+      });
+
+      if (isDev) {
+        console.log('📬 API Response:', res);
       }
 
-      if (res.data.action === 'allow') {
-        return {
-          status: 'E-mail Approved',
-        }
+      const action = res?.data?.action;
+      const reasons = res?.data?.reasons;
+
+      if (action === 'deny') {
+        return { status: 'E-mail Not Approved', reasons };
+      } else if (action === 'allow') {
+        return { status: 'E-mail Approved' };
       }
 
-      return {
-        status: res.status,
-        message: res.message,
-      }
+      return { status: res?.status || 'Unknown', message: res?.message || '' };
     } catch (err) {
-      console.error('❌ Verification Error:', err.message)
-      return {
-        status: 'Error',
-        message: err.message,
-      }
+      console.error('❌ Verification Fetch Error:', err?.message || err);
+      return { status: 'Error', message: err?.message || 'Unknown error' };
     }
-  }
+  };
 
   return (
     <VerifyEmailAddressContext.Provider value={{ verifyEmailAddress }}>
       {children}
     </VerifyEmailAddressContext.Provider>
-  )
-}
+  );
+};
+

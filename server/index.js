@@ -8,7 +8,24 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 9000;
 
-app.use(cors()); // Allow frontend requests
+const allowedOrigins = [
+  "http://localhost:5173", // frontend dev
+  "https://no-dog-left-behind.onrender.com", // deployed frontend
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, origin);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // ✅ allow cookies/credentials
+  })
+); // Allow frontend requests
+
 app.use(express.json());
 
 app.post('/verify-email', async (req, res) => {

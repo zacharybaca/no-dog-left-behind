@@ -7,9 +7,8 @@ export const VerifyEmailProvider = ({ children }) => {
   const verifyEmailAddress = async (email) => {
     const apiKey = import.meta.env.VITE_EMAIL_VERIFY_API_KEY
     const apiUrl = import.meta.env.VITE_EMAIL_VERIFY_URL
-    const altUrl = `https://api.trueguard.io/verification?apiKey=${apiKey}`
 
-    const res = await fetcher(altUrl, {
+    const res = await fetcher(apiUrl, {
       method: 'POST',
       headers: {
         'X-API-KEY': apiKey,

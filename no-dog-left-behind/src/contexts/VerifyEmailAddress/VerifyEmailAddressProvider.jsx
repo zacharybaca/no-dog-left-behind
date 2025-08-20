@@ -8,7 +8,7 @@ export const VerifyEmailProvider = ({ children }) => {
     const apiKey = import.meta.env.VITE_EMAIL_VERIFY_API_KEY
     const apiUrl = import.meta.env.VITE_EMAIL_VERIFY_URL
 
-    const res = await fetcher('/api/verification', {
+    const res = await fetcher(apiUrl, {
       method: 'POST',
       headers: {
         'X-API-KEY': apiKey,

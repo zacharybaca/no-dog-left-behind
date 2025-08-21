@@ -38,7 +38,7 @@ const SlideOutMenu = ({ isOpen, onClose }) => {
               <Link to='/favorites'> 💖 Favorite Dogs </Link>
             </li>
             <li>
-              <Link to='/about'> 📖 About </Link>
+              <Link to='/about'> 🔍 Recently Viewed Dogs </Link>
             </li>
           </ul>
         ) : <div className="menu-placeholder-container">

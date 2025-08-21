@@ -29,16 +29,16 @@ const SlideOutMenu = ({ isOpen, onClose }) => {
         {isAuthenticated ? (
           <ul onClick={onClose}>
             <li>
-              <Link to='/'>🏠 Home</Link>
+              <Link to='/'> 🏠 Home </Link>
             </li>
             <li>
-              <a href="#adopt">🐶 Adopt</a>
+              <Link to='/dashboard'> 🐶 Find a Dog to Adopt </Link>
             </li>
             <li>
-              <Link to='/favorites'>⭐ Favorites</Link>
+              <Link to='/favorites'> 💖 Favorite Dogs </Link>
             </li>
             <li>
-              <Link to='/about'>📖 About</Link>
+              <Link to='/about'> 📖 About </Link>
             </li>
           </ul>
         ) : <div className="menu-placeholder-container">

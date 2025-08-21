@@ -9,14 +9,6 @@ const Footer = () => {
         Built with ❤️ by <a href="https://github.com/zacharybaca">Zachary Baca</a>. v1.0.0
       </p>
 
-      <nav className="footer-nav">
-        <a href="/">Home</a>
-        <a href="/breeds">Browse Breeds</a>
-        <a href="/favorites">Favorites</a>
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
-      </nav>
-
       <div className="footer-social">
         <a href="https://facebook.com">
           <FontAwesomeIcon icon={faFacebookF} />

@@ -17,6 +17,7 @@ const FavoriteDogs = lazy(() => import("./components/FavoriteDogs/FavoriteDogs.j
 const DogDetails = lazy(() => import("./components/DogDetails/DogDetails.jsx"))
 const SessionTimer = lazy(() => import("./components/SessionTimer/SessionTimer.jsx"))
 const UserName = lazy(() => import("./components/UserName/UserName.jsx"))
+const SearchForPet = lazy(() => import("./components/SearchForPet/SearchForPet.jsx"))
 
 function App() {
   const { isAuthenticated, expirationTime } = useAuth()
@@ -39,6 +40,7 @@ function App() {
         {isAuthenticated && (
           <SessionTimer expirationTime={expirationTime} />
         )}
+        <SearchForPet />
         {!isAuthenticated && (
           <img
             src="/assets/no-dog-left-behind-hero-image.png"

@@ -23,6 +23,9 @@ const SlideOutMenu = ({ isOpen, onClose }) => {
             <Logout />
           </div>
         )}
+
+        <hr className="horizontal-ruler-default" />
+
         {isAuthenticated ? (
           <ul onClick={onClose}>
             <li>

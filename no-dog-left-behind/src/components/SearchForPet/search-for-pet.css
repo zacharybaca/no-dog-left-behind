@@ -1,23 +1,51 @@
 @import url('https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap');
 
 .search-box-container {
-    background-image: url('/assets/paw-prints-orange-background.jpg');
+    background-image: url('/assets/search-box-background-image.png');
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    width: 45%;
-    margin: 0 auto;
-    padding: 2rem;
-    border: 4px solid black;
-    border-radius: 10px;
+    width: 50%;
+    margin: 2rem auto;
+    padding: 2.5rem 2rem;
+    border: 3px solid #3d2b1f; /* warmer brown than pure black */
+    border-radius: 15px;
     position: relative;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+/* Subtle overlay for readability */
+.search-box-container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: inherit;
+    z-index: 0;
+}
+
+/* Ensure content floats above overlay */
+.search-box-container > * {
+    position: relative;
+    z-index: 1;
 }
 
 .search-input {
     width: 75%;
-    border: 1px solid #ccc;
-    padding: 0.5rem;
-    border-radius: 5px;
+    border: 2px solid #ccc;
+    padding: 0.65rem 0.75rem;
+    border-radius: 8px;
+    font-size: 1rem;
     box-sizing: border-box;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    font-family: sans-serif;
+}
+
+.search-input:focus {
+    border-color: #d97706; /* warm amber */
+    box-shadow: 0 0 6px rgba(217, 119, 6, 0.4);
+    outline: none;
+    background: #fffefb;
 }
 
 /* Logo heading font */
@@ -25,6 +53,10 @@
   font-family: "Gamja Flower", sans-serif;
   font-weight: 400;
   font-style: normal;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #3d2b1f; /* warm dark brown */
+  font-size: 1.8rem;
 }
 
 /* Dropdown list */
@@ -32,11 +64,11 @@
     position: absolute;
     left: 0;
     right: 0;
-    border: 1px solid #ccc;
-    margin-top: 0.25rem;
-    border-radius: 5px;
-    background: white;
-    box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+    border: 1px solid #ddd;
+    margin-top: 0.5rem;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
     max-height: 240px;
     overflow-y: auto;
     list-style: none;
@@ -56,33 +88,34 @@
 
 /* Each result */
 .result-item {
-    padding: 0.5rem;
+    padding: 0.65rem 0.75rem;
     cursor: pointer;
     transition:
         background-color 0.25s ease,
         color 0.25s ease,
         transform 0.2s ease;
+    font-size: 0.95rem;
 }
 
 .result-item:hover {
-    background: #f3f4f6;
+    background: #fef3c7; /* soft warm highlight */
 }
 
-/* Highlighted item (keyboard nav + scale up) */
 .result-item.highlighted {
-    background: #e5e7eb;
+    background: #fde68a; /* slightly stronger amber highlight */
     color: #111827;
     transform: scale(1.02);
 }
 
-/* No results message (with shake animation) */
+/* No results message */
 .no-results {
-    padding: 0.5rem;
+    padding: 0.75rem;
     color: #6b7280;
     text-align: center;
     animation: fade-shake 0.4s ease;
 }
 
+/* Shake animation */
 @keyframes fade-shake {
     0% {
         opacity: 0;
@@ -106,7 +139,8 @@
 
 /* Selected message */
 .selected-message {
-    margin-top: 0.5rem;
-    font-size: 0.875rem;
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
     color: #4b5563;
+    text-align: center;
 }

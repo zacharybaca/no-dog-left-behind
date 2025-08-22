@@ -1,22 +1,112 @@
 @import url('https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap');
 
-
 .search-box-container {
     background-image: url('/assets/paw-prints-orange-background.jpg');
     background-repeat: no-repeat;
     background-size: 100% 100%;
     width: 45%;
+    margin: 0 auto;
     padding: 2rem;
     border: 4px solid black;
     border-radius: 10px;
+    position: relative;
 }
 
 .search-input {
     width: 75%;
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
 
+/* Logo heading font */
 .logo-image-container h1 {
   font-family: "Gamja Flower", sans-serif;
   font-weight: 400;
   font-style: normal;
+}
+
+/* Dropdown list */
+.results-dropdown {
+    position: absolute;
+    left: 0;
+    right: 0;
+    border: 1px solid #ccc;
+    margin-top: 0.25rem;
+    border-radius: 5px;
+    background: white;
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+    max-height: 240px;
+    overflow-y: auto;
+    list-style: none;
+    padding: 0;
+
+    opacity: 0;
+    transform: translateY(-5px);
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.results-dropdown.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* Each result */
+.result-item {
+    padding: 0.5rem;
+    cursor: pointer;
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease,
+        transform 0.2s ease;
+}
+
+.result-item:hover {
+    background: #f3f4f6;
+}
+
+/* Highlighted item (keyboard nav + scale up) */
+.result-item.highlighted {
+    background: #e5e7eb;
+    color: #111827;
+    transform: scale(1.02);
+}
+
+/* No results message (with shake animation) */
+.no-results {
+    padding: 0.5rem;
+    color: #6b7280;
+    text-align: center;
+    animation: fade-shake 0.4s ease;
+}
+
+@keyframes fade-shake {
+    0% {
+        opacity: 0;
+        transform: translateX(0);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(-4px);
+    }
+    70% {
+        transform: translateX(4px);
+    }
+    90% {
+        transform: translateX(-2px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Selected message */
+.selected-message {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: #4b5563;
 }

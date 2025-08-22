@@ -5,7 +5,7 @@ import { useDogSearch } from '../../hooks/useDogSearch'
 const items = ["React", "Angular", "Vue", "Svelte", "Next.js", "Remix"];
 
 export const SearchForPetProvider = ({ children }) => {
-  const { fetchBreedData } = useDogSearch()
+  const { breedData } = useDogSearch()
   const [query, setQuery] = useState("");
   const [highlightedIndex, setHighlightedIndex] = useState(-1); // track arrow navigation
   const [selected, setSelected] = useState(null); // track selection
@@ -14,6 +14,8 @@ export const SearchForPetProvider = ({ children }) => {
     item.toLowerCase().includes(query.toLowerCase())
   );
 
+  console.log('Breeds: ', breedData)
+  
   const handleKeyDown = (e) => {
     if (!filtered.length) return;
 

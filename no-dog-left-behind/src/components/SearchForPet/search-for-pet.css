@@ -144,3 +144,15 @@
     color: #4b5563;
     text-align: center;
 }
+
+@media screen and (max-width: 390px) {
+    .search-box-container {
+        min-width: 100%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .search-box-container {
+        width: 75%;
+    }
+}

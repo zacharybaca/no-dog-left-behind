@@ -18,7 +18,7 @@ export const DogSearchProvider = ({ children }) => {
     zip_code: '46350',
     breed: 'Chi'
   }])
-  const [breedData, setBreedData] = useState("")
+  const [breedData, setBreedData] = useState([])
   const [nextQuery, setNextQuery] = useState(null)
   const [prevQuery, setPrevQuery] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
@@ -80,18 +80,15 @@ export const DogSearchProvider = ({ children }) => {
   }
 }
 
-  // Separate function to fetch breed info
-  const fetchBreedData = async (breed) => {
-    if (!breed) return
-
-    try {
-      const data = await fetcher(`${dogBreedUrl}/search?q=${breed}`, { method: 'GET', headers: { 'x-api-key': dogBreedApiKey } })
-      setBreedData(data)
-      console.log('Breed Data: ', breedData)
-    } catch (err) {
-      console.error('❌ fetchBreedData error:', err.message)
-    }
+ const fetchBreedData = async () => {
+  try {
+    const data = await fetcher(`${baseUrl}/dogs/breeds`, { method: 'GET' })
+    setBreedData(data)
+    console.log('Breed Data: ', data) // ✅ log the fresh data, not stale state
+  } catch (err) {
+    console.error('❌ fetchBreedData error:', err.message)
   }
+}
 
   // Fetch full dog details by ID list
   // Need to Set Dogs from Data instead of hard-coded data
@@ -126,6 +123,7 @@ export const DogSearchProvider = ({ children }) => {
   useEffect(() => {
     if (isAuthenticated) {
       fetchDogs()
+      fetchBreedData()
     }
   }, [isAuthenticated])
 

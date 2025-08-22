@@ -47,7 +47,7 @@ const SearchForPet = () => {
   };
 
   return (
-    <div className="w-64 mx-auto relative search-box-container">
+    <div className="search-box-container">
       <div className="logo-image-container">
         <img src="/assets/no-dog-left-behind-logo.png" alt="logo image" />
         <h1>Search for Your New Best Friend!</h1>
@@ -63,31 +63,32 @@ const SearchForPet = () => {
         }}
         onKeyDown={handleKeyDown}
         placeholder="Search..."
-        className="border p-2 w-full rounded search-input"
+        className="search-input"
       />
 
       {query && (
-        <ul className="absolute left-0 right-0 border mt-1 rounded bg-white shadow max-h-60 overflow-auto">
+        <ul
+          className={`results-dropdown ${filtered.length > 0 ? "show" : "show"}`}
+        >
           {filtered.length > 0 ? (
             filtered.map((item, index) => (
               <li
                 key={item}
                 onClick={() => handleSelect(item)}
-                className={`p-2 cursor-pointer ${
-                  highlightedIndex === index ? "bg-gray-200" : ""
-                }`}
+                className={`result-item ${highlightedIndex === index ? "highlighted" : ""
+                  }`}
               >
                 {item}
               </li>
             ))
           ) : (
-            <li className="p-2 text-gray-500">No results</li>
+            <li className="no-results">No results</li>
           )}
         </ul>
       )}
 
       {selected && (
-        <div className="mt-2 text-sm text-gray-600">
+        <div className="selected-message">
           Selected: <strong>{selected}</strong>
         </div>
       )}

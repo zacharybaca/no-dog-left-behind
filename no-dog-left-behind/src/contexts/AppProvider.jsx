@@ -7,6 +7,7 @@ import { FetcherProvider } from './Fetcher/FetcherProvider.jsx'
 import { FavoriteDogsProvider } from './FavoriteDogs/FavoriteDogsProvider.jsx'
 import { WidgetOptionsProvider } from './WidgetOptions/WidgetOptionsProvider.jsx'
 import { VerifyEmailProvider } from './VerifyEmailAddress/VerifyEmailAddressProvider.jsx'
+import { SearchForPetProvider } from './SearchForPet/SearchForPetProvider.jsx'
 
 export const AppProviders = ({ children }) => {
   return (
@@ -14,11 +15,15 @@ export const AppProviders = ({ children }) => {
       <WidgetOptionsProvider>
         <NotificationProvider>
           <FetcherProvider>
-            <VerifyEmailProvider> {/* ✅ Inserted here */}
+            <VerifyEmailProvider>
               <AuthProvider>
                 <MenuOptionsProvider>
                   <FavoriteDogsProvider>
-                    <DogSearchProvider>{children}</DogSearchProvider>
+                    <DogSearchProvider>
+                      <SearchForPetProvider> {/* ✅ wrap it here */}
+                        {children}
+                      </SearchForPetProvider>
+                    </DogSearchProvider>
                   </FavoriteDogsProvider>
                 </MenuOptionsProvider>
               </AuthProvider>

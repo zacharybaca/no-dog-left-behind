@@ -1,21 +1,22 @@
 import { SearchForPetContext } from './SearchForPetContext'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDogSearch } from '../../hooks/useDogSearch'
 
-const items = ["React", "Angular", "Vue", "Svelte", "Next.js", "Remix"];
 
 export const SearchForPetProvider = ({ children }) => {
-  const { breedData } = useDogSearch()
+  const { breedData, fetchDogs } = useDogSearch()
   const [query, setQuery] = useState("");
   const [highlightedIndex, setHighlightedIndex] = useState(-1); // track arrow navigation
   const [selected, setSelected] = useState(null); // track selection
 
-  const filtered = items.filter((item) =>
-    item.toLowerCase().includes(query.toLowerCase())
-  );
+  const breeds = breedData.data
 
-  console.log('Breeds: ', breedData)
-  
+  const filtered = breeds ? breeds.filter((breed) =>
+    breed.toLowerCase().includes(query.toLowerCase())
+  ) : "";
+
+  console.log('Breeds: ', breedData.data)
+
   const handleKeyDown = (e) => {
     if (!filtered.length) return;
 
@@ -49,7 +50,13 @@ export const SearchForPetProvider = ({ children }) => {
     setQuery(item);
     setHighlightedIndex(-1);
   };
-    
+
+  useEffect(() => {
+    if (selected) {
+      fetchDogs(`/dogs/search?breeds=${selected}`)
+    }
+  }, [selected])
+
     return (
         <SearchForPetContext.Provider value={{
             query,

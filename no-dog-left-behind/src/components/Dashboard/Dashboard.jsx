@@ -3,9 +3,10 @@ import { useDogSearch } from '../../hooks/useDogSearch'
 import { useNavigate } from 'react-router-dom'
 import HeroSection from '../HeroSection/HeroSection'
 import AdoptableDogs from '../AdoptableDogs/AdoptableDogs'
+import Button from 'react-bootstrap/Button'
 
 const Dashboard = () => {
-  const { dogIds, dogs, isLoading, fetchDogs, nextQuery, prevQuery, goToNextPage, goToPrevPage } =
+  const { dogIds, dogs, isLoading, fetchDogs, nextQuery, prevQuery, goToNextPage, goToPrevPage, toggleBreed } =
     useDogSearch()
 
   const navigate = useNavigate()
@@ -26,6 +27,7 @@ const Dashboard = () => {
             <div className="adoptable-dogs-wrapper">
               <div className="catelog-title-container">
                 <h1>Discover Your New Best Friend!</h1>
+                <Button type="button" onClick={toggleBreed}>Toggle Asc/Desc List of Breeds</Button>
               </div>
               <div className="adoptable-dog-list-container">
                 <AdoptableDogs dogs={dogs} dogIds={dogIds} />

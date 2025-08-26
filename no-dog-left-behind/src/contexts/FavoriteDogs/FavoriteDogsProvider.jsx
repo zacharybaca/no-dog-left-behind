@@ -26,7 +26,7 @@ export const FavoriteDogsProvider = ({ children }) => {
         }
     })
 
-    const [favoriteMatchedDog, setFavoriteMatchedDog] = useState({})
+    const [favoriteMatchedDog, setFavoriteMatchedDog] = useState("")
     const { addNotification } = useNotification()
     const { fetcher } = useFetcher()
 
@@ -88,6 +88,7 @@ export const FavoriteDogsProvider = ({ children }) => {
     useEffect(() => {
         localStorage.setItem('favorite-dogs', JSON.stringify(favoriteDogs))
         localStorage.setItem('favorite-dogs-ids', JSON.stringify(favoriteDogIds))
+        matchDogFromFavorites()
     }, [favoriteDogs])
 
     return (

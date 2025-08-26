@@ -1,6 +1,9 @@
 import { FavoriteDogsContext } from './FavoriteDogsContext.jsx'
 import { useState, useEffect } from 'react'
 import { useNotification } from '../../hooks/useNotification.js'
+import { useFetcher } from '../../hooks/useFetcher.js'
+
+const baseUrl = import.meta.env.VITE_API_BASE_URL
 
 export const FavoriteDogsProvider = ({ children }) => {
     const [favoriteDogs, setFavoriteDogs] = useState(() => {
@@ -24,6 +27,7 @@ export const FavoriteDogsProvider = ({ children }) => {
     })
 
     const { addNotification } = useNotification()
+    const { fetcher } = useFetcher()
 
     const addFavoriteDog = (dog, event) => {
         event.stopPropagation()
@@ -56,6 +60,26 @@ export const FavoriteDogsProvider = ({ children }) => {
         )
 
         setFavoriteDogIds((prev) => prev.filter((id) => id !== dog.id))
+    }
+
+    const matchDogFromFavorites = async () => {
+        const res = await fetcher(`${baseUrl}/dogs/match`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(favoriteDogIds)
+        })
+
+        if (!res.success) {
+            return {
+                status: 'Error',
+                message: res.error || 'Unknown error'
+            }
+        }
+
+        const data = res.data
+        console.log('Data From Fav Dog: ', data.match)
     }
 
     useEffect(() => {

@@ -12,15 +12,19 @@ export const FavoriteDogsProvider = ({ children }) => {
             return []
         }
     })
+
+    const [favoriteDogIds, setFavoriteDogIds] = useState([])
+
     const { addNotification } = useNotification()
 
     const addFavoriteDog = (dog, event) => {
         event.stopPropagation()
 
         const isFavoriteDogIncluded = favoriteDogs.some((d) => d.id === dog.id)
-
+        
         if (!isFavoriteDogIncluded) {
             setFavoriteDogs((prev) => [...prev, dog])
+            setFavoriteDogIds(prev => [...prev, dog.id])
             addNotification({
                 headerText: 'Info',
                 bodyText: 'You Added a New Favorite Dog to Your List!',
@@ -33,7 +37,7 @@ export const FavoriteDogsProvider = ({ children }) => {
             console.log('Unfavorited')
         }
     }
-
+    console.log('Fav Dogs: ', favoriteDogIds)
     const isAFavoriteDog = (id) => {
         return favoriteDogs.some((dog) => dog.id === String(id) || dog.id === id)
     }
@@ -42,6 +46,8 @@ export const FavoriteDogsProvider = ({ children }) => {
         setFavoriteDogs((prev) =>
             prev.filter((d) => d.id !== dog.id)
         )
+
+        setFavoriteDogIds((prev) => prev.filter((id) => id !== dog.id))
     }
 
     useEffect(() => {
@@ -51,6 +57,7 @@ export const FavoriteDogsProvider = ({ children }) => {
     return (
         <FavoriteDogsContext.Provider value={{
             favoriteDogs,
+            favoriteDogIds,
             isAFavoriteDog,
             addFavoriteDog,
             deleteFavoriteDog

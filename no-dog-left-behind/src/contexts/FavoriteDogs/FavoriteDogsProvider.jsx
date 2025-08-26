@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react'
 import { useNotification } from '../../hooks/useNotification.js'
 import { useFetcher } from '../../hooks/useFetcher.js'
 
+const baseUrl = import.meta.env.VITE_API_BASE_URL
+
 export const FavoriteDogsProvider = ({ children }) => {
   const [favoriteDogs, setFavoriteDogs] = useState(() => {
     try {
@@ -72,7 +74,7 @@ export const FavoriteDogsProvider = ({ children }) => {
       return
     }
 
-    const res = await fetcher('/dogs/match', {
+    const res = await fetcher(`${baseUrl}/dogs/match`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(favoriteDogIds),

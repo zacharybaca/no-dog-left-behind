@@ -56,6 +56,11 @@ button:disabled {
     width: 20%;
 }
 
+.catelog-title-container button:hover {
+    cursor: url('/assets/paw-cursor-hover.cur'), pointer;
+    background-color: #b86421;
+}
+
 .adoptable-dog-list-container {
     display: flex;
     justify-content: space-around;

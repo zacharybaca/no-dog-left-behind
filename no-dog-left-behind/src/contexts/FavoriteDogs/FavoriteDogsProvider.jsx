@@ -13,7 +13,15 @@ export const FavoriteDogsProvider = ({ children }) => {
         }
     })
 
-    const [favoriteDogIds, setFavoriteDogIds] = useState([])
+    const [favoriteDogIds, setFavoriteDogIds] = useState(() => {
+        try {
+            const stored = localStorage.getItem('favorite-dogs-ids')
+            return stored ? JSON.parse(stored) : []
+        } catch (e) {
+            console.error('Failed to load favorite dog ids from localStorage', e)
+            return []
+        }
+    })
 
     const { addNotification } = useNotification()
 
@@ -52,6 +60,7 @@ export const FavoriteDogsProvider = ({ children }) => {
 
     useEffect(() => {
         localStorage.setItem('favorite-dogs', JSON.stringify(favoriteDogs))
+        localStorage.setItem('favorite-dogs-ids', JSON.stringify(favoriteDogIds))
     }, [favoriteDogs])
 
     return (

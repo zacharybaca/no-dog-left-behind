@@ -40,7 +40,7 @@ export const DogSearchProvider = ({ children }) => {
 
     if (!query) {
       // first fetch
-      url = `${baseUrl}/dogs/search`
+      url = `${baseUrl}/dogs/search?sort=breed:asc`
     } else if (query.startsWith('/dogs')) {
       // API already gave us the full path
       url = `${baseUrl}${query}`

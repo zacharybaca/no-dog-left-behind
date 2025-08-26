@@ -1,13 +1,18 @@
 import './favorite-dogs.css'
+import { useEffect } from 'react'
 import { useFavoriteDogs } from '../../hooks/useFavoriteDogs'
 import { useDogSearch } from '../../hooks/useDogSearch'
 import AdoptableDogCard from '../AdoptableDogs/AdoptableDogCard'
 
 const FavoriteDogs = () => {
-  const { favoriteMatchedDog } = useFavoriteDogs()
+  const { favoriteMatchedDog, favoriteDogIds, matchDogFromFavorites } = useFavoriteDogs()
   const { dogs } = useDogSearch()
-  console.log('Fav Match: ', favoriteMatchedDog)
-  const matchedDog = dogs.find((dog) => dog.id === favoriteMatchedDog)
+
+  useEffect(() => {
+    matchDogFromFavorites()
+  }, [favoriteDogIds])
+
+  const matchedDog = dogs.find((dog) => String(dog.id) === String(favoriteMatchedDog))
 
   if (!matchedDog) {
     return (

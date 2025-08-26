@@ -22,6 +22,7 @@ export const DogSearchProvider = ({ children }) => {
   const [nextQuery, setNextQuery] = useState(null)
   const [prevQuery, setPrevQuery] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [breedOrder, setBreedOrder] = useState('asc')
 
   const { fetcher } = useFetcher()
   const { addNotification } = useNotification()
@@ -29,6 +30,10 @@ export const DogSearchProvider = ({ children }) => {
 
   const activeSearchId = useRef(0)
   const activeDetailId = useRef(0)
+
+  const toggleBreed = () => {
+  setBreedOrder((prevOrder) => (prevOrder === 'asc' ? 'desc' : 'asc'))
+}
 
   // Fetch paginated dogs from the API
   const fetchDogs = async (query = '') => {
@@ -40,7 +45,7 @@ export const DogSearchProvider = ({ children }) => {
 
     if (!query) {
       // first fetch
-      url = `${baseUrl}/dogs/search?sort=breed:asc`
+      url = `${baseUrl}/dogs/search?sort=breed:${breedOrder}`
     } else if (query.startsWith('/dogs')) {
       // API already gave us the full path
       url = `${baseUrl}${query}`
@@ -125,7 +130,7 @@ export const DogSearchProvider = ({ children }) => {
       fetchDogs()
       fetchBreedData()
     }
-  }, [isAuthenticated])
+  }, [isAuthenticated, breedOrder])
 
   const goToNextPage = () => {
     if (nextQuery) {
@@ -152,6 +157,7 @@ export const DogSearchProvider = ({ children }) => {
     goToNextPage,
     goToPrevPage,
     isLoading,
+    toggleBreed
   }), [
     dogIds,
     dogs,

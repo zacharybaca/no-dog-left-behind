@@ -97,7 +97,8 @@ export const FavoriteDogsProvider = ({ children }) => {
             isAFavoriteDog,
             addFavoriteDog,
             deleteFavoriteDog,
-            matchDogFromFavorites
+            matchDogFromFavorites,
+            favoriteMatchedDog
         }}>
             {children}
         </FavoriteDogsContext.Provider>

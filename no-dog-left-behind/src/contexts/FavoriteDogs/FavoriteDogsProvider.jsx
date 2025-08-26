@@ -26,6 +26,7 @@ export const FavoriteDogsProvider = ({ children }) => {
         }
     })
 
+    const [favoriteMatchedDog, setFavoriteMatchedDog] = useState({})
     const { addNotification } = useNotification()
     const { fetcher } = useFetcher()
 
@@ -79,7 +80,9 @@ export const FavoriteDogsProvider = ({ children }) => {
         }
 
         const data = res.data
+        setFavoriteMatchedDog(data.match)
         console.log('Data From Fav Dog: ', data.match)
+        console.log('Matched Dog: ', favoriteMatchedDog)
     }
 
     useEffect(() => {

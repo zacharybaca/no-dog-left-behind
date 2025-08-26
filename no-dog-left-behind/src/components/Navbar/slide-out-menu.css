@@ -230,6 +230,11 @@
     height: 200px;
   }
 
+  .menu-close-icon {
+    max-height: 20vh;
+    max-width: 15vw;
+  }
+
 }
 
 @media (prefers-reduced-motion: no-preference) {

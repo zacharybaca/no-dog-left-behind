@@ -3,16 +3,20 @@ import { useFavoriteDogs } from '../../hooks/useFavoriteDogs'
 import { useDogSearch } from '../../hooks/useDogSearch'
 
 const FavoriteDogs = () => {
-    const { favoriteDogs, favoritedDog } = useFavoriteDogs()
-    const { dogs } = useDogSearch()
+  const { favoriteDogIds } = useFavoriteDogs()
+  const { dogs } = useDogSearch()
 
-    return (
-        <div>
-            {favoriteDogs.map((dog) => {
-                <h1>{dog.name}</h1>
-            })}
-        </div>
+  return (
+    favoriteDogIds.length > 0 ? (
+      <div>
+        {favoriteDogIds.map((id) => (
+          <h1 key={id}>{id}</h1>
+        ))}
+      </div>
+    ) : (
+      <h1>No Favorite Dog Generated</h1>
     )
+  )
 }
 
-export default FavoriteDogs;
+export default FavoriteDogs

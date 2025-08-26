@@ -43,6 +43,15 @@ npm install
 
 # Run the development server
 npm run dev
+
+# Switch to Server Folder
+cd server
+
+# Install dependencies
+npm install
+
+# Run the mock server for the e-mail verification API
+npm run start
 ```
 
 ## Usage

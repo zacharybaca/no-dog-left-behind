@@ -24,7 +24,12 @@
 }
 
 button {
-    min-width: 50%;
+    min-width: fit-content;
+}
+
+button h1 {
+    margin-top: 0.5rem;
+    font-size: 1rem;
 }
 
 button:disabled {

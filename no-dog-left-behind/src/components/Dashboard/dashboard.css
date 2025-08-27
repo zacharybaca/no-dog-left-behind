@@ -23,6 +23,10 @@
     cursor: url('/assets/paw-cursor-hover.cur'), pointer;
 }
 
+button {
+    min-width: 50%;
+}
+
 button:disabled {
   background-color: #cccccc; 
   color: #666666; 

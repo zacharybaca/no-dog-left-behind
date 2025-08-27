@@ -35,7 +35,7 @@ const SlideOutMenu = ({ isOpen, onClose }) => {
               <Link to='/dashboard'> 🐶 Find a Dog to Adopt </Link>
             </li>
             <li>
-              <Link to='/favorites'> 💖 View Recommended Favorite Dog </Link>
+              <Link to='/favorites'> 💖 Recommended Dog </Link>
             </li>
             <li>
               <Link to='/about'> 🔍 Recently Viewed Dogs </Link>

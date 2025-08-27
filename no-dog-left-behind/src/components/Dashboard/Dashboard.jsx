@@ -27,7 +27,7 @@ const Dashboard = () => {
             <div className="adoptable-dogs-wrapper">
               <div className="catelog-title-container">
                 <h1>Discover Your New Best Friend!</h1>
-                <Button type="button" onClick={toggleBreed}>{breedOrder === 'asc' ? <h1>Filter By Descending</h1> : <h1>Filter By Ascending</h1>}</Button>
+                <Button type="button" className={breedOrder === 'asc' ? 'sort-button-desc' : 'sort-button-asc'} onClick={toggleBreed}>{breedOrder === 'asc' ? <h1>Filter By Descending</h1> : <h1>Filter By Ascending</h1>}</Button>
               </div>
               <div className="adoptable-dog-list-container">
                 <AdoptableDogs dogs={dogs} dogIds={dogIds} />

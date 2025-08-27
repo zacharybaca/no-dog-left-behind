@@ -34,12 +34,10 @@ button h1 {
 
 .sort-button-asc::before {
     content: "⬆️";
-    margin-right: 8px;
 }
 
 .sort-button-desc::before {
     content: "⬇️";
-    margin-right: 8px;
 }
 
 button:disabled {

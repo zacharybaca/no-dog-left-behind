@@ -32,6 +32,16 @@ button h1 {
     font-size: 1rem;
 }
 
+.sort-button-asc::before {
+    content: "⬆️";
+    margin-right: 8px;
+}
+
+.sort-button-desc::before {
+    content: "⬇️";
+    margin-right: 8px;
+}
+
 button:disabled {
   background-color: #cccccc; 
   color: #666666; 

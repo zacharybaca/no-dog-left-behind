@@ -139,10 +139,60 @@
 
 /* Selected message */
 .selected-message {
-    margin-top: 0.75rem;
-    font-size: 0.9rem;
-    color: #4b5563;
-    text-align: center;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: #3d2b1f; /* warm brown for consistency */
+  text-align: center;
+}
+
+.selected-message ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0 0;
+}
+
+.selected-message li {
+  background: #fde68a; /* warm amber chip background */
+  color: #111827;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px; /* pill shape */
+  font-weight: 500;
+  font-size: 0.85rem;
+  border: 1px solid #fcd34d;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+
+.selected-message li:hover {
+  background: #fbbf24;
+  transform: scale(1.05);
+}
+
+.input-wrapper {
+  position: relative;
+  width: 75%;
+  margin: 0 auto;
+}
+
+.remove-btn {
+  background: transparent;
+  border: none;
+  color: #b91c1c; /* warm red */
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 0.25rem;
+  transition: color 0.2s ease;
+}
+
+.remove-btn:hover {
+  color: #7f1d1d; /* deeper red */
 }
 
 @media screen and (max-width: 390px) {

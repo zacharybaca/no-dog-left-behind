@@ -2,20 +2,19 @@ import { SearchForPetContext } from './SearchForPetContext'
 import { useState, useEffect } from 'react';
 import { useDogSearch } from '../../hooks/useDogSearch'
 
-
 export const SearchForPetProvider = ({ children }) => {
   const { breedData, fetchDogs } = useDogSearch()
   const [query, setQuery] = useState("");
-  const [highlightedIndex, setHighlightedIndex] = useState(-1); // track arrow navigation
-  const [selected, setSelected] = useState(null); // track selection
+  const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const [selected, setSelected] = useState([]);
 
-  const breeds = breedData.data
+  const breeds = breedData?.data || [];
 
-  const filtered = breeds ? breeds.filter((breed) =>
+  const filtered = breeds.filter((breed) =>
     breed.toLowerCase().includes(query.toLowerCase())
-  ) : "";
+  );
 
-  console.log('Breeds: ', breedData.data)
+  console.log('Breeds: ', breeds);
 
   const handleKeyDown = (e) => {
     if (!filtered.length) return;
@@ -33,8 +32,10 @@ export const SearchForPetProvider = ({ children }) => {
         break;
       case "Enter":
         if (highlightedIndex >= 0) {
-          setSelected(filtered[highlightedIndex]);
-          setQuery(filtered[highlightedIndex]); // fill input with selection
+          const breed = filtered[highlightedIndex];
+          setSelected((prev) =>
+            prev.includes(breed) ? prev : [...prev, breed]
+          );
         }
         break;
       case "Escape":
@@ -46,30 +47,42 @@ export const SearchForPetProvider = ({ children }) => {
   };
 
   const handleSelect = (item) => {
-    setSelected(item);
-    setQuery(item);
+    setSelected((prev) =>
+      prev.includes(item) ? prev : [...prev, item]
+    );
+    setQuery("");
     setHighlightedIndex(-1);
   };
 
-  useEffect(() => {
-    if (selected) {
-      fetchDogs(`/dogs/search?breeds=${selected}`)
-    }
-  }, [selected])
+  const removeSelected = (item) => {
+    setSelected((prev) => prev.filter((breed) => breed !== item));
+  };
 
-    return (
-        <SearchForPetContext.Provider value={{
-            query,
-            setQuery,
-            highlightedIndex,
-            setHighlightedIndex,
-            selected,
-            setSelected,
-            filtered,
-            handleKeyDown,
-            handleSelect
-        }}>
-            {children}
-        </SearchForPetContext.Provider>
-    )
+  useEffect(() => {
+    if (selected.length > 0) {
+      fetchDogs(`/dogs/search?${selected.map(breed => `breeds=${encodeURIComponent(breed)}`).join("&")}`)
+    }
+    else {
+      fetchDogs()
+    }
+  }, [selected]);
+
+  return (
+    <SearchForPetContext.Provider
+      value={{
+        query,
+        setQuery,
+        highlightedIndex,
+        setHighlightedIndex,
+        selected,
+        setSelected,
+        filtered,
+        handleKeyDown,
+        handleSelect,
+        removeSelected
+      }}
+    >
+      {children}
+    </SearchForPetContext.Provider>
+  )
 }

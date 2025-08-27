@@ -53,6 +53,8 @@ export const DogSearchProvider = ({ children }) => {
       // query is just "?size=25&from=25"
       url = `${baseUrl}/dogs/search${query}`
     }
+    
+    console.log("📡 Fetching dogs with URL:", url)
 
     const data = await fetcher(url, { method: 'GET' })
 

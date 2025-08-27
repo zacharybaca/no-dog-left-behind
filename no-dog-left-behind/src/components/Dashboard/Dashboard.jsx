@@ -6,7 +6,7 @@ import AdoptableDogs from '../AdoptableDogs/AdoptableDogs'
 import Button from 'react-bootstrap/Button'
 
 const Dashboard = () => {
-  const { dogIds, dogs, isLoading, fetchDogs, nextQuery, prevQuery, goToNextPage, goToPrevPage, toggleBreed } =
+  const { dogIds, dogs, isLoading, fetchDogs, nextQuery, prevQuery, goToNextPage, goToPrevPage, toggleBreed, breedOrder } =
     useDogSearch()
 
   const navigate = useNavigate()
@@ -27,7 +27,7 @@ const Dashboard = () => {
             <div className="adoptable-dogs-wrapper">
               <div className="catelog-title-container">
                 <h1>Discover Your New Best Friend!</h1>
-                <Button type="button" onClick={toggleBreed}>Toggle Asc/Desc List of Breeds</Button>
+                <Button type="button" onClick={toggleBreed}>{breedOrder === 'asc' ? <h1>Filter By Descending</h1> : <h1>Filter By Ascending</h1>}</Button>
               </div>
               <div className="adoptable-dog-list-container">
                 <AdoptableDogs dogs={dogs} dogIds={dogIds} />

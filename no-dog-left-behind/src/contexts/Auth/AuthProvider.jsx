@@ -1,5 +1,5 @@
 import { AuthContext } from './AuthContext'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useNotification } from '../../hooks/useNotification'
 import { useVerifyEmailAddress } from '../../hooks/useVerifyEmailAddress'
@@ -13,86 +13,101 @@ export const AuthProvider = ({ children }) => {
   const { verifyEmailAddress } = useVerifyEmailAddress()
   const { fetcher } = useFetcher()
   const navigate = useNavigate()
+  const logoutTimerRef = useRef(null)
 
   const [userInfo, setUserInfo] = useState({ name: '', email: '' })
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
   const [showLogin, setShowLogin] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    const stored = localStorage.getItem('is-authenticated')
-    return stored !== null ? JSON.parse(stored) : false
+    try {
+      const stored = localStorage.getItem('is-authenticated')
+      return stored !== null ? JSON.parse(stored) : false
+    } catch {
+      return false
+    }
   })
   const [loading, setLoading] = useState(false)
 
-
-  const saveAuthToLocalStorage = () => {
-  const expiration = Date.now() + 60 * 60 * 1000 // 1 hour
-  setIsAuthenticated(true)
-
-  localStorage.setItem('is-authenticated', JSON.stringify(true))
-  localStorage.setItem('auth-expiration', expiration.toString())
-  localStorage.setItem('user-name', JSON.stringify(userInfo.name))
-
-  setTimeout(() => {
-    localStorage.removeItem('is-authenticated')
-    localStorage.removeItem('auth-expiration')
-    localStorage.removeItem('user-name')
-    setIsAuthenticated(false)
-  }, 60 * 60 * 1000)
-}
-
-  const loadAuthFromLocalStorage = () => {
-  const isAuth = JSON.parse(localStorage.getItem('is-authenticated'))
-  const expiration = parseInt(localStorage.getItem('auth-expiration'), 10)
-  const userName = JSON.parse(localStorage.getItem('user-name'))
-
-  if (!isAuth || !expiration || Date.now() > expiration || !userName) {
-    localStorage.removeItem('is-authenticated')
-    localStorage.removeItem('auth-expiration')
-    localStorage.removeItem('user-name')
-    setIsAuthenticated(false)
-  } else {
-    setIsAuthenticated(true)
-    const timeLeft = expiration - Date.now()
-    setTimeout(() => {
-      localStorage.removeItem('is-authenticated')
-      localStorage.removeItem('auth-expiration')
-      localStorage.removeItem('user-name')
-      setIsAuthenticated(false)
-    }, timeLeft)
-  }}
-
-  const getSessionExpirationTimeMessage = () => {
-    const expiration = parseInt(localStorage.getItem('auth-expiration'), 10)
-    const timeLeft = expiration - Date.now()
-
-    if (!expiration || timeLeft <= 0) return 0
-
-    // const totalMinutes = Math.floor(timeLeft / (1000 * 60))
-    // const hours = Math.floor(totalMinutes / 60)
-    // const minutes = totalMinutes % 60
-
-    // return `✅ Time until cookie expires: ${hours}h ${minutes}m`
-    const remainingTime = useTimeLeft(timeLeft)
-    return remainingTime;
-  }
-
+  // === Restore state from localStorage on mount ===
   useEffect(() => {
     loadAuthFromLocalStorage()
+    return () => {
+      if (logoutTimerRef.current) clearTimeout(logoutTimerRef.current)
+    }
   }, [])
+
+  const clearAuth = () => {
+    localStorage.removeItem('is-authenticated')
+    localStorage.removeItem('auth-expiration')
+    localStorage.removeItem('user-name')
+    localStorage.removeItem('favorite-dogs')
+    localStorage.removeItem('favorite-dogs-ids')
+    localStorage.removeItem('notifications')
+    localStorage.removeItem('disable-notifications')
+    setIsAuthenticated(false)
+    setUserInfo({ name: '', email: '' })
+  }
+
+  const scheduleLogout = (timeLeft) => {
+    if (logoutTimerRef.current) clearTimeout(logoutTimerRef.current)
+    logoutTimerRef.current = setTimeout(() => {
+      clearAuth()
+    }, timeLeft)
+  }
+
+  const saveAuthToLocalStorage = (name) => {
+    const expiration = Date.now() + 60 * 60 * 1000 // 1 hour
+    setIsAuthenticated(true)
+
+    localStorage.setItem('is-authenticated', JSON.stringify(true))
+    localStorage.setItem('auth-expiration', expiration.toString())
+    localStorage.setItem('user-name', JSON.stringify(name))
+
+    scheduleLogout(60 * 60 * 1000)
+  }
+
+  const loadAuthFromLocalStorage = () => {
+    try {
+      const isAuth = JSON.parse(localStorage.getItem('is-authenticated'))
+      const expiration = parseInt(localStorage.getItem('auth-expiration'), 10)
+      const userName = JSON.parse(localStorage.getItem('user-name'))
+
+      if (!isAuth || !expiration || Date.now() > expiration || !userName) {
+        clearAuth()
+      } else {
+        setIsAuthenticated(true)
+        setUserInfo((prev) => ({ ...prev, name: userName }))
+        scheduleLogout(expiration - Date.now())
+      }
+    } catch {
+      clearAuth()
+    }
+  }
+
+  // 🔄 Replace hook misuse — compute timeLeft at top-level
+  const expiration = parseInt(localStorage.getItem('auth-expiration'), 10)
+  const timeLeft = expiration ? expiration - Date.now() : 0
+  const remainingTime = useTimeLeft(timeLeft)
 
   const checkAuth = () => {
     loadAuthFromLocalStorage()
-    if (isAuthenticated) return true
+    return isAuthenticated
+  }
 
-    addNotification({
-      headerText: 'Access Denied',
-      bodyText: 'User is not authorized to view content or perform specified action',
-      imgURL: '/assets/error.jpg',
-      variantTheme: 'danger',
-      customTheme: '.toast-error',
-    })
-    return false
+  const notifyIfUnauthed = () => {
+    if (!checkAuth()) {
+      addNotification({
+        headerText: 'Access Denied',
+        bodyText:
+          'User is not authorized to view content or perform specified action',
+        imgURL: '/assets/error.jpg',
+        variantTheme: 'danger',
+        customTheme: '.toast-error',
+      })
+      return false
+    }
+    return true
   }
 
   const login = async (name, email) => {
@@ -133,7 +148,7 @@ export const AuthProvider = ({ children }) => {
       setSuccess(true)
       setShowLogin(false)
       setUserInfo({ name, email })
-      saveAuthToLocalStorage()
+      saveAuthToLocalStorage(name)
 
       addNotification({
         headerText: 'Success',
@@ -167,12 +182,8 @@ export const AuthProvider = ({ children }) => {
     const res = await fetcher(`${baseUrl}/auth/logout`, { method: 'POST' })
 
     if (res.success) {
-      setUserInfo({ name: '', email: '' })
+      clearAuth()
       setSuccess(true)
-      localStorage.removeItem('is-authenticated')
-      localStorage.removeItem('auth-expiration')
-      localStorage.removeItem('user-name')
-      setIsAuthenticated(false)
 
       addNotification({
         headerText: 'Success',
@@ -191,7 +202,6 @@ export const AuthProvider = ({ children }) => {
         variantTheme: 'danger',
         customTheme: '.toast-error',
       })
-
       return { success: false, error: res.error }
     }
   }
@@ -233,10 +243,11 @@ export const AuthProvider = ({ children }) => {
         handleChange,
         handleSubmit,
         checkAuth,
+        notifyIfUnauthed,
         showLogin,
         setShowLogin,
-        getSessionExpirationTimeMessage,
-        expirationTime: parseInt(localStorage.getItem('auth-expiration'), 10) || null
+        remainingTime,
+        expirationTime: expiration || null,
       }}
     >
       {children}

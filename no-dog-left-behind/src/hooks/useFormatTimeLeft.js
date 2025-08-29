@@ -1,33 +1,24 @@
+// ✅ pure formatting hook
 import { useEffect, useState } from 'react'
-import { useAuth } from './useAuth.js'
-import { FormatTimeLeft } from '../utilities/FormatTimeLeft.js'
 
-export const useTimeLeft = (expirationMs) => {
-  const { logout } = useAuth()
-
-  const [timeRemaining, setTimeRemaining] = useState(expirationMs - Date.now())
-  const [formattedTime, setFormattedTime] = useState(() => FormatTimeLeft(expirationMs))
-
-  const isExpired = timeRemaining <= 0
-  const expiringSoon = !isExpired && timeRemaining <= 5 * 60 * 1000 // < 5 min
+export const useTimeLeft = (timeLeft) => {
+  const [formatted, setFormatted] = useState('')
 
   useEffect(() => {
-    if (!expirationMs) return
-
-    const update = () => {
-      const remaining = expirationMs - Date.now()
-      setTimeRemaining(remaining)
-      setFormattedTime(FormatTimeLeft(expirationMs))
-
-      if (remaining <= 0) {
-        logout()
-      }
+    if (!timeLeft || timeLeft <= 0) {
+      setFormatted('Session expired')
+      return
     }
 
-    update() // run immediately
-    const interval = setInterval(update, 1000)
-    return () => clearInterval(interval)
-  }, [expirationMs, logout])
+    const update = () => {
+      const totalMinutes = Math.floor(timeLeft / (1000 * 60))
+      const hours = Math.floor(totalMinutes / 60)
+      const minutes = totalMinutes % 60
+      setFormatted(`✅ Time until session expires: ${hours}h ${minutes}m`)
+    }
 
-  return { formatted: formattedTime, isExpired, expiringSoon }
+    update()
+  }, [timeLeft])
+
+  return formatted
 }

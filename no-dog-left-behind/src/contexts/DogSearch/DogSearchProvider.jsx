@@ -97,6 +97,24 @@ export const DogSearchProvider = ({ children }) => {
   }
 }
 
+ // Inside DogSearchProvider
+
+const fetchDogsByIds = async (ids) => {
+  if (!ids || ids.length === 0) return []
+
+  try {
+    const data = await fetcher(`${baseUrl}/dogs`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(ids),
+    })
+    return data['data'] || []
+  } catch (err) {
+    console.error('❌ fetchDogsByIds error:', err.message)
+    return []
+  }
+}
+
   // Fetch full dog details by ID list
   // Need to Set Dogs from Data instead of hard-coded data
   useEffect(() => {
@@ -153,6 +171,7 @@ export const DogSearchProvider = ({ children }) => {
     dogs,
     fetchDogs,
     fetchBreedData,
+    fetchDogsByIds,
     breedData,
     breedOrder,
     nextQuery,

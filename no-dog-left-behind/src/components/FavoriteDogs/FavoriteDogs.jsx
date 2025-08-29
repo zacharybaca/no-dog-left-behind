@@ -47,32 +47,28 @@
 // export default FavoriteDogs
 
 import './favorite-dogs.css'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useFavoriteDogs } from '../../hooks/useFavoriteDogs'
 import { useDogSearch } from '../../hooks/useDogSearch'
 import AdoptableDogCard from '../AdoptableDogs/AdoptableDogCard'
 
 const FavoriteDogs = () => {
   const { favoriteMatchedDog, favoriteDogIds, matchDogFromFavorites } = useFavoriteDogs()
-  const { fetchDogsByIds } = useDogSearch()
-  const [matchedDog, setMatchedDog] = useState(null)
+  const { dogs, isLoading } = useDogSearch()
 
-  // Trigger the match when favorites change
   useEffect(() => {
     matchDogFromFavorites()
-  }, [favoriteDogIds])
+  }, [favoriteDogIds, favoriteMatchedDog])
 
-  // Fetch the matched dog's details
-  useEffect(() => {
-    if (!favoriteMatchedDog) return
+  const matchedDog = dogs.find((dog) => String(dog.id) === String(favoriteMatchedDog))
 
-    const loadDog = async () => {
-      const dogs = await fetchDogsByIds([favoriteMatchedDog])
-      setMatchedDog(dogs[0] || null)
-    }
-
-    loadDog()
-  }, [favoriteMatchedDog, fetchDogsByIds])
+  if (isLoading) {
+    return (
+      <div className="fav-dog-card-heading">
+        <h1>🔍 Finding your perfect match...</h1>
+      </div>
+    )
+  }
 
   if (!matchedDog) {
     return (
@@ -85,7 +81,9 @@ const FavoriteDogs = () => {
   return (
     <>
       <div className="fav-dog-card-heading">
-        <h1>🎉 Congratulations! We Matched You With {matchedDog.name}!</h1>
+        <h1>
+          🎉 Congratulations! We Matched You With {matchedDog.name}!
+        </h1>
       </div>
       <div className="favorite-dog-card">
         <AdoptableDogCard
@@ -103,4 +101,3 @@ const FavoriteDogs = () => {
 }
 
 export default FavoriteDogs
-

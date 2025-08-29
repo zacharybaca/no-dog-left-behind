@@ -10,14 +10,7 @@ const dogBreedApiKey = import.meta.env.VITE_DOG_API_KEY
 
 export const DogSearchProvider = ({ children }) => {
   const [dogIds, setDogIds] = useState([])
-  const [dogs, setDogs] = useState([{
-    id: '1',
-    img: 'https://placedog.net/213/180',
-    name: 'Sunny',
-    age: '20',
-    zip_code: '46350',
-    breed: 'Chi'
-  }])
+  const [dogs, setDogs] = useState([])
   const [breedData, setBreedData] = useState([])
   const [nextQuery, setNextQuery] = useState(null)
   const [prevQuery, setPrevQuery] = useState(null)
